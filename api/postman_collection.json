@@ -1,0 +1,941 @@
+{
+	"info": {
+		"_postman_id": "b01c055d-3939-4e95-82f3-7841d6244911",
+		"name": "mal-db",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Anime",
+			"item": [
+				{
+					"name": "Anime",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/anime/:id",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"anime",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Anime Character",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/anime/:id/characters?page=1&limit=10",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"anime",
+								":id",
+								"characters"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Anime Staff",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/anime/:id/staff?page=1&limit=10",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"anime",
+								":id",
+								"staff"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Anime Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/anime/:id/stats",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"anime",
+								":id",
+								"stats"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Manga",
+			"item": [
+				{
+					"name": "Manga",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/manga/:id",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"manga",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "11"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Manga Character",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/manga/:id/characters?page=1&limit=10",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"manga",
+								":id",
+								"characters"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "11"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Manga Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/manga/:id/stats",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"manga",
+								":id",
+								"stats"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "11"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Character",
+			"item": [
+				{
+					"name": "Character",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/character/:id",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"character",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Character Anime",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/character/:id/anime?page=1&limit=10",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"character",
+								":id",
+								"anime"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "17"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Character Manga",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/character/:id/manga?page=1&limit=10",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"character",
+								":id",
+								"manga"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "17"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Character VA",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/character/:id/va?page=1&limit=10",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"character",
+								":id",
+								"va"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "People",
+			"item": [
+				{
+					"name": "People",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/people/:id",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"people",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "28"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "People VA",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/people/:id/va?page=1&limit=10",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"people",
+								":id",
+								"va"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "28"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "People Staff",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/people/:id/staff?page=1&limit=10",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"people",
+								":id",
+								"staff"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "28"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "People Manga",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/people/:id/manga?page=1&limit=10",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"people",
+								":id",
+								"manga"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2009"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Summary",
+			"item": [
+				{
+					"name": "Total",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/summary/total",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"summary",
+								"total"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Producer Magazine",
+			"item": [
+				{
+					"name": "Producers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/producers",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"producers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Magazines",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/magazines",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"magazines"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Genre",
+			"item": [
+				{
+					"name": "Anime Genre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/genres/anime",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"genres",
+								"anime"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Manga Genre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/genres/manga",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"genres",
+								"manga"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search",
+			"item": [
+				{
+					"name": "Anime",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/search/anime",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"search",
+								"anime"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "naruto",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "-score",
+									"disabled": true
+								},
+								{
+									"key": "score",
+									"value": "7",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "year",
+									"value": "2007",
+									"disabled": true
+								},
+								{
+									"key": "season",
+									"value": "summer",
+									"disabled": true
+								},
+								{
+									"key": "rating",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "source",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "start_year",
+									"value": "2018",
+									"disabled": true
+								},
+								{
+									"key": "end_year",
+									"value": "2019",
+									"disabled": true
+								},
+								{
+									"key": "start_episode",
+									"value": "50",
+									"disabled": true
+								},
+								{
+									"key": "end_episode",
+									"value": "60",
+									"disabled": true
+								},
+								{
+									"key": "start_duration",
+									"value": "60",
+									"description": "Minutes",
+									"disabled": true
+								},
+								{
+									"key": "end_duration",
+									"value": "120",
+									"description": "Minutes",
+									"disabled": true
+								},
+								{
+									"key": "producer",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "genre",
+									"value": "11,-1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Manga",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/search/manga",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"search",
+								"manga"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "nar",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "-score",
+									"disabled": true
+								},
+								{
+									"key": "score",
+									"value": "7",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "year",
+									"value": "2007",
+									"disabled": true
+								},
+								{
+									"key": "start_year",
+									"value": "2018",
+									"disabled": true
+								},
+								{
+									"key": "end_year",
+									"value": "2019",
+									"disabled": true
+								},
+								{
+									"key": "start_chapter",
+									"value": "50",
+									"disabled": true
+								},
+								{
+									"key": "end_chapter",
+									"value": "60",
+									"disabled": true
+								},
+								{
+									"key": "start_volume",
+									"value": "60",
+									"disabled": true
+								},
+								{
+									"key": "end_volume",
+									"value": "120",
+									"disabled": true
+								},
+								{
+									"key": "magazine",
+									"value": "97",
+									"disabled": true
+								},
+								{
+									"key": "genre",
+									"value": "11,-1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Character",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/search/character",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"search",
+								"character"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "kana",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "-favorite",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "People",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/search/people",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"search",
+								"people"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "kana",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "-favorite",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "mal-db-url",
+			"value": "http://localhost:8006"
+		}
+	]
+}

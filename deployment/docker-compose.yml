@@ -1,0 +1,25 @@
+version: "2.4"
+
+services:
+  mal_db_api:
+    container_name: mal_db_api
+    image: mal-db:latest
+    command: /mal server
+    build:
+      context: ./..
+      dockerfile: ./build/package/Dockerfile
+    ports:
+      - 8006:8006
+    tty: true
+    env_file: ./../.env
+    depends_on:
+      - mal_db_worker
+  mal_db_worker:
+    container_name: mal_db_worker
+    image: mal-db:latest
+    command: /mal worker
+    build:
+      context: ./..
+      dockerfile: ./build/package/Dockerfile
+    tty: true
+    env_file: ./../.env

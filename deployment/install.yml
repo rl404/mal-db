@@ -1,0 +1,12 @@
+version: "2.4"
+
+services:
+  mal_db_install:
+    container_name: mal_db_install
+    image: mal-db:latest
+    command: /mal install
+    build:
+      context: ./..
+      dockerfile: ./build/package/Dockerfile
+    tty: true
+    env_file: ./../.env
