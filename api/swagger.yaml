@@ -962,6 +962,32 @@ paths:
       summary: Get producer list
       tags:
       - producer
+  /search:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Entry name
+        in: query
+        name: query
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/utils.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/model.Entry'
+                  type: array
+              type: object
+      summary: Quick search
+      tags:
+      - search
   /search/anime:
     get:
       consumes:
@@ -969,7 +995,7 @@ paths:
       parameters:
       - description: Anime title
         in: query
-        name: query
+        name: title
         type: string
       - description: Page
         in: query
@@ -1129,7 +1155,7 @@ paths:
       parameters:
       - description: Character name
         in: query
-        name: query
+        name: name
         type: string
       - description: Page
         in: query
@@ -1172,7 +1198,7 @@ paths:
       parameters:
       - description: Manga title
         in: query
-        name: query
+        name: title
         type: string
       - description: Page
         in: query
@@ -1296,7 +1322,7 @@ paths:
       parameters:
       - description: People name
         in: query
-        name: query
+        name: name
         type: string
       - description: Page
         in: query

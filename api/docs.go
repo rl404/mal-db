@@ -960,6 +960,51 @@ var doc = `{
                 }
             }
         },
+        "/search": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "search"
+                ],
+                "summary": "Quick search",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Entry name",
+                        "name": "query",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/utils.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/model.Entry"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/search/anime": {
             "get": {
                 "consumes": [
@@ -976,7 +1021,7 @@ var doc = `{
                     {
                         "type": "string",
                         "description": "Anime title",
-                        "name": "query",
+                        "name": "title",
                         "in": "query"
                     },
                     {
@@ -1199,7 +1244,7 @@ var doc = `{
                     {
                         "type": "string",
                         "description": "Character name",
-                        "name": "query",
+                        "name": "name",
                         "in": "query"
                     },
                     {
@@ -1268,7 +1313,7 @@ var doc = `{
                     {
                         "type": "string",
                         "description": "Manga title",
-                        "name": "query",
+                        "name": "title",
                         "in": "query"
                     },
                     {
@@ -1446,7 +1491,7 @@ var doc = `{
                     {
                         "type": "string",
                         "description": "People name",
-                        "name": "query",
+                        "name": "name",
                         "in": "query"
                     },
                     {

@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/go-chi/chi"
+	"github.com/rl404/mal-db/internal/constant"
 	"github.com/rl404/mal-db/internal/loader/api"
 	"github.com/rl404/mal-db/internal/model"
 	"github.com/rl404/mal-db/internal/pkg/utils"
@@ -17,6 +18,7 @@ type search struct {
 
 func registerSearch(r chi.Router, api api.API) {
 	s := search{api: api}
+	r.Get("/search", s.searchQuick)
 	r.Get("/search/anime", s.searchAnime)
 	r.Get("/search/manga", s.searchManga)
 	r.Get("/search/character", s.searchCharacter)
@@ -27,7 +29,7 @@ func registerSearch(r chi.Router, api api.API) {
 // @tags search
 // @accept json
 // @produce json
-// @param query query string false "Anime title"
+// @param title query string false "Anime title"
 // @param page query integer false "Page"
 // @param limit query integer false "Limit"
 // @param score query integer false "Score" Enums(0,1,2,3,4,5,6,7,8,9,10)
@@ -88,7 +90,7 @@ func (s *search) searchAnime(w http.ResponseWriter, r *http.Request) {
 // @tags search
 // @accept json
 // @produce json
-// @param query query string false "Manga title"
+// @param title query string false "Manga title"
 // @param page query integer false "Page"
 // @param limit query integer false "Limit"
 // @param score query integer false "Score" Enums(0,1,2,3,4,5,6,7,8,9,10)
@@ -143,7 +145,7 @@ func (s *search) searchManga(w http.ResponseWriter, r *http.Request) {
 // @tags search
 // @accept json
 // @produce json
-// @param query query string false "Character name"
+// @param name query string false "Character name"
 // @param page query integer false "Page"
 // @param limit query integer false "Limit"
 // @param order query string false "Order (negative means descending)" Enums(name,-name,favorite,-favorite)
@@ -163,7 +165,7 @@ func (s *search) searchCharacter(w http.ResponseWriter, r *http.Request) {
 // @tags search
 // @accept json
 // @produce json
-// @param query query string false "People name"
+// @param name query string false "People name"
 // @param page query integer false "Page"
 // @param limit query integer false "Limit"
 // @param order query string false "Order (negative means descending)" Enums(name,-name,favorite,-favorite)
@@ -177,4 +179,102 @@ func (s *search) searchPeople(w http.ResponseWriter, r *http.Request) {
 	query.Order = r.URL.Query().Get("order")
 	data, meta, code, err := s.api.SearchPeople(query)
 	utils.ResponseWithJSON(w, code, data, err, meta)
+}
+
+// @summary Quick search
+// @tags search
+// @accept json
+// @produce json
+// @param query query string false "Entry name"
+// @success 200 {object} utils.Response{data=[]model.Entry}
+// @router /search [get]
+func (s *search) searchQuick(w http.ResponseWriter, r *http.Request) {
+	data := []model.Entry{}
+	query := r.URL.Query().Get("query")
+
+	// Anime.
+	anime, _, code, err := s.api.SearchAnime(model.AnimeQuery{
+		Title: query,
+		Page:  1,
+		Limit: 5,
+	})
+	if err != nil {
+		utils.ResponseWithJSON(w, code, data, err, nil)
+		return
+	}
+
+	for _, a := range anime {
+		data = append(data, model.Entry{
+			ID:    a.ID,
+			Type:  constant.AnimeType,
+			Name:  a.Title,
+			Image: a.Image,
+		})
+	}
+
+	// Manga.
+	manga, _, code, err := s.api.SearchManga(model.MangaQuery{
+		Title: query,
+		Page:  1,
+		Limit: 5,
+	})
+	if err != nil {
+		utils.ResponseWithJSON(w, code, data, err, nil)
+		return
+	}
+
+	for _, m := range manga {
+		data = append(data, model.Entry{
+			ID:    m.ID,
+			Type:  constant.MangaType,
+			Name:  m.Title,
+			Image: m.Image,
+		})
+	}
+
+	// Character.
+	char, _, code, err := s.api.SearchCharacter(model.EntryQuery{
+		Name:  query,
+		Page:  1,
+		Limit: 5,
+	})
+	if err != nil {
+		utils.ResponseWithJSON(w, code, data, err, nil)
+		return
+	}
+
+	for _, c := range char {
+		data = append(data, model.Entry{
+			ID:    c.ID,
+			Type:  constant.CharacterType,
+			Name:  c.Name,
+			Image: c.Image,
+		})
+	}
+
+	// People.
+	people, _, code, err := s.api.SearchPeople(model.EntryQuery{
+		Name:  query,
+		Page:  1,
+		Limit: 5,
+	})
+	if err != nil {
+		utils.ResponseWithJSON(w, code, data, err, nil)
+		return
+	}
+
+	for _, p := range people {
+		data = append(data, model.Entry{
+			ID:    p.ID,
+			Type:  constant.PeopleType,
+			Name:  p.Name,
+			Image: p.Image,
+		})
+	}
+
+	meta := map[string]interface{}{
+		"count": len(data),
+	}
+
+	utils.ResponseWithJSON(w, http.StatusOK, data, err, meta)
 }

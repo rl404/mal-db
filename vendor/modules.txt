@@ -94,7 +94,7 @@ github.com/mailru/easyjson/jlexer
 github.com/mailru/easyjson/jwriter
 # github.com/nsqio/go-nsq v1.0.8
 github.com/nsqio/go-nsq
-# github.com/rl404/go-malscraper v1.2.2
+# github.com/rl404/go-malscraper v1.2.4
 ## explicit
 github.com/rl404/go-malscraper
 github.com/rl404/go-malscraper/errors
@@ -135,7 +135,7 @@ github.com/rl404/mal-plugin/pubsub/redis
 # github.com/rs/cors v1.7.0
 ## explicit
 github.com/rs/cors
-# github.com/spf13/cobra v1.1.1
+# github.com/spf13/cobra v1.1.3
 ## explicit
 github.com/spf13/cobra
 # github.com/spf13/pflag v1.0.5

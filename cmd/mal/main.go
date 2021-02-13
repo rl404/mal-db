@@ -44,6 +44,14 @@ func main() {
 		},
 	})
 
+	cmd.AddCommand(&cobra.Command{
+		Use:   "filler",
+		Short: "Run filler tools",
+		Run: func(*cobra.Command, []string) {
+			filler()
+		},
+	})
+
 	if err := cmd.Execute(); err != nil {
 		panic(err)
 	}

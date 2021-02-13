@@ -613,6 +613,29 @@
 			"name": "Search",
 			"item": [
 				{
+					"name": "Quick",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/search?query=nar",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"search"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "nar"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Anime",
 					"request": {
 						"method": "GET",

@@ -54,11 +54,17 @@ run: build
 	@cd $(CMD_PATH); \
 	./$(BINARY_NAME) server
 
-#
+# Build and run worker.
 .PHONY: worker
 worker: build
 	@cd $(CMD_PATH); \
 	./$(BINARY_NAME) worker
+
+# Build and run filler tools.
+.PHONY: filler
+filler: build
+	@cd $(CMD_PATH); \
+	./$(BINARY_NAME) filler
 
 # Docker base command.
 DOCKER_CMD   := docker
