@@ -24,4 +24,5 @@ type API interface {
 	SearchCharacter(query model.EntryQuery) ([]model.Entry, map[string]interface{}, int, error)
 	SearchPeople(query model.EntryQuery) ([]model.Entry, map[string]interface{}, int, error)
 	GetEntryCount() (*model.Total, map[string]interface{}, int, error)
+	GetYearSummary() ([]model.YearSummary, map[string]interface{}, int, error)
 }

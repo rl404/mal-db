@@ -15,9 +15,15 @@ type summary struct {
 func registerSummary(r chi.Router, api api.API) {
 	s := summary{api: api}
 	r.Get("/summary/total", s.getEntryCount)
+	r.Get("/summary/year", s.getYearSummary)
 }
 
 func (s *summary) getEntryCount(w http.ResponseWriter, r *http.Request) {
 	data, meta, code, err := s.api.GetEntryCount()
+	utils.ResponseWithJSON(w, code, data, err, meta)
+}
+
+func (s *summary) getYearSummary(w http.ResponseWriter, r *http.Request) {
+	data, meta, code, err := s.api.GetYearSummary()
 	utils.ResponseWithJSON(w, code, data, err, meta)
 }

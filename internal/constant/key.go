@@ -26,26 +26,7 @@ const (
 	KeyProducerMagazine = "mal:2:producer-magazine"
 	KeyGenres           = "mal:2:genres"
 	KeyTotal            = "mal:2:total"
-
-	KeyTopAnime     = "mal:2:top-anime"
-	KeyTopManga     = "mal:2:top-manga"
-	KeyTopCharacter = "mal:2:top-character"
-	KeyTopPeople    = "mal:2:top-people"
-	KeySeasonal     = "mal:2:seasonal"
-	KeyYearScore    = "mal:2:year-score"
-	KeyProducer     = "mal:2:producer"
-	KeyMagazine     = "mal:2:magazine"
-	KeyUser         = "mal:2:user"
-	KeyUserAnime    = "mal:2:user-anime"
-	KeyUserManga    = "mal:2:user-manga"
-	KeyUserStats    = "mal:2:user-stats"
-	KeyUserScore    = "mal:2:user-score"
-	KeyUserType     = "mal:2:user-type"
-	KeyUserGenre    = "mal:2:user-genre"
-	KeyUserStudio   = "mal:2:user-studio"
-	KeyUserAuthor   = "mal:2:user-author"
-	KeyUserProgress = "mal:2:user-progress"
-	KeyUserYear     = "mal:2:user-year"
+	KeyYearSummary      = "mal:2:year-summary"
 )
 
 // GetKey to generate cache key.
