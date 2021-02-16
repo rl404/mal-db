@@ -99,7 +99,7 @@ func worker() {
 	}()
 
 	// Init saver.
-	svr := saver.New(l, c, db, mal, ps, es, time.Duration(cfg.Worker.AgeLimit)*time.Second)
+	svr := saver.New(l, c, db, mal, ps, es)
 	l.Info("saver initialized")
 
 	// Init pubsub consumer.
@@ -128,7 +128,7 @@ func worker() {
 			select {
 			case <-msgs:
 				if err := svr.Parse(msg.Type, msg.ID); err != nil {
-					l.Error(err.Error())
+					l.Error("[%s:%v] %s", msg.Type, msg.ID, err.Error())
 				}
 				l.Trace("break time...")
 				time.Sleep(time.Duration(cfg.Worker.BreakTime) * time.Second)

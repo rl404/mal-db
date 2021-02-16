@@ -2,6 +2,7 @@ package database
 
 import (
 	"errors"
+	"time"
 
 	"github.com/rl404/mal-db/internal/constant"
 	"github.com/rl404/mal-db/internal/loader/api"
@@ -13,17 +14,19 @@ import (
 
 // Database implements API interface.
 type Database struct {
-	log logger.Logger
-	db  *gorm.DB
-	ps  pubsub.PubSub
+	log      logger.Logger
+	db       *gorm.DB
+	ps       pubsub.PubSub
+	ageLimit time.Duration
 }
 
 // New to create new database methods.
-func New(l logger.Logger, db *gorm.DB, ps pubsub.PubSub) api.API {
+func New(l logger.Logger, db *gorm.DB, ps pubsub.PubSub, ageLimit time.Duration) api.API {
 	return &Database{
-		log: l,
-		db:  db,
-		ps:  ps,
+		log:      l,
+		db:       db,
+		ps:       ps,
+		ageLimit: ageLimit,
 	}
 }
 

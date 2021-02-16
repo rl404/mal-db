@@ -80,7 +80,7 @@ func server() {
 	}()
 
 	// Init loader.
-	service := loader.New(l, db, c, ps)
+	service := loader.New(l, db, c, ps, time.Duration(cfg.Worker.AgeLimit)*time.Second)
 	l.Info("loader initialized")
 
 	// Init web server.

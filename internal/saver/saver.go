@@ -17,25 +17,23 @@ import (
 
 // API is saver api.
 type API struct {
-	logger   logger.Logger
-	cacher   cacher.Cacher
-	db       *gorm.DB
-	mal      *malscraper.Malscraper
-	pubsub   pubsub.PubSub
-	es       *elasticsearch.Client
-	ageLimit time.Duration
+	logger logger.Logger
+	cacher cacher.Cacher
+	db     *gorm.DB
+	mal    *malscraper.Malscraper
+	pubsub pubsub.PubSub
+	es     *elasticsearch.Client
 }
 
 // New to create new saver.
-func New(l logger.Logger, c cacher.Cacher, db *gorm.DB, mal *malscraper.Malscraper, ps pubsub.PubSub, es *elasticsearch.Client, ageLimit time.Duration) *API {
+func New(l logger.Logger, c cacher.Cacher, db *gorm.DB, mal *malscraper.Malscraper, ps pubsub.PubSub, es *elasticsearch.Client) *API {
 	return &API{
-		logger:   l,
-		cacher:   c,
-		db:       db,
-		mal:      mal,
-		pubsub:   ps,
-		es:       es,
-		ageLimit: ageLimit,
+		logger: l,
+		cacher: c,
+		db:     db,
+		mal:    mal,
+		pubsub: ps,
+		es:     es,
 	}
 }
 

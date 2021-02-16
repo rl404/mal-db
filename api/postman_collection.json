@@ -507,29 +507,6 @@
 			]
 		},
 		{
-			"name": "Summary",
-			"item": [
-				{
-					"name": "Total",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{mal-db-url}}/summary/total",
-							"host": [
-								"{{mal-db-url}}"
-							],
-							"path": [
-								"summary",
-								"total"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Producer Magazine",
 			"item": [
 				{
@@ -927,6 +904,73 @@
 									"value": "-favorite",
 									"disabled": true
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Common",
+			"item": [
+				{
+					"name": "Summary Total",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/summary/total",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"summary",
+								"total"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Summary Year",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/summary/year",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"summary",
+								"year"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enqueue",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"anime\",\n    \"id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{mal-db-url}}/enqueue",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"enqueue"
 							]
 						}
 					},

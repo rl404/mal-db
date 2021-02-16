@@ -23,8 +23,8 @@ func (a *API) Register(r chi.Router) {
 	registerManga(r, a.api)
 	registerCharacter(r, a.api)
 	registerPeople(r, a.api)
-	registerSummary(r, a.api)
 	registerProducerMagazine(r, a.api)
 	registerGenre(r, a.api)
 	registerSearch(r, a.api)
+	registerCommon(r, a.api)
 }
