@@ -288,7 +288,7 @@ func (d *Database) SearchManga(query model.MangaQuery) ([]model.Media, map[strin
 // SearchCharacter to search character.
 func (d *Database) SearchCharacter(query model.EntryQuery) ([]model.Entry, map[string]interface{}, int, error) {
 	// Prepare query.
-	baseQuery := d.db.Table(fmt.Sprintf("%s", raw.Character{}.TableName()))
+	baseQuery := d.db.Table(raw.Character{}.TableName())
 	if len(query.Name) >= 3 {
 		columns := []string{"lower(name) like ?", "lower(nickname) like ?", "lower(japanese_name) like ?"}
 		querySplit := strings.Split(query.Name, " ")
@@ -348,7 +348,7 @@ func (d *Database) SearchCharacter(query model.EntryQuery) ([]model.Entry, map[s
 // SearchPeople to search people.
 func (d *Database) SearchPeople(query model.EntryQuery) ([]model.Entry, map[string]interface{}, int, error) {
 	// Prepare query.
-	baseQuery := d.db.Table(fmt.Sprintf("%s", raw.People{}.TableName()))
+	baseQuery := d.db.Table(raw.People{}.TableName())
 	if len(query.Name) >= 3 {
 		columns := []string{"lower(name) like ?", "lower(given_name) like ?", "lower(family_name) like ?", "lower(alternative_name) like ?"}
 		querySplit := strings.Split(query.Name, " ")

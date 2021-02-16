@@ -13,7 +13,7 @@ import (
 	"gorm.io/gorm"
 )
 
-//
+// GetPeople to get people.
 func (d *Database) GetPeople(id int) (*model.People, map[string]interface{}, int, error) {
 	// Is empty.
 	if d.isEntryEmpty(constant.PeopleType, id) {

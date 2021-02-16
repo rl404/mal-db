@@ -58,7 +58,7 @@ func (a *API) Parse(t string, id int) (err error) {
 	case constant.PeopleType:
 		err = a.parsePeople(id)
 	default:
-		err = errors.New(fmt.Sprintf("invalid type [%s:%v]", t, id))
+		err = fmt.Errorf("invalid type [%s:%v]", t, id)
 	}
 
 	if a.es == nil {

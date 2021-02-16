@@ -199,6 +199,7 @@ const (
 	Fall   = "fall"
 )
 
+// Seasons contains all season name.
 var Seasons = []string{Winter, Spring, Summer, Fall}
 
 // Order list.
@@ -215,5 +216,8 @@ const (
 	OrderFavoriteD = "-favorite"
 )
 
+// Orders is anime & manga search order.
 var Orders = []string{OrderMemberA, OrderMemberD, OrderTitleA, OrderTitleD, OrderScoreA, OrderScoreD}
+
+// Orders2 is character & people search order.
 var Orders2 = []string{OrderNameA, OrderNameD, OrderFavoriteA, OrderFavoriteD}
