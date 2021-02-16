@@ -6,17 +6,11 @@ import (
 
 	"github.com/rl404/go-malscraper/model"
 	"github.com/rl404/mal-db/internal/constant"
-	_errors "github.com/rl404/mal-db/internal/errors"
 	"github.com/rl404/mal-db/internal/model/raw"
 	"gorm.io/gorm"
 )
 
 func (a *API) parseCharacter(id int) error {
-	// Check old entry.
-	if a.isEntryNew(constant.CharacterType, id) {
-		return _errors.ErrNewData
-	}
-
 	// Delete existing empty id.
 	if err := a.deleteEmptyID(constant.CharacterType, id); err != nil {
 		return err
@@ -85,7 +79,7 @@ func (a *API) parseCharacter(id int) error {
 	}
 
 	// Delete cache.
-	return a.cacher.Delete(constant.GetKey(constant.KeyCharacter, id))
+	return a.deleteCache(constant.CharacterType, id)
 }
 
 func (a *API) enqueueCharacterOgraphy(t string, id int) (err error) {

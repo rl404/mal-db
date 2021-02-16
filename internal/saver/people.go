@@ -6,17 +6,11 @@ import (
 	"strings"
 
 	"github.com/rl404/mal-db/internal/constant"
-	_errors "github.com/rl404/mal-db/internal/errors"
 	"github.com/rl404/mal-db/internal/model/raw"
 	"gorm.io/gorm"
 )
 
 func (a *API) parsePeople(id int) error {
-	// Check old entry.
-	if a.isEntryNew(constant.PeopleType, id) {
-		return _errors.ErrNewData
-	}
-
 	// Delete existing empty id.
 	if err := a.deleteEmptyID(constant.PeopleType, id); err != nil {
 		return err
@@ -95,7 +89,7 @@ func (a *API) parsePeople(id int) error {
 	}
 
 	// Delete cache.
-	return a.cacher.Delete(constant.GetKey(constant.KeyPeople, id))
+	return a.deleteCache(constant.PeopleType, id)
 }
 
 func (a *API) enqueuePeopleCharacter(id int) error {

@@ -120,35 +120,3 @@ func (a *API) enqueue(t string, id int) error {
 	}
 	return err
 }
-
-func (a *API) isEntryNew(t string, id int) bool {
-	today := time.Now()
-	switch t {
-	case constant.AnimeType:
-		var anime raw.Anime
-		if errors.Is(a.db.Select("id, updated_at").Where("id = ?", id).First(&anime).Error, gorm.ErrRecordNotFound) {
-			return false
-		}
-		return today.Sub(anime.UpdatedAt) < a.ageLimit
-	case constant.MangaType:
-		var manga raw.Manga
-		if errors.Is(a.db.Select("id, updated_at").Where("id = ?", id).First(&manga).Error, gorm.ErrRecordNotFound) {
-			return false
-		}
-		return today.Sub(manga.UpdatedAt) < a.ageLimit
-	case constant.CharacterType:
-		var char raw.Character
-		if errors.Is(a.db.Select("id, updated_at").Where("id = ?", id).First(&char).Error, gorm.ErrRecordNotFound) {
-			return false
-		}
-		return today.Sub(char.UpdatedAt) < a.ageLimit
-	case constant.PeopleType:
-		var people raw.People
-		if errors.Is(a.db.Select("id, updated_at").Where("id = ?", id).First(&people).Error, gorm.ErrRecordNotFound) {
-			return false
-		}
-		return today.Sub(people.UpdatedAt) < a.ageLimit
-	default:
-		return true
-	}
-}

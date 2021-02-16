@@ -5,18 +5,12 @@ import (
 	"net/http"
 
 	"github.com/rl404/mal-db/internal/constant"
-	_errors "github.com/rl404/mal-db/internal/errors"
 	"github.com/rl404/mal-db/internal/model/raw"
 	"github.com/rl404/mal-db/internal/pkg/utils"
 	"gorm.io/gorm"
 )
 
 func (a *API) parseManga(id int) error {
-	// Check old entry.
-	if a.isEntryNew(constant.MangaType, id) {
-		return _errors.ErrNewData
-	}
-
 	// Delete existing empty id.
 	if err := a.deleteEmptyID(constant.MangaType, id); err != nil {
 		return err
@@ -121,5 +115,5 @@ func (a *API) parseManga(id int) error {
 	}
 
 	// Delete cache.
-	return a.cacher.Delete(constant.GetKey(constant.KeyManga, id))
+	return a.deleteCache(constant.MangaType, id)
 }

@@ -6,18 +6,12 @@ import (
 	"strings"
 
 	"github.com/rl404/mal-db/internal/constant"
-	_errors "github.com/rl404/mal-db/internal/errors"
 	"github.com/rl404/mal-db/internal/model/raw"
 	"github.com/rl404/mal-db/internal/pkg/utils"
 	"gorm.io/gorm"
 )
 
 func (a *API) parseAnime(id int) error {
-	// Check old entry.
-	if a.isEntryNew(constant.AnimeType, id) {
-		return _errors.ErrNewData
-	}
-
 	// Delete existing empty id.
 	if err := a.deleteEmptyID(constant.AnimeType, id); err != nil {
 		return err
@@ -132,7 +126,7 @@ func (a *API) parseAnime(id int) error {
 	}
 
 	// Delete cache.
-	return a.cacher.Delete(constant.GetKey(constant.KeyAnime, id))
+	return a.deleteCache(constant.AnimeType, id)
 }
 
 func (a *API) getAiringDayTime(daytime string) (string, string) {
