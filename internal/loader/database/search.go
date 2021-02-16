@@ -3,6 +3,7 @@ package database
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 
@@ -68,7 +69,7 @@ func (d *Database) SearchAnime(query model.AnimeQuery) ([]model.Media, map[strin
 			seasonStart, seasonEnd = 10, 13
 		}
 
-		baseQuery = baseQuery.Where("start_year = ? and start_month >= ? and start_month < ?", query.Year, seasonStart, seasonEnd)
+		baseQuery = baseQuery.Where("((premiered = '' and start_year = ? and start_month >= ? and start_month < ?) or (premiered != '' and split_part(premiered, ' ', 1) = ? and split_part(premiered, ' ', 2) = ?))", query.Year, seasonStart, seasonEnd, query.Season, strconv.Itoa(query.Year))
 	}
 	if query.StartYear != 0 || query.EndYear != 0 {
 		if query.EndYear == 0 {
