@@ -44,11 +44,25 @@ func main() {
 		},
 	})
 
-	cmd.AddCommand(&cobra.Command{
+	toolCmd := cobra.Command{
+		Use:   "tools",
+		Short: "Run tools",
+	}
+	cmd.AddCommand(&toolCmd)
+
+	toolCmd.AddCommand(&cobra.Command{
 		Use:   "filler",
 		Short: "Run filler tools",
 		Run: func(*cobra.Command, []string) {
 			filler()
+		},
+	})
+
+	toolCmd.AddCommand(&cobra.Command{
+		Use:   "updater",
+		Short: "Run updater tools",
+		Run: func(*cobra.Command, []string) {
+			updater()
 		},
 	})
 

@@ -64,7 +64,13 @@ worker: build
 .PHONY: filler
 filler: build
 	@cd $(CMD_PATH); \
-	./$(BINARY_NAME) filler
+	./$(BINARY_NAME) tools filler
+
+# Build and run updater tools.
+.PHONY: updater
+updater: build
+	@cd $(CMD_PATH); \
+	./$(BINARY_NAME) tools updater
 
 # Docker base command.
 DOCKER_CMD   := docker
