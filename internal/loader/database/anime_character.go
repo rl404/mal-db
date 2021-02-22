@@ -42,37 +42,34 @@ func (d *Database) GetAnimeCharacter(id int, page int, limit int) ([]model.Anime
 	}
 	defer rows.Close()
 
-	var role model.AnimeCharacter
 	chars := []model.AnimeCharacter{}
+	vaMap := make(map[int][]model.Role)
 	for rows.Next() {
 		var tmp join.AnimeCharacter
 		if err = d.db.ScanRows(rows, &tmp); err != nil {
 			return nil, nil, http.StatusInternalServerError, err
 		}
 
-		if role.ID != tmp.CID {
-			if role.ID != 0 {
-				chars = append(chars, role)
-			}
-			role = model.AnimeCharacter{
-				ID:          tmp.CID,
-				Name:        tmp.CName,
-				Image:       tmp.CImage,
-				Role:        tmp.Role,
-				VoiceActors: []model.Role{},
-			}
-		}
+		vaMap[tmp.CID] = append(vaMap[tmp.CID], model.Role{
+			ID:    tmp.PID,
+			Name:  tmp.PName,
+			Image: tmp.PImage,
+			Role:  constant.Languages[tmp.LanguageID],
+		})
 
-		if tmp.PID != 0 {
-			role.VoiceActors = append(role.VoiceActors, model.Role{
-				ID:    tmp.PID,
-				Name:  tmp.PName,
-				Image: tmp.PImage,
-				Role:  constant.Languages[tmp.LanguageID],
+		if len(vaMap[tmp.CID]) == 1 {
+			chars = append(chars, model.AnimeCharacter{
+				ID:    tmp.CID,
+				Name:  tmp.CName,
+				Image: tmp.CImage,
+				Role:  tmp.Role,
 			})
 		}
 	}
-	chars = append(chars, role)
+
+	for i, c := range chars {
+		chars[i].VoiceActors = vaMap[c.ID]
+	}
 
 	// Prepare meta.
 	meta := map[string]interface{}{

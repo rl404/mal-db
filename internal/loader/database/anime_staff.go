@@ -44,23 +44,22 @@ func (d *Database) GetAnimeStaff(id int, page int, limit int) ([]model.Role, map
 
 	// Loop the result.
 	staff := []model.Role{}
-	staffMap, positionMap := make(map[int]int), make(map[int][]string)
+	positionMap := make(map[int][]string)
 	for rows.Next() {
 		var tmp model.Role
 		if err = d.db.ScanRows(rows, &tmp); err != nil {
 			return nil, nil, http.StatusInternalServerError, err
 		}
 
-		if staffMap[tmp.ID] == 0 {
-			staffMap[tmp.ID] = 1
+		positionMap[tmp.ID] = append(positionMap[tmp.ID], tmp.Role)
+
+		if len(positionMap[tmp.ID]) == 1 {
 			staff = append(staff, model.Role{
 				ID:    tmp.ID,
 				Name:  tmp.Name,
 				Image: tmp.Image,
 			})
 		}
-
-		positionMap[tmp.ID] = append(positionMap[tmp.ID], tmp.Role)
 	}
 
 	for i, s := range staff {
