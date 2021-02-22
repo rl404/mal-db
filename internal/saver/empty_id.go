@@ -41,7 +41,7 @@ func (a *API) cleanEmptyRelation(t string, id int) (err error) {
 		if err = a.db.Where("media_id = ? and type = ?", id, t).Delete(raw.MediaGenre{}).Error; err != nil {
 			return err
 		}
-		if err = a.db.Where("(id = ? and type = ?) or (related_id = ? and related_type = ?)", id, t, id, t).Delete(raw.MediaRelated{}).Error; err != nil {
+		if err = a.db.Where("(media_id = ? and media_type = ?) or (related_id = ? and related_type = ?)", id, t, id, t).Delete(raw.MediaRelated{}).Error; err != nil {
 			return err
 		}
 	case constant.MangaType:
@@ -57,7 +57,7 @@ func (a *API) cleanEmptyRelation(t string, id int) (err error) {
 		if err = a.db.Where("media_id = ? and type = ?", id, t).Delete(raw.MediaGenre{}).Error; err != nil {
 			return err
 		}
-		if err = a.db.Where("(id = ? and type = ?) or (related_id = ? and related_type = ?)", id, t, id, t).Delete(raw.MediaRelated{}).Error; err != nil {
+		if err = a.db.Where("(media_id = ? and media_type = ?) or (related_id = ? and related_type = ?)", id, t, id, t).Delete(raw.MediaRelated{}).Error; err != nil {
 			return err
 		}
 		if err = a.db.Where("manga_id = ?", id).Delete(raw.PeopleManga{}).Error; err != nil {
