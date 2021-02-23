@@ -1,0 +1,94 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mal-service
+spec:
+  type: NodePort
+  selector:
+    app: mal
+  ports:
+    - name: mal-port
+      protocol: TCP
+      port: 8006
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mal-deployment
+  labels:
+    app: mal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mal
+  template:
+    metadata:
+      generateName: mal-pod-
+      labels:
+        app: mal
+    spec:
+      containers:
+        - name: mal-db-api
+          image: mal-db:latest
+          imagePullPolicy: IfNotPresent
+          command: ["/mal"]
+          args: ["server"]
+          ports:
+            - containerPort: 8006
+          envFrom:
+            - secretRef:
+                name: mal-secret
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mal-worker-deployment
+  labels:
+    app: mal-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mal-worker
+  template:
+    metadata:
+      generateName: mal-worker-pod-
+      labels:
+        app: mal-worker
+    spec:
+      containers:
+        - name: mal-db-worker
+          image: mal-db:latest
+          imagePullPolicy: IfNotPresent
+          command: ["/mal"]
+          args: ["worker"]
+          envFrom:
+            - secretRef:
+                name: mal-secret
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: mal-cron
+  labels:
+    app: mal-cron
+spec:
+  schedule: "* * * * *"
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: mal-db-cron
+              image: mal-db:latest
+              imagePullPolicy: IfNotPresent
+              command: ["/mal"]
+              args: ["tools", "updater"]
+              envFrom:
+              - secretRef:
+                  name: mal-secret

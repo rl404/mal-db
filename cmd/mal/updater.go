@@ -105,8 +105,12 @@ func updater() {
 	l.Info("tool initialized")
 
 	// Run tools.
-	if err = t.Run(); err != nil {
-		l.Error(err.Error())
+	for i := 0; i < 5; i++ {
+		if err = t.Run(); err != nil {
+			l.Error(err.Error())
+		}
+		l.Trace("break time...")
+		time.Sleep(time.Duration(cfg.Worker.BreakTime) * time.Second)
 	}
 	l.Info("done")
 }

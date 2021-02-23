@@ -37,7 +37,7 @@ func (m *Updater) Run() error {
 	currentMonth := time.Date(now.Year(), now.Month(), 1, 0, 0, 0, 0, now.Location())
 
 	var tmp raw.Anime
-	if !errors.Is(m.db.Select("id").Where("anime_type_id = ? and (updated_at < ? or updated_at is null)", 1, today).First(&tmp).Error, gorm.ErrRecordNotFound) {
+	if !errors.Is(m.db.Select("id").Where("anime_status_id = ? and (updated_at < ? or updated_at is null)", 1, today).First(&tmp).Error, gorm.ErrRecordNotFound) {
 		return m.saver.Parse(constant.AnimeType, tmp.ID)
 	}
 

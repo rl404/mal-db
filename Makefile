@@ -108,3 +108,37 @@ docker: docker-build docker-up
 .PHONY: docker-stop
 docker-stop:
 	@$(COMPOSE_CMD) -f $(COMPOSE_PATH) stop
+
+# kubectl base command.
+KUBE_CMD    := kubectl
+KUBE_APPLY  := $(KUBE_CMD) apply
+KUBE_CREATE := $(KUBE_CMD) create
+KUBE_DELETE := $(KUBE_CMD) delete
+
+# Deployment config.
+KUBE_SECRET := mal-secret
+KUBE_YML    := ./deployment/deployment.yml
+
+# Create kubectl secret.
+.PHONY: kube-create-secret
+kube-create-secret:
+	@$(KUBE_CREATE) secret generic $(KUBE_SECRET) --from-env-file=.env
+
+# Delete kubectl secret.
+.PHONY: kube-delete-secret
+kube-delete-secret:
+	@$(KUBE_DELETE) secret $(KUBE_SECRET) || echo "Secret not found"
+
+# Delete and create a new kubectl secret.
+.PHONY: kube-update-secret
+kube-update-secret: kube-delete-secret kube-create-secret
+
+# Deploy deployment, pod, and service.
+.PHONY: kube-deploy
+kube-deploy: kube-update-secret
+	@$(KUBE_APPLY) -f $(KUBE_YML)
+
+# Remove deployment, pod, and service.
+.PHONY: kube-clean
+kube-clean: kube-delete-secret
+	@$(KUBE_DELETE) -f $(KUBE_YML)

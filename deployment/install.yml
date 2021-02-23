@@ -1,8 +1,8 @@
 version: "2.4"
 
 services:
-  mal_db_install:
-    container_name: mal_db_install
+  mal-db-install:
+    container_name: mal-db-install
     image: mal-db:latest
     command: /mal install
     build:

@@ -1,8 +1,8 @@
 version: "2.4"
 
 services:
-  mal_db_api:
-    container_name: mal_db_api
+  mal-db-api:
+    container_name: mal-db-api
     image: mal-db:latest
     command: /mal server
     build:
@@ -13,9 +13,9 @@ services:
     tty: true
     env_file: ./../.env
     depends_on:
-      - mal_db_worker
-  mal_db_worker:
-    container_name: mal_db_worker
+      - mal-db-worker
+  mal-db-worker:
+    container_name: mal-db-worker
     image: mal-db:latest
     command: /mal worker
     build:
