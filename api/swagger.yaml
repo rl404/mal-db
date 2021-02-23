@@ -1,5 +1,12 @@
 basePath: /
 definitions:
+  api.enqueueRequest:
+    properties:
+      id:
+        type: integer
+      type:
+        type: string
+    type: object
   model.Airing:
     properties:
       day:
@@ -384,12 +391,43 @@ definitions:
       planned:
         type: integer
     type: object
+  model.Total:
+    properties:
+      anime:
+        type: integer
+      character:
+        type: integer
+      manga:
+        type: integer
+      people:
+        type: integer
+    type: object
   model.VoiceActor:
     properties:
       anime:
         $ref: '#/definitions/model.Role'
       character:
         $ref: '#/definitions/model.Role'
+    type: object
+  model.YearSummary:
+    properties:
+      anime:
+        $ref: '#/definitions/model.YearSummaryDetail'
+      manga:
+        $ref: '#/definitions/model.YearSummaryDetail'
+    type: object
+  model.YearSummaryDetail:
+    properties:
+      avgScore:
+        type: number
+      count:
+        type: integer
+      maxScore:
+        type: number
+      minScore:
+        type: number
+      year:
+        type: integer
     type: object
   utils.Response:
     properties:
@@ -663,6 +701,27 @@ paths:
       summary: Get character voice actor list
       tags:
       - character
+  /enqueue:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: entry type and id
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.enqueueRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+      summary: Enqueue entry
+      tags:
+      - common
   /genres/anime:
     get:
       consumes:
@@ -1358,6 +1417,46 @@ paths:
       summary: Search people
       tags:
       - search
+  /summary/total:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/utils.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/model.Total'
+              type: object
+      summary: Get all entry count
+      tags:
+      - common
+  /summary/year:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/utils.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/model.YearSummary'
+                  type: array
+              type: object
+      summary: Get yearly summar count
+      tags:
+      - common
 schemes:
 - http
 - https

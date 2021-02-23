@@ -20,11 +20,23 @@ func registerCommon(r chi.Router, api api.API) {
 	r.Post("/enqueue", s.enqueue)
 }
 
+// @summary Get all entry count
+// @tags common
+// @accept json
+// @produce json
+// @success 200 {object} utils.Response{data=model.Total}
+// @router /summary/total [get]
 func (c *common) getEntryCount(w http.ResponseWriter, r *http.Request) {
 	data, meta, code, err := c.api.GetEntryCount()
 	utils.ResponseWithJSON(w, code, data, err, meta)
 }
 
+// @summary Get yearly summar count
+// @tags common
+// @accept json
+// @produce json
+// @success 200 {object} utils.Response{data=[]model.YearSummary}
+// @router /summary/year [get]
 func (c *common) getYearSummary(w http.ResponseWriter, r *http.Request) {
 	data, meta, code, err := c.api.GetYearSummary()
 	utils.ResponseWithJSON(w, code, data, err, meta)
@@ -35,6 +47,13 @@ type enqueueRequest struct {
 	ID   int    `json:"id"`
 }
 
+// @summary Enqueue entry
+// @tags common
+// @accept json
+// @produce json
+// @param request body enqueueRequest true "entry type and id"
+// @success 200 {object} utils.Response
+// @router /enqueue [post]
 func (c *common) enqueue(w http.ResponseWriter, r *http.Request) {
 	var request enqueueRequest
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {

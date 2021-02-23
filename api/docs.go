@@ -451,6 +451,39 @@ var doc = `{
                 }
             }
         },
+        "/enqueue": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "common"
+                ],
+                "summary": "Enqueue entry",
+                "parameters": [
+                    {
+                        "description": "entry type and id",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.enqueueRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/utils.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/genres/anime": {
             "get": {
                 "consumes": [
@@ -1543,9 +1576,91 @@ var doc = `{
                     }
                 }
             }
+        },
+        "/summary/total": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "common"
+                ],
+                "summary": "Get all entry count",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/utils.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/model.Total"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/summary/year": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "common"
+                ],
+                "summary": "Get yearly summar count",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/utils.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/model.YearSummary"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "api.enqueueRequest": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
         "model.Airing": {
             "type": "object",
             "properties": {
@@ -2132,6 +2247,23 @@ var doc = `{
                 }
             }
         },
+        "model.Total": {
+            "type": "object",
+            "properties": {
+                "anime": {
+                    "type": "integer"
+                },
+                "character": {
+                    "type": "integer"
+                },
+                "manga": {
+                    "type": "integer"
+                },
+                "people": {
+                    "type": "integer"
+                }
+            }
+        },
         "model.VoiceActor": {
             "type": "object",
             "properties": {
@@ -2140,6 +2272,37 @@ var doc = `{
                 },
                 "character": {
                     "$ref": "#/definitions/model.Role"
+                }
+            }
+        },
+        "model.YearSummary": {
+            "type": "object",
+            "properties": {
+                "anime": {
+                    "$ref": "#/definitions/model.YearSummaryDetail"
+                },
+                "manga": {
+                    "$ref": "#/definitions/model.YearSummaryDetail"
+                }
+            }
+        },
+        "model.YearSummaryDetail": {
+            "type": "object",
+            "properties": {
+                "avgScore": {
+                    "type": "number"
+                },
+                "count": {
+                    "type": "integer"
+                },
+                "maxScore": {
+                    "type": "number"
+                },
+                "minScore": {
+                    "type": "number"
+                },
+                "year": {
+                    "type": "integer"
                 }
             }
         },

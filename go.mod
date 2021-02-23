@@ -11,13 +11,16 @@ require (
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/rl404/go-malscraper v1.2.4
-	github.com/rl404/mal-plugin v0.2.1
+	github.com/rl404/mal-plugin v0.2.3
 	github.com/rs/cors v1.7.0
 	github.com/spf13/cobra v1.1.3
 	github.com/swaggo/http-swagger v1.0.0
 	github.com/swaggo/swag v1.7.0
 	github.com/tidwall/gjson v1.6.8
-	golang.org/x/crypto v0.0.0-20201221181555-eec23a3978ad // indirect
+	github.com/tidwall/pretty v1.0.5 // indirect
+	golang.org/x/crypto v0.0.0-20210220033148-5ea612d1eb83 // indirect
+	golang.org/x/net v0.0.0-20210222171744-9060382bd457 // indirect
+	golang.org/x/sys v0.0.0-20210223095934-7937bea0104d // indirect
 	golang.org/x/tools v0.1.0 // indirect
 	gorm.io/driver/postgres v1.0.8
 	gorm.io/gorm v1.20.12
