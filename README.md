@@ -14,7 +14,7 @@ Powered by my [go-malscraper](https://github.com/rl404/go-malscraper).
 - Caching (in-memory, [redis](https://redis.io/), [memcache](https://memcached.org/))
 - Logging ([elasticsearch](https://www.elastic.co/))
 - PubSub ([redis](https://redis.io/), [nsq](https://nsq.io/), [rabbitmq](https://www.rabbitmq.com/))
-- [Swagger](https://mal-rest-api.herokuapp.com/swagger/index.html)
+- [Swagger](https://github.com/swaggo/swag)
 - [Docker](https://www.docker.com/)
 
 *More will be coming soon...*
