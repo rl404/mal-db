@@ -1,4 +1,4 @@
-// Code generated from specification version 7.10.0 (51e9d6f2275): DO NOT EDIT
+// Code generated from specification version 7.11.0 (8ced7813d6f): DO NOT EDIT
 
 package esapi
 
@@ -196,7 +196,9 @@ type Indices struct {
 	GetSettings           IndicesGetSettings
 	GetTemplate           IndicesGetTemplate
 	GetUpgrade            IndicesGetUpgrade
+	MigrateToDataStream   IndicesMigrateToDataStream
 	Open                  IndicesOpen
+	PromoteDataStream     IndicesPromoteDataStream
 	PutAlias              IndicesPutAlias
 	PutIndexTemplate      IndicesPutIndexTemplate
 	PutMapping            IndicesPutMapping
@@ -379,6 +381,7 @@ type ML struct {
 	UpdateFilter               MLUpdateFilter
 	UpdateJob                  MLUpdateJob
 	UpdateModelSnapshot        MLUpdateModelSnapshot
+	UpgradeJobSnapshot         MLUpgradeJobSnapshot
 	ValidateDetector           MLValidateDetector
 	Validate                   MLValidate
 }
@@ -395,6 +398,7 @@ type Rollup struct {
 	GetCaps      RollupGetRollupCaps
 	GetIndexCaps RollupGetRollupIndexCaps
 	PutJob       RollupPutJob
+	Rollup       RollupRollup
 	Search       RollupRollupSearch
 	StartJob     RollupStartJob
 	StopJob      RollupStopJob
@@ -454,6 +458,7 @@ type Watcher struct {
 	ExecuteWatch    WatcherExecuteWatch
 	GetWatch        WatcherGetWatch
 	PutWatch        WatcherPutWatch
+	QueryWatches    WatcherQueryWatches
 	Start           WatcherStart
 	Stats           WatcherStats
 	Stop            WatcherStop
@@ -631,7 +636,9 @@ func New(t Transport) *API {
 			GetSettings:           newIndicesGetSettingsFunc(t),
 			GetTemplate:           newIndicesGetTemplateFunc(t),
 			GetUpgrade:            newIndicesGetUpgradeFunc(t),
+			MigrateToDataStream:   newIndicesMigrateToDataStreamFunc(t),
 			Open:                  newIndicesOpenFunc(t),
+			PromoteDataStream:     newIndicesPromoteDataStreamFunc(t),
 			PutAlias:              newIndicesPutAliasFunc(t),
 			PutIndexTemplate:      newIndicesPutIndexTemplateFunc(t),
 			PutMapping:            newIndicesPutMappingFunc(t),
@@ -791,6 +798,7 @@ func New(t Transport) *API {
 			UpdateFilter:               newMLUpdateFilterFunc(t),
 			UpdateJob:                  newMLUpdateJobFunc(t),
 			UpdateModelSnapshot:        newMLUpdateModelSnapshotFunc(t),
+			UpgradeJobSnapshot:         newMLUpgradeJobSnapshotFunc(t),
 			ValidateDetector:           newMLValidateDetectorFunc(t),
 			Validate:                   newMLValidateFunc(t),
 		},
@@ -803,6 +811,7 @@ func New(t Transport) *API {
 			GetCaps:      newRollupGetRollupCapsFunc(t),
 			GetIndexCaps: newRollupGetRollupIndexCapsFunc(t),
 			PutJob:       newRollupPutJobFunc(t),
+			Rollup:       newRollupRollupFunc(t),
 			Search:       newRollupRollupSearchFunc(t),
 			StartJob:     newRollupStartJobFunc(t),
 			StopJob:      newRollupStopJobFunc(t),
@@ -854,6 +863,7 @@ func New(t Transport) *API {
 			ExecuteWatch:    newWatcherExecuteWatchFunc(t),
 			GetWatch:        newWatcherGetWatchFunc(t),
 			PutWatch:        newWatcherPutWatchFunc(t),
+			QueryWatches:    newWatcherQueryWatchesFunc(t),
 			Start:           newWatcherStartFunc(t),
 			Stats:           newWatcherStatsFunc(t),
 			Stop:            newWatcherStopFunc(t),
