@@ -101,6 +101,9 @@ func (a *API) enqueuePeopleCharacter(id int) error {
 		if err = a.enqueue(constant.AnimeType, d.Anime.ID); err != nil {
 			return err
 		}
+		if err = a.enqueue(constant.CharacterType, d.Character.ID); err != nil {
+			return err
+		}
 	}
 	return nil
 }
