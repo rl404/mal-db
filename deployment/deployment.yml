@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: mal-db-api
-          image: mal-db:latest
+          image: rl404/mal-db:latest
           imagePullPolicy: IfNotPresent
           command: ["/mal"]
           args: ["server"]
@@ -59,7 +59,7 @@ spec:
     spec:
       containers:
         - name: mal-db-worker
-          image: mal-db:latest
+          image: rl404/mal-db:latest
           imagePullPolicy: IfNotPresent
           command: ["/mal"]
           args: ["worker"]
@@ -85,7 +85,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: mal-db-cron
-              image: mal-db:latest
+              image: rl404/mal-db:latest
               imagePullPolicy: IfNotPresent
               command: ["/mal"]
               args: ["tools", "updater"]
