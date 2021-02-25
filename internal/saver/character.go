@@ -94,7 +94,7 @@ func (a *API) enqueueCharacterOgraphy(t string, id int) (err error) {
 		return err
 	}
 	for _, v := range data {
-		if err = a.enqueue(constant.AnimeType, v.ID); err != nil {
+		if err = a.enqueue(t, v.ID); err != nil {
 			return err
 		}
 	}
