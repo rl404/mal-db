@@ -333,8 +333,8 @@ github.com/rl404/go-malscraper v1.2.4 h1:9/jcw8HJEmMaVUPJddgXfO202Y5m5Kb4NSDKIoB
 github.com/rl404/go-malscraper v1.2.4/go.mod h1:Fm5Cpp+7DFoz2xPqI+HYRsCWGg1xP4Oq0cZHlfEpwlk=
 github.com/rl404/mal-plugin v0.2.1 h1:/ZGDkL6aZMDx+bTAA2oCYBDcxxhGuJiPt/3ZyGyE7U8=
 github.com/rl404/mal-plugin v0.2.1/go.mod h1:xbwp7rZNLrFjuYJyH3pUv4Wy7S3pA+XW0NlJxF3t/KY=
-github.com/rl404/mal-plugin v0.2.3 h1:XmoIXn5rn/IO8G4f4yjfSDzlre2rLR4siUj6x69mKi8=
-github.com/rl404/mal-plugin v0.2.3/go.mod h1:pSZtbWtJYYZxD6udhS4eIxJaYxIhTGexK++Ddwcy23A=
+github.com/rl404/mal-plugin v0.3.1 h1:L0bhO2XkmfR0ph4Cu6jWhvjTirnw7ZcpWeaLZDYusUY=
+github.com/rl404/mal-plugin v0.3.1/go.mod h1:pSZtbWtJYYZxD6udhS4eIxJaYxIhTGexK++Ddwcy23A=
 github.com/rogpeppe/fastuuid v0.0.0-20150106093220-6724a57986af/go.mod h1:XWv6SoW27p1b0cqNHllgS5HIMJraePCO15w5zCzIWYg=
 github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=
 github.com/rs/cors v1.7.0 h1:+88SsELBHx5r+hZ8TCkggzSstaWNbDvThkVK8H6f9ik=
