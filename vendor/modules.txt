@@ -119,7 +119,7 @@ github.com/rl404/go-malscraper/internal/validator
 github.com/rl404/go-malscraper/model
 github.com/rl404/go-malscraper/pkg/utils
 github.com/rl404/go-malscraper/service
-# github.com/rl404/mal-plugin v0.2.3
+# github.com/rl404/mal-plugin v0.3.1
 ## explicit
 github.com/rl404/mal-plugin/cache
 github.com/rl404/mal-plugin/cache/bigcache
