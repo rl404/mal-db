@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/rl404/go-malscraper/compare/v1.2.4...develop)
 
+## [1.2.5](https://github.com/rl404/go-malscraper/compare/v1.2.4...v1.2.5) - 2021-03-06
+
+### Fixed
+
+- Character about contains invalid UTF8.
+- Manga synopsis contains invalid UTF8.
+
 ## [1.2.4](https://github.com/rl404/go-malscraper/compare/v1.2.3...v1.2.4) - 2021-02-13
 
 ### Fixed

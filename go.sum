@@ -335,6 +335,8 @@ github.com/prometheus/procfs v0.0.0-20190507164030-5867b95ac084/go.mod h1:TjEm7z
 github.com/prometheus/tsdb v0.7.1/go.mod h1:qhTCs0VvXwvX/y3TZrWD7rabWM+ijKTux40TwIPHuXU=
 github.com/rl404/go-malscraper v1.2.4 h1:9/jcw8HJEmMaVUPJddgXfO202Y5m5Kb4NSDKIoBSLMs=
 github.com/rl404/go-malscraper v1.2.4/go.mod h1:Fm5Cpp+7DFoz2xPqI+HYRsCWGg1xP4Oq0cZHlfEpwlk=
+github.com/rl404/go-malscraper v1.2.5 h1:3KC3YXswyDJszuylKhpQuU0+sb8Fw6+FkgXS7Td2lLI=
+github.com/rl404/go-malscraper v1.2.5/go.mod h1:+uFkNrSVs1+fbUGXzKDKCUzjBmNz+qIPhAcTkgIhd9w=
 github.com/rl404/mal-plugin v0.2.1 h1:/ZGDkL6aZMDx+bTAA2oCYBDcxxhGuJiPt/3ZyGyE7U8=
 github.com/rl404/mal-plugin v0.2.1/go.mod h1:xbwp7rZNLrFjuYJyH3pUv4Wy7S3pA+XW0NlJxF3t/KY=
 github.com/rl404/mal-plugin v0.3.1 h1:L0bhO2XkmfR0ph4Cu6jWhvjTirnw7ZcpWeaLZDYusUY=

@@ -74,7 +74,7 @@ func (d *detail) setSynopsis() {
 		d.data.Synopsis = ""
 		return
 	}
-	d.data.Synopsis = strings.TrimSpace(synopsis)
+	d.data.Synopsis = strings.TrimSpace(strings.ToValidUTF8(synopsis, ""))
 }
 
 func (d *detail) setScore() {

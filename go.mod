@@ -12,7 +12,7 @@ require (
 	github.com/joho/godotenv v1.3.0
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/mailru/easyjson v0.7.7 // indirect
-	github.com/rl404/go-malscraper v1.2.4
+	github.com/rl404/go-malscraper v1.2.5
 	github.com/rl404/mal-plugin v0.3.1
 	github.com/rs/cors v1.7.0
 	github.com/spf13/cobra v1.1.3

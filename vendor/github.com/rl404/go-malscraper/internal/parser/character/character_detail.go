@@ -109,5 +109,5 @@ func (d *detail) setAbout() {
 	aboutGoQuery.Find("h2.normal_header").Remove()
 	cleanAbout := strings.TrimSpace(aboutGoQuery.Text())
 	cleanAbout = strings.Replace(cleanAbout, "No biography written.", "", -1)
-	d.data.About = strings.TrimSpace(html.UnescapeString(cleanAbout))
+	d.data.About = strings.TrimSpace(strings.ToValidUTF8(html.UnescapeString(cleanAbout), ""))
 }
