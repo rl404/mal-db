@@ -59,6 +59,13 @@ func (a *API) Parse(t string, id int) (err error) {
 		err = fmt.Errorf("invalid type [%s:%v]", t, id)
 	}
 
+	if err != nil {
+		// Re-queue if error.
+		if errQ := a.enqueue(t, id); errQ != nil {
+			a.logger.Error(errQ.Error())
+		}
+	}
+
 	if a.es == nil {
 		return err
 	}
