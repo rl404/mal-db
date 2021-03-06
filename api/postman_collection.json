@@ -975,6 +975,36 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Stats History",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/stats/history/:type/:id",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"stats",
+								"history",
+								":type",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "type",
+									"value": "anime"
+								},
+								{
+									"key": "id",
+									"value": "21"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

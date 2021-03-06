@@ -1577,6 +1577,65 @@ var doc = `{
                 }
             }
         },
+        "/stats/history/{type}/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "common"
+                ],
+                "summary": "Entry stats history",
+                "parameters": [
+                    {
+                        "enum": [
+                            "anime",
+                            "manga",
+                            "character",
+                            "people"
+                        ],
+                        "type": "string",
+                        "description": "Entry type",
+                        "name": "type",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Entry ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/utils.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/model.StatsHistory"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/summary/total": {
             "get": {
                 "consumes": [
@@ -2224,6 +2283,35 @@ var doc = `{
                 },
                 "summary": {
                     "$ref": "#/definitions/model.Summary"
+                }
+            }
+        },
+        "model.StatsHistory": {
+            "type": "object",
+            "properties": {
+                "favorite": {
+                    "type": "integer"
+                },
+                "member": {
+                    "type": "integer"
+                },
+                "month": {
+                    "type": "integer"
+                },
+                "popularity": {
+                    "type": "integer"
+                },
+                "rank": {
+                    "type": "integer"
+                },
+                "score": {
+                    "type": "number"
+                },
+                "voter": {
+                    "type": "integer"
+                },
+                "year": {
+                    "type": "integer"
                 }
             }
         },

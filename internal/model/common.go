@@ -107,3 +107,15 @@ type Entry struct {
 	Name  string `json:"name"`
 	Image string `json:"image"`
 }
+
+// StatsHistory represents entry stats history.
+type StatsHistory struct {
+	Year       int     `json:"year"`
+	Month      int     `json:"month"`
+	Score      float64 `json:"score"`
+	Voter      int     `json:"voter"`
+	Rank       int     `json:"rank"`
+	Popularity int     `json:"popularity"`
+	Member     int     `json:"member"`
+	Favorite   int     `json:"favorite"`
+}

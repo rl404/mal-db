@@ -40,3 +40,14 @@ func (v *Validator) Enqueue(t string, id int) (int, error) {
 	}
 	return v.api.Enqueue(t, id)
 }
+
+// GetStatsHistory to get entry stats history.
+func (v *Validator) GetStatsHistory(t string, id int) ([]model.StatsHistory, int, error) {
+	if !utils.InArrayStr(constant.MainTypes, t) {
+		return nil, http.StatusBadRequest, errors.ErrInvalidType
+	}
+	if id <= 0 {
+		return nil, http.StatusBadRequest, errors.ErrInvalidID
+	}
+	return v.api.GetStatsHistory(t, id)
+}

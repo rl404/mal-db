@@ -54,3 +54,25 @@ func (d *Database) GetStats(t string, id int) (*model.Stats, map[string]interfac
 
 	return stats, nil, http.StatusOK, nil
 }
+
+// GetStatsHistory to get entry stats history.
+func (d *Database) GetStatsHistory(t string, id int) ([]model.StatsHistory, int, error) {
+	// Is empty.
+	if d.isEntryEmpty(t, id) {
+		return nil, http.StatusNotFound, _errors.ErrInvalidID
+	}
+
+	var history []model.StatsHistory
+	err := d.db.Model(&raw.StatsHistory{}).
+		Select("date_part('year', created_at) as year, date_part('month', created_at) as month, round(avg(score),2) as score, floor(avg(voter)) as voter, floor(avg(rank)) as rank, floor(avg(popularity)) as popularity, floor(avg(member)) as member, floor(avg(favorite)) as favorite").
+		Where("type = ? and media_id = ?", t, id).
+		Group("date_part('year', created_at), date_part('month', created_at)").
+		Order("date_part('year', created_at), date_part('month', created_at)").
+		Find(&history).
+		Error
+	if err != nil {
+		return nil, http.StatusInternalServerError, err
+	}
+
+	return history, http.StatusOK, nil
+}

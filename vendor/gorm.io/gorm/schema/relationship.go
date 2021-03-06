@@ -18,6 +18,7 @@ const (
 	HasMany   RelationshipType = "has_many"     // HasManyRel has many relationship
 	BelongsTo RelationshipType = "belongs_to"   // BelongsToRel belongs to relationship
 	Many2Many RelationshipType = "many_to_many" // Many2ManyRel many to many relationship
+	has       RelationshipType = "has"
 )
 
 type Relationships struct {
@@ -80,7 +81,7 @@ func (schema *Schema) parseRelation(field *Field) *Relationship {
 	} else {
 		switch field.IndirectFieldType.Kind() {
 		case reflect.Struct:
-			schema.guessRelation(relation, field, guessBelongs)
+			schema.guessRelation(relation, field, guessGuess)
 		case reflect.Slice:
 			schema.guessRelation(relation, field, guessHas)
 		default:
@@ -88,7 +89,7 @@ func (schema *Schema) parseRelation(field *Field) *Relationship {
 		}
 	}
 
-	if relation.Type == "has" {
+	if relation.Type == has {
 		// don't add relations to embeded schema, which might be shared
 		if relation.FieldSchema != relation.Schema && relation.Polymorphic == nil && field.OwnerSchema == nil {
 			relation.FieldSchema.Relationships.Relations["_"+relation.Schema.Name+"_"+relation.Name] = relation
@@ -176,7 +177,7 @@ func (schema *Schema) buildPolymorphicRelation(relation *Relationship, field *Fi
 		})
 	}
 
-	relation.Type = "has"
+	relation.Type = has
 }
 
 func (schema *Schema) buildMany2ManyRelation(relation *Relationship, field *Field, many2many string) {
@@ -340,20 +341,32 @@ func (schema *Schema) buildMany2ManyRelation(relation *Relationship, field *Fiel
 type guessLevel int
 
 const (
-	guessBelongs guessLevel = iota
+	guessGuess guessLevel = iota
+	guessBelongs
 	guessEmbeddedBelongs
 	guessHas
 	guessEmbeddedHas
 )
 
-func (schema *Schema) guessRelation(relation *Relationship, field *Field, gl guessLevel) {
+func (schema *Schema) guessRelation(relation *Relationship, field *Field, cgl guessLevel) {
 	var (
 		primaryFields, foreignFields []*Field
 		primarySchema, foreignSchema = schema, relation.FieldSchema
+		gl                           = cgl
 	)
 
+	if gl == guessGuess {
+		if field.Schema == relation.FieldSchema {
+			gl = guessBelongs
+		} else {
+			gl = guessHas
+		}
+	}
+
 	reguessOrErr := func() {
-		switch gl {
+		switch cgl {
+		case guessGuess:
+			schema.guessRelation(relation, field, guessBelongs)
 		case guessBelongs:
 			schema.guessRelation(relation, field, guessEmbeddedBelongs)
 		case guessEmbeddedBelongs:
@@ -476,7 +489,7 @@ func (schema *Schema) guessRelation(relation *Relationship, field *Field, gl gue
 	}
 
 	if gl == guessHas || gl == guessEmbeddedHas {
-		relation.Type = "has"
+		relation.Type = has
 	} else {
 		relation.Type = BelongsTo
 	}
@@ -497,6 +510,24 @@ func (rel *Relationship) ParseConstraint() *Constraint {
 	str := rel.Field.TagSettings["CONSTRAINT"]
 	if str == "-" {
 		return nil
+	}
+
+	if rel.Type == BelongsTo {
+		for _, r := range rel.FieldSchema.Relationships.Relations {
+			if r.FieldSchema == rel.Schema && len(rel.References) == len(r.References) {
+				matched := true
+				for idx, ref := range r.References {
+					if !(rel.References[idx].PrimaryKey == ref.PrimaryKey && rel.References[idx].ForeignKey == ref.ForeignKey &&
+						rel.References[idx].PrimaryValue == ref.PrimaryValue) {
+						matched = false
+					}
+				}
+
+				if matched {
+					return nil
+				}
+			}
+		}
 	}
 
 	var (

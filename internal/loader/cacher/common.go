@@ -71,3 +71,23 @@ func (c *Cacher) GetYearSummary() (data []model.YearSummary, meta map[string]int
 func (c *Cacher) Enqueue(t string, id int) (int, error) {
 	return c.api.Enqueue(t, id)
 }
+
+// GetStatsHistory to get entry stats history.
+func (c *Cacher) GetStatsHistory(t string, id int) (data []model.StatsHistory, code int, err error) {
+	// Get from cache.
+	key := constant.GetKey(constant.KeyStatsHistory, t, id)
+	if c.cacher.Get(key, &data) == nil {
+		return data, http.StatusOK, nil
+	}
+
+	// Query db.
+	data, code, err = c.api.GetStatsHistory(t, id)
+	if err != nil {
+		return nil, code, err
+	}
+
+	// Save to cache. Won't return error.
+	_ = c.cacher.Set(key, data)
+
+	return data, http.StatusOK, nil
+}

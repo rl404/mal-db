@@ -378,6 +378,25 @@ definitions:
       summary:
         $ref: '#/definitions/model.Summary'
     type: object
+  model.StatsHistory:
+    properties:
+      favorite:
+        type: integer
+      member:
+        type: integer
+      month:
+        type: integer
+      popularity:
+        type: integer
+      rank:
+        type: integer
+      score:
+        type: number
+      voter:
+        type: integer
+      year:
+        type: integer
+    type: object
   model.Summary:
     properties:
       completed:
@@ -1417,6 +1436,43 @@ paths:
       summary: Search people
       tags:
       - search
+  /stats/history/{type}/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Entry type
+        enum:
+        - anime
+        - manga
+        - character
+        - people
+        in: path
+        name: type
+        required: true
+        type: string
+      - description: Entry ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/utils.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/model.StatsHistory'
+                  type: array
+              type: object
+      summary: Entry stats history
+      tags:
+      - common
   /summary/total:
     get:
       consumes:

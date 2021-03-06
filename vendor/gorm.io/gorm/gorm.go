@@ -56,6 +56,29 @@ type Config struct {
 	cacheStore *sync.Map
 }
 
+func (c *Config) Apply(config *Config) error {
+	if config != c {
+		*config = *c
+	}
+	return nil
+}
+
+func (c *Config) AfterInitialize(db *DB) error {
+	if db != nil {
+		for _, plugin := range c.Plugins {
+			if err := plugin.Initialize(db); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
+}
+
+type Option interface {
+	Apply(*Config) error
+	AfterInitialize(*DB) error
+}
+
 // DB GORM DB definition
 type DB struct {
 	*Config
@@ -83,9 +106,18 @@ type Session struct {
 }
 
 // Open initialize db session based on dialector
-func Open(dialector Dialector, config *Config) (db *DB, err error) {
-	if config == nil {
-		config = &Config{}
+func Open(dialector Dialector, opts ...Option) (db *DB, err error) {
+	config := &Config{}
+
+	for _, opt := range opts {
+		if opt != nil {
+			if err := opt.Apply(config); err != nil {
+				return nil, err
+			}
+			defer func() {
+				opt.AfterInitialize(db)
+			}()
+		}
 	}
 
 	if config.NamingStrategy == nil {
@@ -167,7 +199,6 @@ func (db *DB) Session(config *Session) *DB {
 			clone:     1,
 		}
 	)
-
 	if config.CreateBatchSize > 0 {
 		tx.Config.CreateBatchSize = config.CreateBatchSize
 	}

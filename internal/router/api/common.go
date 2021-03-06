@@ -3,6 +3,7 @@ package api
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	"github.com/go-chi/chi"
 	"github.com/rl404/mal-db/internal/loader/api"
@@ -18,6 +19,7 @@ func registerCommon(r chi.Router, api api.API) {
 	r.Get("/summary/total", s.getEntryCount)
 	r.Get("/summary/year", s.getYearSummary)
 	r.Post("/enqueue", s.enqueue)
+	r.Get("/stats/history/{type}/{id}", s.getStatsHistory)
 }
 
 // @summary Get all entry count
@@ -62,4 +64,19 @@ func (c *common) enqueue(w http.ResponseWriter, r *http.Request) {
 	}
 	code, err := c.api.Enqueue(request.Type, request.ID)
 	utils.ResponseWithJSON(w, code, nil, err, nil)
+}
+
+// @summary Entry stats history
+// @tags common
+// @accept json
+// @produce json
+// @param type path string true "Entry type" enums(anime,manga,character,people)
+// @param id path integer true "Entry ID"
+// @success 200 {object} utils.Response{data=[]model.StatsHistory}
+// @router /stats/history/{type}/{id} [get]
+func (c *common) getStatsHistory(w http.ResponseWriter, r *http.Request) {
+	t := chi.URLParam(r, "type")
+	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
+	data, code, err := c.api.GetStatsHistory(t, id)
+	utils.ResponseWithJSON(w, code, data, err, nil)
 }
