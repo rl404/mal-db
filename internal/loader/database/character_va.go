@@ -33,7 +33,7 @@ func (d *Database) GetCharacterVA(id int, page int, limit int) (roles []model.Ro
 		Select("ac.people_id as id, p.name, p.image_url as image, l.language as role").
 		Joins(fmt.Sprintf("left join %s as p on p.id = ac.people_id", raw.People{}.TableName())).
 		Joins(fmt.Sprintf("left join %s as l on l.id = ac.language_id", raw.Language{}.TableName())).
-		Where("ac.character_id = ?", id).
+		Where("ac.character_id = ? and p.id != 0", id).
 		Group("ac.people_id, p.name, p.image_url, ac.language_id, l.language").
 		Order("ac.language_id asc, ac.people_id asc").
 		Find(&roles).Error
