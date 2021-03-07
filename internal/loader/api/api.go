@@ -27,4 +27,5 @@ type API interface {
 	GetYearSummary() ([]model.YearSummary, map[string]interface{}, int, error)
 	Enqueue(_type string, id int) (int, error)
 	GetStatsHistory(_type string, id int) ([]model.StatsHistory, int, error)
+	CompareScore(query model.CompareQuery) ([]model.ScoreComparison, map[string]interface{}, int, error)
 }

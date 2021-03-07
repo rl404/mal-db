@@ -28,6 +28,7 @@ const (
 	KeyTotal            = "mal:2:total"
 	KeyYearSummary      = "mal:2:year-summary"
 	KeyStatsHistory     = "mal:2:stats-history"
+	KeyScoreComparison  = "mal:2:score-compare"
 )
 
 // GetKey to generate cache key.

@@ -2,11 +2,14 @@ package database
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 
 	"github.com/rl404/go-malscraper/pkg/utils"
+	"github.com/rl404/mal-db/internal/constant"
 	_errors "github.com/rl404/mal-db/internal/errors"
 	"github.com/rl404/mal-db/internal/model"
+	"github.com/rl404/mal-db/internal/model/join"
 	"github.com/rl404/mal-db/internal/model/raw"
 	"gorm.io/gorm"
 )
@@ -75,4 +78,93 @@ func (d *Database) GetStatsHistory(t string, id int) ([]model.StatsHistory, int,
 	}
 
 	return history, http.StatusOK, nil
+}
+
+// CompareScore to get entry score comparison.
+func (d *Database) CompareScore(query model.CompareQuery) ([]model.ScoreComparison, map[string]interface{}, int, error) {
+	if query.Order != "" {
+		sort := " asc"
+		if query.Order[0] == '-' {
+			sort = " desc"
+			query.Order = query.Order[1:]
+		}
+		query.Order = "m." + query.Order + sort
+	} else {
+		query.Order = "m.title asc"
+	}
+
+	rows, err := d.db.Table(fmt.Sprintf("%s as m", raw.Manga{}.TableName())).
+		Select("m.id as n_id, m.title as n_title, m.score as n_score, a.id as a_id, a.title as a_title, a.score as a_score, m2.id as m_id, m2.title as m_title, m2.score as m_score").
+		Joins(fmt.Sprintf("left join %s as mr on m.id = mr.media_id", raw.MediaRelated{}.TableName())).
+		Joins(fmt.Sprintf("left join %s as a on a.id = mr.related_id and mr.related_type = ?", raw.Anime{}.TableName()), constant.AnimeType).
+		Joins(fmt.Sprintf("left join %s as m2 on m2.id = mr.related_id and mr.related_type = ?", raw.Manga{}.TableName()), constant.MangaType).
+		Where("lower(m.title) like ? and mr.media_type = ? and (m.manga_type_id = ? or m.manga_type_id = ?) and (mr.related_type_id = ? or mr.related_type_id = 4)", "%"+query.Title+"%", constant.MangaType, 2, 8, 11, 4).
+		Order(query.Order + ", m.title, a.title, m2.title").
+		Rows()
+	if err != nil {
+		return nil, nil, http.StatusInternalServerError, err
+	}
+	defer rows.Close()
+
+	scores := []model.ScoreComparison{}
+	novelMap := make(map[int]*model.ScoreComparison)
+	animeMap := make(map[int][]model.EntryScore)
+	mangaMap := make(map[int][]model.EntryScore)
+	for rows.Next() {
+		var tmp join.ScoreComparison
+		if err = d.db.ScanRows(rows, &tmp); err != nil {
+			return nil, nil, http.StatusInternalServerError, err
+		}
+
+		if novelMap[tmp.NID] == nil {
+			nTmp := model.EntryScore{
+				ID:    tmp.NID,
+				Title: tmp.NTitle,
+				Type:  constant.MangaType,
+				Score: tmp.NScore,
+			}
+			novelMap[tmp.NID] = &model.ScoreComparison{
+				Novel: []model.EntryScore{nTmp},
+			}
+			scores = append(scores, model.ScoreComparison{
+				Novel: []model.EntryScore{nTmp},
+				Anime: []model.EntryScore{},
+				Manga: []model.EntryScore{},
+			})
+		}
+
+		if tmp.AID != 0 {
+			animeMap[tmp.NID] = append(animeMap[tmp.NID], model.EntryScore{
+				ID:    tmp.AID,
+				Title: tmp.ATitle,
+				Type:  constant.AnimeType,
+				Score: tmp.AScore,
+			})
+		}
+
+		if tmp.MID != 0 {
+			mangaMap[tmp.NID] = append(mangaMap[tmp.NID], model.EntryScore{
+				ID:    tmp.MID,
+				Title: tmp.MTitle,
+				Type:  constant.MangaType,
+				Score: tmp.MScore,
+			})
+		}
+	}
+
+	for i, s := range scores {
+		if len(animeMap[s.Novel[0].ID]) > 0 {
+			scores[i].Anime = animeMap[s.Novel[0].ID]
+		}
+		if len(mangaMap[s.Novel[0].ID]) > 0 {
+			scores[i].Manga = mangaMap[s.Novel[0].ID]
+		}
+	}
+
+	// Prepare meta.
+	meta := map[string]interface{}{
+		"count": len(scores),
+	}
+
+	return scores, meta, http.StatusOK, nil
 }

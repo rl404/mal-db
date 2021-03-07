@@ -1005,6 +1005,42 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Score Comparison",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/compare/score?title=mono&order=-score&page=1&limit=20",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"compare",
+								"score"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "mono"
+								},
+								{
+									"key": "order",
+									"value": "-score"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

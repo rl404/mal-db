@@ -51,3 +51,38 @@ func (v *Validator) GetStatsHistory(t string, id int) ([]model.StatsHistory, int
 	}
 	return v.api.GetStatsHistory(t, id)
 }
+
+// CompareScore to get entry score comparison.
+func (v *Validator) CompareScore(query model.CompareQuery) ([]model.ScoreComparison, map[string]interface{}, int, error) {
+	if len(query.Title) > 0 && len(query.Title) < 3 {
+		return nil, nil, http.StatusBadRequest, errors.Err3LettersSearch
+	}
+	if query.Page <= 0 {
+		return nil, nil, http.StatusBadRequest, errors.ErrInvalidPage
+	}
+	if query.Limit <= 0 {
+		return nil, nil, http.StatusBadRequest, errors.ErrInvalidLimit
+	}
+	if query.Order != "" && !utils.InArrayStr(constant.Orders, query.Order) {
+		return nil, nil, http.StatusBadRequest, errors.ErrInvalidOrder
+	}
+
+	// Get data.
+	data, meta, code, err := v.api.CompareScore(query)
+	if err != nil {
+		return nil, nil, code, err
+	}
+
+	// Handle pagination.
+	start, current := query.Limit*(query.Page-1), len(data)-(query.Page-1)*query.Limit
+	if current <= 0 {
+		data = []model.ScoreComparison{}
+	} else {
+		if current < query.Limit {
+			query.Limit = current
+		}
+		data = data[start : start+query.Limit]
+	}
+
+	return data, meta, http.StatusOK, nil
+}

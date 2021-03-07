@@ -144,6 +144,17 @@ definitions:
       type:
         type: string
     type: object
+  model.EntryScore:
+    properties:
+      id:
+        type: integer
+      score:
+        type: number
+      title:
+        type: string
+      type:
+        type: string
+    type: object
   model.Item:
     properties:
       id:
@@ -341,6 +352,21 @@ definitions:
         $ref: '#/definitions/model.ScoreDetail'
       "10":
         $ref: '#/definitions/model.ScoreDetail'
+    type: object
+  model.ScoreComparison:
+    properties:
+      anime:
+        items:
+          $ref: '#/definitions/model.EntryScore'
+        type: array
+      manga:
+        items:
+          $ref: '#/definitions/model.EntryScore'
+        type: array
+      novel:
+        items:
+          $ref: '#/definitions/model.EntryScore'
+        type: array
     type: object
   model.ScoreDetail:
     properties:
@@ -720,6 +746,49 @@ paths:
       summary: Get character voice actor list
       tags:
       - character
+  /compare/score:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Manga title
+        in: query
+        name: title
+        type: string
+      - description: Order (negative means descending)
+        enum:
+        - title
+        - -title
+        - score
+        - -score
+        in: query
+        name: order
+        type: string
+      - description: Page
+        in: query
+        name: page
+        type: integer
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/utils.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/model.ScoreComparison'
+                  type: array
+              type: object
+      summary: Entry stats history
+      tags:
+      - common
   /enqueue:
     post:
       consumes:

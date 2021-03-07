@@ -119,3 +119,26 @@ type StatsHistory struct {
 	Member     int     `json:"member"`
 	Favorite   int     `json:"favorite"`
 }
+
+// CompareQuery represents score comparison query.
+type CompareQuery struct {
+	Title string
+	Order string
+	Page  int
+	Limit int
+}
+
+// ScoreComparison represents entry score comparison.
+type ScoreComparison struct {
+	Novel []EntryScore `json:"novel"`
+	Anime []EntryScore `json:"anime"`
+	Manga []EntryScore `json:"manga"`
+}
+
+// EntryScore represents simple entry score.
+type EntryScore struct {
+	ID    int     `json:"id"`
+	Title string  `json:"title"`
+	Type  string  `json:"type"`
+	Score float64 `json:"score"`
+}

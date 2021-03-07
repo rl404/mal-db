@@ -438,6 +438,75 @@
                 }
             }
         },
+        "/compare/score": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "common"
+                ],
+                "summary": "Entry stats history",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Manga title",
+                        "name": "title",
+                        "in": "query"
+                    },
+                    {
+                        "enum": [
+                            "title",
+                            "-title",
+                            "score",
+                            "-score"
+                        ],
+                        "type": "string",
+                        "description": "Order (negative means descending)",
+                        "name": "order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Limit",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/utils.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/model.ScoreComparison"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/enqueue": {
             "post": {
                 "consumes": [
@@ -1916,6 +1985,23 @@
                 }
             }
         },
+        "model.EntryScore": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "score": {
+                    "type": "number"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
         "model.Item": {
             "type": "object",
             "properties": {
@@ -2214,6 +2300,29 @@
                 },
                 "9": {
                     "$ref": "#/definitions/model.ScoreDetail"
+                }
+            }
+        },
+        "model.ScoreComparison": {
+            "type": "object",
+            "properties": {
+                "anime": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.EntryScore"
+                    }
+                },
+                "manga": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.EntryScore"
+                    }
+                },
+                "novel": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.EntryScore"
+                    }
                 }
             }
         },

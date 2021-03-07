@@ -221,3 +221,6 @@ var Orders = []string{OrderMemberA, OrderMemberD, OrderTitleA, OrderTitleD, Orde
 
 // Orders2 is character & people search order.
 var Orders2 = []string{OrderNameA, OrderNameD, OrderFavoriteA, OrderFavoriteD}
+
+// Orders3 is score comparison order.
+var Orders3 = []string{OrderTitleA, OrderTitleD, OrderScoreA, OrderScoreD}

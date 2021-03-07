@@ -91,3 +91,30 @@ func (c *Cacher) GetStatsHistory(t string, id int) (data []model.StatsHistory, c
 
 	return data, http.StatusOK, nil
 }
+
+// CompareScore to get entry score comparison.
+func (c *Cacher) CompareScore(query model.CompareQuery) ([]model.ScoreComparison, map[string]interface{}, int, error) {
+	// Cache model.
+	var data struct {
+		Data []model.ScoreComparison
+		Meta map[string]interface{}
+	}
+
+	// Get from cache.
+	key := constant.GetKey(constant.KeyScoreComparison, query.Order, query.Title)
+	if c.cacher.Get(key, &data) == nil {
+		return data.Data, data.Meta, http.StatusOK, nil
+	}
+
+	// Query db.
+	d, meta, code, err := c.api.CompareScore(query)
+	if err != nil {
+		return nil, nil, code, err
+	}
+
+	// Save to cache. Won't return error.
+	data.Data, data.Meta = d, meta
+	_ = c.cacher.Set(key, data)
+
+	return d, meta, http.StatusOK, nil
+}

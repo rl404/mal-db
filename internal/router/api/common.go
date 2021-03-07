@@ -7,6 +7,7 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/rl404/mal-db/internal/loader/api"
+	"github.com/rl404/mal-db/internal/model"
 	"github.com/rl404/mal-db/internal/pkg/utils"
 )
 
@@ -20,6 +21,7 @@ func registerCommon(r chi.Router, api api.API) {
 	r.Get("/summary/year", s.getYearSummary)
 	r.Post("/enqueue", s.enqueue)
 	r.Get("/stats/history/{type}/{id}", s.getStatsHistory)
+	r.Get("/compare/score", s.compareScore)
 }
 
 // @summary Get all entry count
@@ -79,4 +81,24 @@ func (c *common) getStatsHistory(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
 	data, code, err := c.api.GetStatsHistory(t, id)
 	utils.ResponseWithJSON(w, code, data, err, nil)
+}
+
+// @summary Entry stats history
+// @tags common
+// @accept json
+// @produce json
+// @param title query string false "Manga title"
+// @param order query string false "Order (negative means descending)" Enums(title,-title,score,-score)
+// @param page query integer false "Page"
+// @param limit query integer false "Limit"
+// @success 200 {object} utils.Response{data=[]model.ScoreComparison}
+// @router /compare/score [get]
+func (c *common) compareScore(w http.ResponseWriter, r *http.Request) {
+	var query model.CompareQuery
+	query.Title = r.URL.Query().Get("title")
+	query.Order = r.URL.Query().Get("order")
+	query.Page, _ = strconv.Atoi(utils.GetQuery(r, "page", "1"))
+	query.Limit, _ = strconv.Atoi(utils.GetQuery(r, "limit", "20"))
+	data, meta, code, err := c.api.CompareScore(query)
+	utils.ResponseWithJSON(w, code, data, err, meta)
 }
