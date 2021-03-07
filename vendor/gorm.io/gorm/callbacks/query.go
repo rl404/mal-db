@@ -159,6 +159,7 @@ func BuildQuerySQL(db *gorm.DB) {
 				}
 			}
 
+			db.Statement.Joins = nil
 			db.Statement.AddClause(clause.From{Joins: joins})
 		} else {
 			db.Statement.AddClauseIfNotExists(clause.From{})

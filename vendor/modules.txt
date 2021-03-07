@@ -39,7 +39,7 @@ github.com/go-openapi/jsonreference
 github.com/go-openapi/spec
 # github.com/go-openapi/swag v0.19.14
 github.com/go-openapi/swag
-# github.com/go-redis/redis/v8 v8.7.0
+# github.com/go-redis/redis/v8 v8.7.1
 ## explicit
 github.com/go-redis/redis/v8
 github.com/go-redis/redis/v8/internal
@@ -181,7 +181,6 @@ go.opentelemetry.io/otel/trace
 ## explicit
 golang.org/x/crypto/pbkdf2
 # golang.org/x/net v0.0.0-20210226172049-e18ecbb05110
-## explicit
 golang.org/x/net/html
 golang.org/x/net/html/atom
 golang.org/x/net/idna
@@ -218,7 +217,7 @@ gopkg.in/yaml.v2
 # gorm.io/driver/postgres v1.0.8
 ## explicit
 gorm.io/driver/postgres
-# gorm.io/gorm v1.21.2
+# gorm.io/gorm v1.21.3-0.20210307025900-a3abb5fedf1a
 ## explicit
 gorm.io/gorm
 gorm.io/gorm/callbacks
