@@ -40,7 +40,6 @@ github.com/go-openapi/spec
 # github.com/go-openapi/swag v0.19.14
 github.com/go-openapi/swag
 # github.com/go-redis/redis/v8 v8.7.1
-## explicit
 github.com/go-redis/redis/v8
 github.com/go-redis/redis/v8/internal
 github.com/go-redis/redis/v8/internal/hashtag
@@ -121,7 +120,7 @@ github.com/rl404/go-malscraper/internal/validator
 github.com/rl404/go-malscraper/model
 github.com/rl404/go-malscraper/pkg/utils
 github.com/rl404/go-malscraper/service
-# github.com/rl404/mal-plugin v0.3.1
+# github.com/rl404/mal-plugin v0.3.2
 ## explicit
 github.com/rl404/mal-plugin/cache
 github.com/rl404/mal-plugin/cache/bigcache

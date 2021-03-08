@@ -333,6 +333,8 @@ github.com/rl404/go-malscraper v1.2.5 h1:3KC3YXswyDJszuylKhpQuU0+sb8Fw6+FkgXS7Td
 github.com/rl404/go-malscraper v1.2.5/go.mod h1:+uFkNrSVs1+fbUGXzKDKCUzjBmNz+qIPhAcTkgIhd9w=
 github.com/rl404/mal-plugin v0.3.1 h1:L0bhO2XkmfR0ph4Cu6jWhvjTirnw7ZcpWeaLZDYusUY=
 github.com/rl404/mal-plugin v0.3.1/go.mod h1:pSZtbWtJYYZxD6udhS4eIxJaYxIhTGexK++Ddwcy23A=
+github.com/rl404/mal-plugin v0.3.2 h1:+vOjzK23P3CoP8qA00YSJYJBkpyn/03LKPuTK/iGWSM=
+github.com/rl404/mal-plugin v0.3.2/go.mod h1:UuLctIc2YzYPG3cAYMKE7zhZa1xb7wkCXKpHFfu9bSk=
 github.com/rogpeppe/fastuuid v0.0.0-20150106093220-6724a57986af/go.mod h1:XWv6SoW27p1b0cqNHllgS5HIMJraePCO15w5zCzIWYg=
 github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=
 github.com/rs/cors v1.7.0 h1:+88SsELBHx5r+hZ8TCkggzSstaWNbDvThkVK8H6f9ik=
