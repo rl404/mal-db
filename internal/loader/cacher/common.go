@@ -94,6 +94,8 @@ func (c *Cacher) GetStatsHistory(t string, id int) (data []model.StatsHistory, c
 
 // CompareScore to get entry score comparison.
 func (c *Cacher) CompareScore(query model.CompareQuery) ([]model.ScoreComparison, map[string]interface{}, int, error) {
+	return c.api.CompareScore(query)
+
 	// Cache model.
 	var data struct {
 		Data []model.ScoreComparison
