@@ -6,7 +6,7 @@ require (
 	github.com/PuerkitoBio/goquery v1.6.1
 	github.com/andybalholm/cascadia v1.2.0 // indirect
 	github.com/grokify/html-strip-tags-go v0.0.1
-	github.com/rl404/mal-plugin v0.3.1
+	github.com/rl404/mal-plugin v0.3.2
 	github.com/stretchr/objx v0.3.0 // indirect
 	github.com/stretchr/testify v1.7.0
 	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110 // indirect
