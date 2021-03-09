@@ -38,10 +38,10 @@ func New(l logger.Logger, c cacher.Cacher, db *gorm.DB, mal *malscraper.Malscrap
 }
 
 type queueLog struct {
-	Type      string
-	ID        int
-	Error     error
-	CreatedAt time.Time
+	Type      string    `json:"type"`
+	ID        int       `json:"id"`
+	Error     error     `json:"error"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 // Parse to parse entry.
