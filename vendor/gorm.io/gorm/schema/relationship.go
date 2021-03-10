@@ -3,7 +3,6 @@ package schema
 import (
 	"fmt"
 	"reflect"
-	"regexp"
 	"strings"
 
 	"github.com/jinzhu/inflection"
@@ -429,9 +428,7 @@ func (schema *Schema) guessRelation(relation *Relationship, field *Field, cgl gu
 
 			lookUpNames := []string{lookUpName}
 			if len(primaryFields) == 1 {
-				lookUpNames = append(lookUpNames, strings.TrimSuffix(lookUpName, primaryField.Name)+"ID")
-				lookUpNames = append(lookUpNames, strings.TrimSuffix(lookUpName, primaryField.Name)+"Id")
-				lookUpNames = append(lookUpNames, schema.namer.ColumnName(foreignSchema.Table, strings.TrimSuffix(lookUpName, primaryField.Name)+"ID"))
+				lookUpNames = append(lookUpNames, strings.TrimSuffix(lookUpName, primaryField.Name)+"ID", strings.TrimSuffix(lookUpName, primaryField.Name)+"Id", schema.namer.ColumnName(foreignSchema.Table, strings.TrimSuffix(lookUpName, primaryField.Name)+"ID"))
 			}
 
 			for _, name := range lookUpNames {
@@ -536,7 +533,11 @@ func (rel *Relationship) ParseConstraint() *Constraint {
 		settings = ParseTagSetting(str, ",")
 	)
 
-	if idx != -1 && regexp.MustCompile("^[A-Za-z-_]+$").MatchString(str[0:idx]) {
+	// optimize match english letters and midline
+	// The following code is basically called in for.
+	// In order to avoid the performance problems caused by repeated compilation of regular expressions,
+	// it only needs to be done once outside, so optimization is done here.
+	if idx != -1 && regEnLetterAndMidline.MatchString(str[0:idx]) {
 		name = str[0:idx]
 	} else {
 		name = rel.Schema.namer.RelationshipFKName(*rel)
