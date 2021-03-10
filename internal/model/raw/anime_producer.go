@@ -4,8 +4,8 @@ package raw
 type AnimeProducer struct {
 	AnimeID    int  `gorm:"primary_key"`
 	ProducerID int  `gorm:"primary_key"`
-	IsLicensor bool `gorm:"type:bool;default:false"`
-	IsStudio   bool `gorm:"type:bool;default:false"`
+	IsLicensor bool `gorm:"primary_key;type:bool;default:false"`
+	IsStudio   bool `gorm:"primary_key;type:bool;default:false"`
 }
 
 // TableName to get table name.
