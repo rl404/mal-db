@@ -16,6 +16,9 @@ type People struct {
 
 // VoiceActor represents voice actor model with their anime and character role.
 type VoiceActor struct {
-	Anime     Role `json:"anime"`
-	Character Role `json:"character"`
+	ID    int    `json:"id"`
+	Name  string `json:"name"`
+	Image string `json:"image"`
+	Role  string `json:"role"`
+	Anime []Role `json:"anime"`
 }

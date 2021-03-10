@@ -44,26 +44,38 @@ func (d *Database) GetPeopleVA(id int, page int, limit int) ([]model.VoiceActor,
 	defer rows.Close()
 
 	roles := []model.VoiceActor{}
+	charMap := make(map[int]int)
+	animeMap := make(map[int][]model.Role)
 	for rows.Next() {
 		var tmp join.PeopleVA
 		if err = d.db.ScanRows(rows, &tmp); err != nil {
 			return nil, nil, http.StatusInternalServerError, err
 		}
 
-		roles = append(roles, model.VoiceActor{
-			Anime: model.Role{
-				ID:    tmp.AID,
-				Name:  tmp.ATitle,
-				Image: tmp.AImage,
-				Role:  tmp.Role,
-			},
-			Character: model.Role{
+		charMap[tmp.CID]++
+
+		if charMap[tmp.CID] == 1 {
+			roles = append(roles, model.VoiceActor{
 				ID:    tmp.CID,
 				Name:  tmp.CName,
 				Image: tmp.CImage,
 				Role:  tmp.Language,
-			},
+				Anime: []model.Role{},
+			})
+		}
+
+		animeMap[tmp.CID] = append(animeMap[tmp.CID], model.Role{
+			ID:    tmp.AID,
+			Name:  tmp.ATitle,
+			Image: tmp.AImage,
+			Role:  tmp.Role,
 		})
+	}
+
+	for i, r := range roles {
+		if len(animeMap[r.ID]) != 0 {
+			roles[i].Anime = animeMap[r.ID]
+		}
 	}
 
 	// Prepare meta.
