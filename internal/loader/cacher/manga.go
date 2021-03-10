@@ -29,7 +29,7 @@ func (c *Cacher) GetManga(id int) (*model.Manga, map[string]interface{}, int, er
 
 	// Save to cache. Won't return error.
 	data.Data, data.Meta = d, meta
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 
 	return d, meta, http.StatusOK, nil
 }
@@ -56,7 +56,7 @@ func (c *Cacher) GetMangaCharacter(id int, page int, limit int) ([]model.Role, m
 
 	// Save to cache. Won't return error.
 	data.Data, data.Meta = d, meta
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 
 	return d, meta, http.StatusOK, nil
 }

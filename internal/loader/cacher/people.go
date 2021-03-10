@@ -29,7 +29,7 @@ func (c *Cacher) GetPeople(id int) (*model.People, map[string]interface{}, int, 
 
 	// Save to cache. Won't return error.
 	data.Data, data.Meta = d, meta
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 
 	return d, meta, http.StatusOK, nil
 }
@@ -56,7 +56,7 @@ func (c *Cacher) GetPeopleVA(id int, page int, limit int) ([]model.VoiceActor, m
 
 	// Save to cache. Won't return error.
 	data.Data, data.Meta = d, meta
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 
 	return d, meta, http.StatusOK, nil
 }
@@ -83,7 +83,7 @@ func (c *Cacher) GetPeopleStaff(id int, page int, limit int) ([]model.Role, map[
 
 	// Save to cache. Won't return error.
 	data.Data, data.Meta = d, meta
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 
 	return d, meta, http.StatusOK, nil
 }
@@ -110,7 +110,7 @@ func (c *Cacher) GetPeopleManga(id int, page int, limit int) ([]model.Role, map[
 
 	// Save to cache. Won't return error.
 	data.Data, data.Meta = d, meta
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 
 	return d, meta, http.StatusOK, nil
 }

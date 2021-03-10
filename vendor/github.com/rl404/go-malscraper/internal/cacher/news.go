@@ -22,7 +22,7 @@ func (c *Cacher) GetNews(id int) (data *model.News, code int, err error) {
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -41,7 +41,7 @@ func (c *Cacher) GetNewsList(page int, tag string) (data []model.NewsItem, code 
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -60,6 +60,6 @@ func (c *Cacher) GetNewsTag() (data *model.NewsTag, code int, err error) {
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }

@@ -22,7 +22,7 @@ func (c *Cacher) GetReview(id int) (data *model.Review, code int, err error) {
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -41,6 +41,6 @@ func (c *Cacher) GetReviews(t string, page int) (data []model.Review, code int, 
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }

@@ -22,7 +22,7 @@ func (c *Cacher) GetStats(t string, id int) (data *model.Stats, meta map[string]
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 
 	return data, meta, http.StatusOK, nil
 }
@@ -42,7 +42,7 @@ func (c *Cacher) GetEntryCount() (data *model.Total, meta map[string]interface{}
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 
 	return data, meta, http.StatusOK, nil
 }
@@ -62,7 +62,7 @@ func (c *Cacher) GetYearSummary() (data []model.YearSummary, meta map[string]int
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 
 	return data, meta, http.StatusOK, nil
 }
@@ -87,7 +87,7 @@ func (c *Cacher) GetStatsHistory(t string, id int) (data []model.StatsHistory, c
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 
 	return data, http.StatusOK, nil
 }
@@ -114,7 +114,7 @@ func (c *Cacher) CompareScore(query model.CompareQuery) ([]model.ScoreComparison
 
 	// Save to cache. Won't return error.
 	data.Data, data.Meta = d, meta
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 
 	return d, meta, http.StatusOK, nil
 }

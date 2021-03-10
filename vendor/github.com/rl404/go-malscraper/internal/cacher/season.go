@@ -22,6 +22,6 @@ func (c *Cacher) GetSeason(season string, year int) (data []model.AnimeItem, cod
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }

@@ -22,7 +22,7 @@ func (c *Cacher) GetUser(user string) (data *model.User, code int, err error) {
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -41,7 +41,7 @@ func (c *Cacher) GetUserStats(user string) (data *model.UserStats, code int, err
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -60,7 +60,7 @@ func (c *Cacher) GetUserFavorite(user string) (data *model.UserFavorite, code in
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -79,7 +79,7 @@ func (c *Cacher) GetUserFriend(user string, page int) (data []model.UserFriend, 
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -98,7 +98,7 @@ func (c *Cacher) GetUserHistory(user string, t string) (data []model.UserHistory
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -117,7 +117,7 @@ func (c *Cacher) GetUserReview(user string, page int) (data []model.Review, code
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -136,7 +136,7 @@ func (c *Cacher) GetUserRecommendation(user string, page int) (data []model.Reco
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -155,7 +155,7 @@ func (c *Cacher) GetUserClub(user string) (data []model.Item, code int, err erro
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -174,7 +174,7 @@ func (c *Cacher) GetUserAnime(query model.UserListQuery) (data []model.UserAnime
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -193,6 +193,6 @@ func (c *Cacher) GetUserManga(query model.UserListQuery) (data []model.UserManga
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }

@@ -22,7 +22,7 @@ func (c *Cacher) GetGenres(t string) (data []model.ItemCount, code int, err erro
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -41,7 +41,7 @@ func (c *Cacher) GetAnimeWithGenre(id int, page int) (data []model.AnimeItem, co
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -60,6 +60,6 @@ func (c *Cacher) GetMangaWithGenre(id int, page int) (data []model.MangaItem, co
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }

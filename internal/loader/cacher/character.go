@@ -29,7 +29,7 @@ func (c *Cacher) GetCharacter(id int) (*model.Character, map[string]interface{},
 
 	// Save to cache. Won't return error.
 	data.Data, data.Meta = d, meta
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 
 	return d, meta, http.StatusOK, nil
 }
@@ -56,7 +56,7 @@ func (c *Cacher) GetCharacterOgraphy(id int, t string, page int, limit int) ([]m
 
 	// Save to cache. Won't return error.
 	data.Data, data.Meta = d, meta
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 
 	return d, meta, http.StatusOK, nil
 }
@@ -83,7 +83,7 @@ func (c *Cacher) GetCharacterVA(id int, page int, limit int) ([]model.Role, map[
 
 	// Save to cache. Won't return error.
 	data.Data, data.Meta = d, meta
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 
 	return d, meta, http.StatusOK, nil
 }

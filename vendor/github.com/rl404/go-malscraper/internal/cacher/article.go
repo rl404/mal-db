@@ -22,7 +22,7 @@ func (c *Cacher) GetArticle(id int) (data *model.Article, code int, err error) {
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -41,7 +41,7 @@ func (c *Cacher) GetArticles(page int, tag string) (data []model.ArticleItem, co
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -60,6 +60,6 @@ func (c *Cacher) GetArticleTag() (data []model.ArticleTagItem, code int, err err
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }

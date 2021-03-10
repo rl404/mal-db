@@ -29,7 +29,7 @@ func (c *Cacher) GetProducerMagazine(t string) ([]model.Item, map[string]interfa
 
 	// Save to cache. Won't return error.
 	data.Data, data.Meta = d, meta
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 
 	return d, meta, http.StatusOK, nil
 }

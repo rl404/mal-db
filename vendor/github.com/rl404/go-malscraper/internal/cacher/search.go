@@ -32,7 +32,7 @@ func (c *Cacher) SearchCharacter(name string, page int) (data []model.CharacterS
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -51,7 +51,7 @@ func (c *Cacher) SearchPeople(name string, page int) (data []model.PeopleSearch,
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -70,7 +70,7 @@ func (c *Cacher) SearchClub(query model.ClubQuery) (data []model.ClubSearch, cod
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -89,6 +89,6 @@ func (c *Cacher) SearchUser(query model.UserQuery) (data []model.UserSearch, cod
 	}
 
 	// Save to cache. Won't return error.
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }

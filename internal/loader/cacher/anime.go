@@ -29,7 +29,7 @@ func (c *Cacher) GetAnime(id int) (*model.Anime, map[string]interface{}, int, er
 
 	// Save to cache. Won't return error.
 	data.Data, data.Meta = d, meta
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 
 	return d, meta, http.StatusOK, nil
 }
@@ -56,7 +56,7 @@ func (c *Cacher) GetAnimeCharacter(id int, page int, limit int) ([]model.AnimeCh
 
 	// Save to cache. Won't return error.
 	data.Data, data.Meta = d, meta
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 
 	return d, meta, http.StatusOK, nil
 }
@@ -83,7 +83,7 @@ func (c *Cacher) GetAnimeStaff(id int, page int, limit int) ([]model.Role, map[s
 
 	// Save to cache. Won't return error.
 	data.Data, data.Meta = d, meta
-	_ = c.cacher.Set(key, data)
+	go c.cacher.Set(key, data)
 
 	return d, meta, http.StatusOK, nil
 }
