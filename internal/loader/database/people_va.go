@@ -36,7 +36,7 @@ func (d *Database) GetPeopleVA(id int, page int, limit int) ([]model.VoiceActor,
 		Joins(fmt.Sprintf("left join %s as c on c.id = ac.character_id", raw.Character{}.TableName())).
 		Joins(fmt.Sprintf("left join %s as l on l.id = ac.language_id", raw.Language{}.TableName())).
 		Where("ac.people_id = ?", id).
-		Order("a.title asc, ac.role asc, c.name asc").
+		Order("c.name asc, a.title asc").
 		Rows()
 	if err != nil {
 		return nil, nil, http.StatusInternalServerError, err
