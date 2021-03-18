@@ -26,25 +26,7 @@ func (v *Validator) GetAnimeCharacter(id int, page int, limit int) ([]model.Anim
 	if limit <= 0 {
 		return nil, nil, http.StatusBadRequest, errors.ErrInvalidLimit
 	}
-
-	// Get data.
-	data, meta, code, err := v.api.GetAnimeCharacter(id, page, limit)
-	if err != nil {
-		return nil, nil, code, err
-	}
-
-	// Handle pagination.
-	start, current := limit*(page-1), len(data)-(page-1)*limit
-	if current <= 0 {
-		data = []model.AnimeCharacter{}
-	} else {
-		if current < limit {
-			limit = current
-		}
-		data = data[start : start+limit]
-	}
-
-	return data, meta, http.StatusOK, nil
+	return v.api.GetAnimeCharacter(id, page, limit)
 }
 
 // GetAnimeStaff to get anime staff list.

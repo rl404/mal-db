@@ -43,7 +43,7 @@ func (c *Cacher) GetAnimeCharacter(id int, page int, limit int) ([]model.AnimeCh
 	}
 
 	// Get from cache.
-	key := constant.GetKey(constant.KeyAnimeCharacter, id)
+	key := constant.GetKey(constant.KeyAnimeCharacter, id, limit, page)
 	if c.cacher.Get(key, &data) == nil {
 		return data.Data, data.Meta, http.StatusOK, nil
 	}

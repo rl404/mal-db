@@ -30,8 +30,18 @@ func (d *Database) GetAnimeCharacter(id int, page int, limit int) ([]model.Anime
 	}
 
 	// Prepare query.
-	rows, err := d.db.Table(fmt.Sprintf("%s as ac", raw.AnimeCharacter{}.TableName())).
+	subQuery := d.db.Table(fmt.Sprintf("%s as ac", raw.AnimeCharacter{}.TableName())).
+		Select("c.id").
+		Joins(fmt.Sprintf("left join %s as c on c.id = ac.character_id", raw.Character{}.TableName())).
+		Where("ac.anime_id = ?", id).
+		Order("ac.role asc, c.name asc").
+		Group("c.id, ac.role").
+		Limit(limit).
+		Offset(limit * (page - 1))
+
+	rows, err := d.db.Table("(?) as aa", subQuery).
 		Select("ac.character_id as c_id, c.name as c_name, c.image_url as c_image, ac.role, ac.language_id, ac.people_id as p_id, p.name as p_name, p.image_url as p_image").
+		Joins(fmt.Sprintf("left join %s as ac on aa.id = ac.character_id", raw.AnimeCharacter{}.TableName())).
 		Joins(fmt.Sprintf("left join %s as c on c.id = ac.character_id", raw.Character{}.TableName())).
 		Joins(fmt.Sprintf("left join %s as p on p.id = ac.people_id", raw.People{}.TableName())).
 		Where("ac.anime_id = ?", id).
