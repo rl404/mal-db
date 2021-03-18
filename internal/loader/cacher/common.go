@@ -101,7 +101,7 @@ func (c *Cacher) CompareScore(query model.CompareQuery) ([]model.ScoreComparison
 	}
 
 	// Get from cache.
-	key := constant.GetKey(constant.KeyScoreComparison, query.Order, query.Title)
+	key := constant.GetKey(constant.KeyScoreComparison, query.Order, query.Limit, query.Page, query.Title)
 	if c.cacher.Get(key, &data) == nil {
 		return data.Data, data.Meta, http.StatusOK, nil
 	}

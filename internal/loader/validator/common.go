@@ -66,23 +66,5 @@ func (v *Validator) CompareScore(query model.CompareQuery) ([]model.ScoreCompari
 	if query.Order != "" && !utils.InArrayStr(constant.Orders, query.Order) {
 		return nil, nil, http.StatusBadRequest, errors.ErrInvalidOrder
 	}
-
-	// Get data.
-	data, meta, code, err := v.api.CompareScore(query)
-	if err != nil {
-		return nil, nil, code, err
-	}
-
-	// Handle pagination.
-	start, current := query.Limit*(query.Page-1), len(data)-(query.Page-1)*query.Limit
-	if current <= 0 {
-		data = []model.ScoreComparison{}
-	} else {
-		if current < query.Limit {
-			query.Limit = current
-		}
-		data = data[start : start+query.Limit]
-	}
-
-	return data, meta, http.StatusOK, nil
+	return v.api.CompareScore(query)
 }

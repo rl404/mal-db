@@ -93,12 +93,24 @@ func (d *Database) CompareScore(query model.CompareQuery) ([]model.ScoreComparis
 		query.Order = "m.title asc"
 	}
 
-	rows, err := d.db.Table(fmt.Sprintf("%s as m", raw.Manga{}.TableName())).
-		Select("m.id as n_id, m.title as n_title, m.score as n_score, a.id as a_id, a.title as a_title, a.score as a_score, m2.id as m_id, m2.title as m_title, m2.score as m_score").
+	subQuery := d.db.Table(fmt.Sprintf("%s as m", raw.Manga{}.TableName())).
+		Select("m.id").
 		Joins(fmt.Sprintf("left join %s as mr on m.id = mr.media_id", raw.MediaRelated{}.TableName())).
 		Joins(fmt.Sprintf("left join %s as a on a.id = mr.related_id and mr.related_type = ?", raw.Anime{}.TableName()), constant.AnimeType).
 		Joins(fmt.Sprintf("left join %s as m2 on m2.id = mr.related_id and mr.related_type = ?", raw.Manga{}.TableName()), constant.MangaType).
-		Where("lower(m.title) like ? and mr.media_type = ? and (m.manga_type_id = ? or m.manga_type_id = ?) and (mr.related_type_id = ? or mr.related_type_id = 4)", "%"+query.Title+"%", constant.MangaType, 2, 8, 11, 4).
+		Where("lower(m.title) like ? and mr.media_type = ? and (m.manga_type_id = ? or m.manga_type_id = ?) and (mr.related_type_id = ? or mr.related_type_id = ?)", "%"+query.Title+"%", constant.MangaType, 2, 8, 11, 4).
+		Group("m.id").
+		Order(query.Order + ", m.title").
+		Limit(query.Limit).
+		Offset(query.Limit * (query.Page - 1))
+
+	rows, err := d.db.Table("(?) as mm", subQuery).
+		Select("m.id as n_id, m.title as n_title, m.score as n_score, a.id as a_id, a.title as a_title, a.score as a_score, m2.id as m_id, m2.title as m_title, m2.score as m_score").
+		Joins(fmt.Sprintf("left join %s as m on mm.id = m.id", raw.Manga{}.TableName())).
+		Joins(fmt.Sprintf("left join %s as mr on m.id = mr.media_id", raw.MediaRelated{}.TableName())).
+		Joins(fmt.Sprintf("left join %s as a on a.id = mr.related_id and mr.related_type = ?", raw.Anime{}.TableName()), constant.AnimeType).
+		Joins(fmt.Sprintf("left join %s as m2 on m2.id = mr.related_id and mr.related_type = ?", raw.Manga{}.TableName()), constant.MangaType).
+		Where("mr.media_type = ? and (mr.related_type_id = ? or mr.related_type_id = ?)", constant.MangaType, 11, 4).
 		Order(query.Order + ", m.title, a.title, m2.title").
 		Rows()
 	if err != nil {
