@@ -22,7 +22,7 @@ func (c *Cacher) GetProducers() (data []model.ItemCount, code int, err error) {
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -41,7 +41,7 @@ func (c *Cacher) GetProducer(id int, page int) (data []model.AnimeItem, code int
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -60,7 +60,7 @@ func (c *Cacher) GetMagazines() (data []model.ItemCount, code int, err error) {
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -79,6 +79,6 @@ func (c *Cacher) GetMagazine(id int, page int) (data []model.MangaItem, code int
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }

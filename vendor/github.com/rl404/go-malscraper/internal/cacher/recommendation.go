@@ -22,7 +22,7 @@ func (c *Cacher) GetRecommendation(rType string, id1, id2 int) (data *model.Reco
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -41,6 +41,6 @@ func (c *Cacher) GetRecommendations(t string, page int) (data []model.Recommenda
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }

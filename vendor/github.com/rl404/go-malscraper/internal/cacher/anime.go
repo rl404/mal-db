@@ -22,7 +22,7 @@ func (c *Cacher) GetAnime(id int) (data *model.Anime, code int, err error) {
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -41,7 +41,7 @@ func (c *Cacher) GetAnimeCharacter(id int) (data []model.CharacterItem, code int
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -60,7 +60,7 @@ func (c *Cacher) GetAnimeStaff(id int) (data []model.Role, code int, err error) 
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -79,7 +79,7 @@ func (c *Cacher) GetAnimeVideo(id int, page int) (data *model.Video, code int, e
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -98,7 +98,7 @@ func (c *Cacher) GetAnimeEpisode(id int, page int) (data []model.Episode, code i
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -117,7 +117,7 @@ func (c *Cacher) GetAnimeStats(id int) (data *model.Stats, code int, err error) 
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -136,7 +136,7 @@ func (c *Cacher) GetAnimeReview(id int, page int) (data []model.Review, code int
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -155,7 +155,7 @@ func (c *Cacher) GetAnimeRecommendation(id int) (data []model.Recommendation, co
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -174,7 +174,7 @@ func (c *Cacher) GetAnimeNews(id int) (data []model.NewsItem, code int, err erro
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -193,7 +193,7 @@ func (c *Cacher) GetAnimeArticle(id int) (data []model.ArticleItem, code int, er
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -212,7 +212,7 @@ func (c *Cacher) GetAnimeClub(id int) (data []model.ClubItem, code int, err erro
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -231,7 +231,7 @@ func (c *Cacher) GetAnimePicture(id int) (data []string, code int, err error) {
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -250,6 +250,6 @@ func (c *Cacher) GetAnimeMoreInfo(id int) (data string, code int, err error) {
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }

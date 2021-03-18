@@ -22,7 +22,7 @@ func (c *Cacher) GetCharacter(id int) (data *model.Character, code int, err erro
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -41,7 +41,7 @@ func (c *Cacher) GetCharacterArticle(id int) (data []model.ArticleItem, code int
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -60,7 +60,7 @@ func (c *Cacher) GetCharacterOgraphy(t string, id int) (data []model.Role, code 
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -79,7 +79,7 @@ func (c *Cacher) GetCharacterPicture(id int) (data []string, code int, err error
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -98,7 +98,7 @@ func (c *Cacher) GetCharacterClub(id int) (data []model.ClubItem, code int, err 
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -117,6 +117,6 @@ func (c *Cacher) GetCharacterVA(id int) (data []model.Role, code int, err error)
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }

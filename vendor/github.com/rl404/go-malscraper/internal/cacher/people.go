@@ -22,7 +22,7 @@ func (c *Cacher) GetPeople(id int) (data *model.People, code int, err error) {
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -41,7 +41,7 @@ func (c *Cacher) GetPeopleCharacter(id int) (data []model.PeopleCharacter, code 
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -60,7 +60,7 @@ func (c *Cacher) GetPeopleStaff(id int) (data []model.Role, code int, err error)
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -79,7 +79,7 @@ func (c *Cacher) GetPeopleManga(id int) (data []model.Role, code int, err error)
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -98,7 +98,7 @@ func (c *Cacher) GetPeopleNews(id int) (data []model.NewsItem, code int, err err
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -117,7 +117,7 @@ func (c *Cacher) GetPeopleArticle(id int) (data []model.ArticleItem, code int, e
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -136,6 +136,6 @@ func (c *Cacher) GetPeoplePicture(id int) (data []string, code int, err error) {
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }

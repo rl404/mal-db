@@ -22,7 +22,7 @@ func (c *Cacher) GetTopAnime(t int, page int) (data []model.TopAnime, code int, 
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -41,7 +41,7 @@ func (c *Cacher) GetTopManga(t int, page int) (data []model.TopManga, code int, 
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -60,7 +60,7 @@ func (c *Cacher) GetTopCharacter(page int) (data []model.TopCharacter, code int,
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -79,6 +79,6 @@ func (c *Cacher) GetTopPeople(page int) (data []model.TopPeople, code int, err e
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }

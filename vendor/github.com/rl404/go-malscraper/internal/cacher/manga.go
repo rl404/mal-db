@@ -22,7 +22,7 @@ func (c *Cacher) GetManga(id int) (data *model.Manga, code int, err error) {
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -41,7 +41,7 @@ func (c *Cacher) GetMangaReview(id int, page int) (data []model.Review, code int
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -60,7 +60,7 @@ func (c *Cacher) GetMangaRecommendation(id int) (data []model.Recommendation, co
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -79,7 +79,7 @@ func (c *Cacher) GetMangaStats(id int) (data *model.Stats, code int, err error) 
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -98,7 +98,7 @@ func (c *Cacher) GetMangaCharacter(id int) (data []model.Role, code int, err err
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -117,7 +117,7 @@ func (c *Cacher) GetMangaNews(id int) (data []model.NewsItem, code int, err erro
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -136,7 +136,7 @@ func (c *Cacher) GetMangaArticle(id int) (data []model.ArticleItem, code int, er
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -155,7 +155,7 @@ func (c *Cacher) GetMangaClub(id int) (data []model.ClubItem, code int, err erro
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -174,7 +174,7 @@ func (c *Cacher) GetMangaPicture(id int) (data []string, code int, err error) {
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }
 
@@ -193,6 +193,6 @@ func (c *Cacher) GetMangaMoreInfo(id int) (data string, code int, err error) {
 	}
 
 	// Save to cache. Won't return error.
-	go c.cacher.Set(key, data)
+	_ = c.cacher.Set(key, data)
 	return data, http.StatusOK, nil
 }

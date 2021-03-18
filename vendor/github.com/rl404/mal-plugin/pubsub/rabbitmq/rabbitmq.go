@@ -78,7 +78,7 @@ func (c *Client) Publish(queue string, data interface{}) error {
 		return err
 	}
 
-	q, err := ch.QueueDeclare(queue, false, false, false, false, nil)
+	q, err := ch.QueueDeclare(queue, true, false, false, false, nil)
 	if err != nil {
 		return err
 	}
@@ -134,7 +134,7 @@ func (c *Client) subscribe(queue string) (*Channel, error) {
 		return nil, err
 	}
 
-	_, err = ch.QueueDeclare(queue, false, false, false, false, nil)
+	_, err = ch.QueueDeclare(queue, true, false, false, false, nil)
 	if err != nil {
 		return nil, err
 	}
