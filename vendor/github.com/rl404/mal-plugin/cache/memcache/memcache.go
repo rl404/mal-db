@@ -41,7 +41,7 @@ func (c *Client) Set(key string, data interface{}) error {
 	return c.client.Set(&memcache.Item{
 		Key:        key,
 		Value:      d,
-		Expiration: int32(c.expiredTime),
+		Expiration: int32(c.expiredTime.Seconds()),
 	})
 }
 
