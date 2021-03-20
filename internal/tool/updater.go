@@ -36,11 +36,13 @@ func (m *Updater) Run() error {
 	today := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())
 	currentMonth := time.Date(now.Year(), now.Month(), 1, 0, 0, 0, 0, now.Location())
 
+	// Daily airing anime update.
 	var tmp raw.Anime
 	if !errors.Is(m.db.Select("id").Where("anime_status_id = ? and (updated_at < ? or updated_at is null)", 1, today).First(&tmp).Error, gorm.ErrRecordNotFound) {
 		return m.saver.Parse(constant.AnimeType, tmp.ID)
 	}
 
+	// Monthly data update.
 	for _, t := range constant.MainTypes {
 		switch t {
 		case constant.AnimeType:
@@ -66,5 +68,65 @@ func (m *Updater) Run() error {
 		}
 	}
 
+	// Fill missing data.
+	for _, t := range constant.MainTypes {
+		var maxID int
+		if err := m.db.Table(t).Select("max(id)").Row().Scan(&maxID); err != nil {
+			return err
+		}
+
+		entryMap := make(map[int]int)
+		if err := m.setEntryMap(t, entryMap); err != nil {
+			return err
+		}
+		if err := m.setEmptyMap(t, entryMap); err != nil {
+			return err
+		}
+
+		for id := 1; id < maxID; id++ {
+			if entryMap[id] == 0 {
+				return m.saver.Parse(t, id)
+			}
+		}
+	}
+
+	return nil
+}
+
+func (m *Updater) setEntryMap(t string, em map[int]int) error {
+	rows, err := m.db.Table(t).Select("id").Rows()
+	if err != nil {
+		return err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var tmp struct {
+			ID int
+		}
+		if err = m.db.ScanRows(rows, &tmp); err != nil {
+			return err
+		}
+		em[tmp.ID] = tmp.ID
+	}
+	return nil
+}
+
+func (m *Updater) setEmptyMap(t string, em map[int]int) error {
+	rows, err := m.db.Model(&raw.EmptyID{}).Where("type = ?", t).Select("id").Rows()
+	if err != nil {
+		return err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var tmp struct {
+			ID int
+		}
+		if err = m.db.ScanRows(rows, &tmp); err != nil {
+			return err
+		}
+		em[tmp.ID] = tmp.ID
+	}
 	return nil
 }
