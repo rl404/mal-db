@@ -26,23 +26,5 @@ func (v *Validator) GetMangaCharacter(id int, page int, limit int) ([]model.Role
 	if limit <= 0 {
 		return nil, nil, http.StatusBadRequest, errors.ErrInvalidLimit
 	}
-
-	// Get data.
-	data, meta, code, err := v.api.GetMangaCharacter(id, page, limit)
-	if err != nil {
-		return nil, nil, code, err
-	}
-
-	// Handle pagination.
-	start, current := limit*(page-1), len(data)-(page-1)*limit
-	if current <= 0 {
-		data = []model.Role{}
-	} else {
-		if current < limit {
-			limit = current
-		}
-		data = data[start : start+limit]
-	}
-
-	return data, meta, http.StatusOK, nil
+	return v.api.GetMangaCharacter(id, page, limit)
 }

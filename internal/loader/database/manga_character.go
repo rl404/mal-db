@@ -34,6 +34,8 @@ func (d *Database) GetMangaCharacter(id int, page int, limit int) (roles []model
 		Joins(fmt.Sprintf("left join %s as c on c.id = mc.character_id", raw.Character{}.TableName())).
 		Where("mc.manga_id = ?", id).
 		Order("mc.role asc, c.name asc").
+		Limit(limit).
+		Offset(limit * (page - 1)).
 		Find(&roles).Error
 	if err != nil {
 		return nil, nil, http.StatusInternalServerError, err

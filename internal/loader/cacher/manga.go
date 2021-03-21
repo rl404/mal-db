@@ -43,7 +43,7 @@ func (c *Cacher) GetMangaCharacter(id int, page int, limit int) ([]model.Role, m
 	}
 
 	// Get from cache.
-	key := constant.GetKey(constant.KeyMangaCharacter, id)
+	key := constant.GetKey(constant.KeyMangaCharacter, id, limit, page)
 	if c.cacher.Get(key, &data) == nil {
 		return data.Data, data.Meta, http.StatusOK, nil
 	}
