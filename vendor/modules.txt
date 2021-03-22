@@ -95,7 +95,7 @@ github.com/mailru/easyjson/jlexer
 github.com/mailru/easyjson/jwriter
 # github.com/nsqio/go-nsq v1.0.8
 github.com/nsqio/go-nsq
-# github.com/rl404/go-malscraper v1.2.7
+# github.com/rl404/go-malscraper v1.2.8
 ## explicit
 github.com/rl404/go-malscraper
 github.com/rl404/go-malscraper/errors
@@ -180,7 +180,6 @@ go.opentelemetry.io/otel/trace
 ## explicit
 golang.org/x/crypto/pbkdf2
 # golang.org/x/net v0.0.0-20210316092652-d523dce5a7f4
-## explicit
 golang.org/x/net/html
 golang.org/x/net/html/atom
 golang.org/x/net/idna
