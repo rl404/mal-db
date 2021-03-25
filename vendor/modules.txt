@@ -78,7 +78,6 @@ github.com/jackc/pgx/v4/stdlib
 # github.com/jinzhu/inflection v1.0.0
 github.com/jinzhu/inflection
 # github.com/jinzhu/now v1.1.2
-## explicit
 github.com/jinzhu/now
 # github.com/joho/godotenv v1.3.0
 ## explicit
@@ -215,7 +214,7 @@ gopkg.in/yaml.v2
 # gorm.io/driver/postgres v1.0.8
 ## explicit
 gorm.io/driver/postgres
-# gorm.io/gorm v1.21.4
+# gorm.io/gorm v1.21.5
 ## explicit
 gorm.io/gorm
 gorm.io/gorm/callbacks
