@@ -95,7 +95,7 @@ github.com/mailru/easyjson/jlexer
 github.com/mailru/easyjson/jwriter
 # github.com/nsqio/go-nsq v1.0.8
 github.com/nsqio/go-nsq
-# github.com/rl404/go-malscraper v1.2.8
+# github.com/rl404/go-malscraper v1.2.9
 ## explicit
 github.com/rl404/go-malscraper
 github.com/rl404/go-malscraper/errors
