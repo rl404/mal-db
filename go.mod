@@ -16,7 +16,7 @@ require (
 	github.com/spf13/cobra v1.1.3
 	github.com/swaggo/http-swagger v1.0.0
 	github.com/swaggo/swag v1.7.0
-	github.com/tidwall/gjson v1.7.3
+	github.com/tidwall/gjson v1.7.4
 	golang.org/x/crypto v0.0.0-20210317152858-513c2a44f670 // indirect
 	golang.org/x/sys v0.0.0-20210320140829-1e4c9ba3b0c4 // indirect
 	golang.org/x/tools v0.1.0 // indirect
