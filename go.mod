@@ -11,7 +11,7 @@ require (
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/rl404/go-malscraper v1.2.10
-	github.com/rl404/mal-plugin v0.3.5
+	github.com/rl404/mal-plugin v0.3.7
 	github.com/rs/cors v1.7.0
 	github.com/spf13/cobra v1.1.3
 	github.com/swaggo/http-swagger v1.0.0
