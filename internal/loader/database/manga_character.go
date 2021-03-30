@@ -29,21 +29,25 @@ func (d *Database) GetMangaCharacter(id int, page int, limit int) (roles []model
 	}
 
 	// Prepare query.
-	err = d.db.Table(fmt.Sprintf("%s as mc", raw.MangaCharacter{}.TableName())).
+	baseQuery := d.db.Table(fmt.Sprintf("%s as mc", raw.MangaCharacter{}.TableName())).
 		Select("mc.character_id as id, c.name, c.image_url as image, mc.role").
 		Joins(fmt.Sprintf("left join %s as c on c.id = mc.character_id", raw.Character{}.TableName())).
 		Where("mc.manga_id = ?", id).
 		Order("mc.role asc, c.name asc").
 		Limit(limit).
-		Offset(limit * (page - 1)).
-		Find(&roles).Error
-	if err != nil {
+		Offset(limit * (page - 1))
+
+	if err = baseQuery.Find(&roles).Error; err != nil {
 		return nil, nil, http.StatusInternalServerError, err
 	}
 
 	// Prepare meta.
+	var count int64
+	if err = baseQuery.Limit(-1).Offset(-1).Count(&count).Error; err != nil {
+		return nil, nil, http.StatusInternalServerError, err
+	}
 	meta = map[string]interface{}{
-		"count": len(roles),
+		"count": count,
 	}
 
 	return roles, meta, http.StatusOK, nil

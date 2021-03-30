@@ -90,8 +90,12 @@ func (d *Database) GetAnimeCharacter(id int, page int, limit int) ([]model.Anime
 	}
 
 	// Prepare meta.
+	var count int64
+	if err = subQuery.Limit(-1).Offset(-1).Count(&count).Error; err != nil {
+		return nil, nil, http.StatusInternalServerError, err
+	}
 	meta := map[string]interface{}{
-		"count": len(chars),
+		"count": count,
 	}
 
 	return chars, meta, http.StatusOK, nil
