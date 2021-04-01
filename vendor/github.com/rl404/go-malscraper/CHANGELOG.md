@@ -5,7 +5,50 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/rl404/go-malscraper/compare/v1.2.4...develop)
+## [Unreleased](https://github.com/rl404/go-malscraper/compare/v1.2.12...develop)
+
+## [1.2.12](https://github.com/rl404/go-malscraper/compare/v1.2.11...v1.2.12) - 2021-04-01
+
+### Changed
+
+- Disable github action auto tagging.
+
+
+## [1.2.11](https://github.com/rl404/go-malscraper/compare/v1.2.10...v1.2.11) - 2021-03-30
+
+### Changed
+
+- Updated dependencies.
+
+## [1.2.10](https://github.com/rl404/go-malscraper/compare/v1.2.9...v1.2.10) - 2021-03-28
+
+### Fixed
+
+- Season test checks member count.
+
+## [1.2.9](https://github.com/rl404/go-malscraper/compare/v1.2.8...v1.2.9) - 2021-03-25
+
+### Fixed
+
+- Search anime & manga test checks member count.
+
+## [1.2.8](https://github.com/rl404/go-malscraper/compare/v1.2.7...v1.2.8) - 2021-03-21
+
+### Changed
+
+- Updated dependencies.
+
+## [1.2.7](https://github.com/rl404/go-malscraper/compare/v1.2.6...v1.2.7) - 2021-03-19
+
+### Changed
+
+- Updated dependencies.
+
+## [1.2.6](https://github.com/rl404/go-malscraper/compare/v1.2.5...v1.2.6) - 2021-03-08
+
+### Changed
+
+- Updated dependencies.
 
 ## [1.2.5](https://github.com/rl404/go-malscraper/compare/v1.2.4...v1.2.5) - 2021-03-06
 

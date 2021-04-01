@@ -7,9 +7,9 @@ import (
 )
 
 type va struct {
-	area *goquery.Selection
+	area     *goquery.Selection
 	cleanImg bool
-	data []model.Role
+	data     []model.Role
 }
 
 // GetVA to get character voice actor list.

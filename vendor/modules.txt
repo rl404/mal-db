@@ -37,7 +37,8 @@ github.com/go-openapi/jsonreference
 # github.com/go-openapi/spec v0.20.3
 ## explicit
 github.com/go-openapi/spec
-# github.com/go-openapi/swag v0.19.14
+# github.com/go-openapi/swag v0.19.15
+## explicit
 github.com/go-openapi/swag
 # github.com/go-redis/redis/v8 v8.8.0
 github.com/go-redis/redis/v8
@@ -56,7 +57,7 @@ github.com/grokify/html-strip-tags-go
 github.com/inconshreveable/mousetrap
 # github.com/jackc/chunkreader/v2 v2.0.1
 github.com/jackc/chunkreader/v2
-# github.com/jackc/pgconn v1.8.0
+# github.com/jackc/pgconn v1.8.1
 github.com/jackc/pgconn
 github.com/jackc/pgconn/internal/ctxwatch
 github.com/jackc/pgconn/stmtcache
@@ -69,9 +70,10 @@ github.com/jackc/pgpassfile
 github.com/jackc/pgproto3/v2
 # github.com/jackc/pgservicefile v0.0.0-20200714003250-2b9c44734f2b
 github.com/jackc/pgservicefile
-# github.com/jackc/pgtype v1.6.2
+# github.com/jackc/pgtype v1.7.0
 github.com/jackc/pgtype
-# github.com/jackc/pgx/v4 v4.10.1
+# github.com/jackc/pgx/v4 v4.11.0
+## explicit
 github.com/jackc/pgx/v4
 github.com/jackc/pgx/v4/internal/sanitize
 github.com/jackc/pgx/v4/stdlib
@@ -94,7 +96,7 @@ github.com/mailru/easyjson/jlexer
 github.com/mailru/easyjson/jwriter
 # github.com/nsqio/go-nsq v1.0.8
 github.com/nsqio/go-nsq
-# github.com/rl404/go-malscraper v1.2.11
+# github.com/rl404/go-malscraper v1.2.12-0.20210401040210-79ce528515c6
 ## explicit
 github.com/rl404/go-malscraper
 github.com/rl404/go-malscraper/errors
@@ -174,16 +176,15 @@ go.opentelemetry.io/otel/metric/number
 go.opentelemetry.io/otel/metric/registry
 # go.opentelemetry.io/otel/trace v0.19.0
 go.opentelemetry.io/otel/trace
-# golang.org/x/crypto v0.0.0-20210317152858-513c2a44f670
-## explicit
+# golang.org/x/crypto v0.0.0-20210322153248-0c34fe9e7dc2
 golang.org/x/crypto/pbkdf2
-# golang.org/x/net v0.0.0-20210316092652-d523dce5a7f4
+# golang.org/x/net v0.0.0-20210331212208-0fccb6fa2b5c
 golang.org/x/net/html
 golang.org/x/net/html/atom
 golang.org/x/net/idna
 golang.org/x/net/webdav
 golang.org/x/net/webdav/internal/xml
-# golang.org/x/sys v0.0.0-20210320140829-1e4c9ba3b0c4
+# golang.org/x/sys v0.0.0-20210331175145-43e1dd70ce54
 ## explicit
 golang.org/x/sys/execabs
 # golang.org/x/text v0.3.5
@@ -206,9 +207,6 @@ golang.org/x/tools/go/ast/astutil
 golang.org/x/tools/go/buildutil
 golang.org/x/tools/go/internal/cgo
 golang.org/x/tools/go/loader
-# golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1
-golang.org/x/xerrors
-golang.org/x/xerrors/internal
 # gopkg.in/yaml.v2 v2.4.0
 gopkg.in/yaml.v2
 # gorm.io/driver/postgres v1.0.8

@@ -1,6 +1,8 @@
 package tool
 
 import (
+	"fmt"
+
 	"github.com/rl404/mal-db/internal/constant"
 	"github.com/rl404/mal-db/internal/logger"
 	"github.com/rl404/mal-db/internal/model/raw"
@@ -32,6 +34,8 @@ func (f *Filler) Run() error {
 		return err
 	}
 	for _, t := range constant.MainTypes {
+		t = "character"
+		cnt := 0
 		f.log.Info("%s %v", t, len(f.ids[t]))
 		for _, id := range f.ids[t] {
 			if err := f.ps.Publish(constant.PubSubTopic, pubsub.Message{
@@ -39,6 +43,11 @@ func (f *Filler) Run() error {
 				ID:   id,
 			}); err != nil {
 				return err
+			}
+			cnt++
+			fmt.Println(id)
+			if cnt > 1000 {
+				return nil
 			}
 		}
 	}
