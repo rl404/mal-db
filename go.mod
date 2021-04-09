@@ -24,5 +24,5 @@ require (
 	golang.org/x/text v0.3.6 // indirect
 	golang.org/x/tools v0.1.0 // indirect
 	gorm.io/driver/postgres v1.0.8
-	gorm.io/gorm v1.21.6
+	gorm.io/gorm v1.21.7
 )
