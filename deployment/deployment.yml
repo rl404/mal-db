@@ -32,7 +32,7 @@ spec:
         - name: mal-db-api
           image: rl404/mal-db:latest
           imagePullPolicy: IfNotPresent
-          command: ["/mal"]
+          command: ["./mal"]
           args: ["server"]
           ports:
             - containerPort: 8006
@@ -61,7 +61,7 @@ spec:
         - name: mal-db-worker
           image: rl404/mal-db:latest
           imagePullPolicy: IfNotPresent
-          command: ["/mal"]
+          command: ["./mal"]
           args: ["worker"]
           envFrom:
             - secretRef:
@@ -87,7 +87,7 @@ spec:
             - name: mal-db-cron
               image: rl404/mal-db:latest
               imagePullPolicy: IfNotPresent
-              command: ["/mal"]
+              command: ["./mal"]
               args: ["tools", "updater"]
               envFrom:
               - secretRef:

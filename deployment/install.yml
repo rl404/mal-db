@@ -4,7 +4,7 @@ services:
   mal-db-install:
     container_name: mal-db-install
     image: mal-db:latest
-    command: /mal install
+    command: ./mal install
     build:
       context: ./..
       dockerfile: ./build/package/Dockerfile
