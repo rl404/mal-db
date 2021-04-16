@@ -1043,6 +1043,61 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Image",
+			"item": [
+				{
+					"name": "Anime",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/image/anime/:id",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"image",
+								"anime",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Manga",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mal-db-url}}/image/manga/:id",
+							"host": [
+								"{{mal-db-url}}"
+							],
+							"path": [
+								"image",
+								"manga",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [

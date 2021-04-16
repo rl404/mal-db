@@ -6,16 +6,16 @@ import (
 	"strconv"
 
 	"github.com/go-chi/chi"
-	"github.com/rl404/mal-db/internal/loader/api"
+	"github.com/rl404/mal-db/internal/loader"
 	"github.com/rl404/mal-db/internal/model"
 	"github.com/rl404/mal-db/internal/pkg/utils"
 )
 
 type common struct {
-	api api.API
+	api loader.API
 }
 
-func registerCommon(r chi.Router, api api.API) {
+func registerCommon(r chi.Router, api loader.API) {
 	s := common{api: api}
 	r.Get("/summary/total", s.getEntryCount)
 	r.Get("/summary/year", s.getYearSummary)

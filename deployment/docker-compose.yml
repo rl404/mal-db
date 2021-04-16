@@ -4,7 +4,7 @@ services:
   mal-db-api:
     container_name: mal-db-api
     image: mal-db:latest
-    command: /mal server
+    command: ./mal server
     build:
       context: ./..
       dockerfile: ./build/package/Dockerfile
@@ -17,7 +17,7 @@ services:
   mal-db-worker:
     container_name: mal-db-worker
     image: mal-db:latest
-    command: /mal worker
+    command: ./mal worker
     build:
       context: ./..
       dockerfile: ./build/package/Dockerfile

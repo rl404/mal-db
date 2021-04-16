@@ -1,7 +1,10 @@
 package utils
 
 import (
+	"bytes"
 	"encoding/json"
+	"image"
+	"image/png"
 	"net/http"
 	"strconv"
 	"strings"
@@ -52,4 +55,25 @@ func GetQuery(r *http.Request, key string, defaultValue ...string) string {
 		return defaultValue[0]
 	}
 	return ""
+}
+
+// ResponseWithPNG to write response with PNG format.
+func ResponseWithPNG(w http.ResponseWriter, image image.Image, code int, err error) {
+	if err != nil {
+		ResponseWithJSON(w, code, nil, err)
+		return
+	}
+
+	buffer := new(bytes.Buffer)
+	if err := png.Encode(buffer, image); err != nil {
+		ResponseWithJSON(w, http.StatusInternalServerError, nil, err)
+		return
+	}
+
+	// Set response header.
+	w.Header().Set("Content-Type", "image/png")
+	w.Header().Set("Content-Length", strconv.Itoa(len(buffer.Bytes())))
+	w.WriteHeader(code)
+
+	_, _ = w.Write(buffer.Bytes())
 }

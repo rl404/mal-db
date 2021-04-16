@@ -3,9 +3,8 @@ package cacher
 import (
 	"time"
 
-	"github.com/rl404/go-malscraper/service"
 	"github.com/rl404/mal-db/internal/cacher"
-	"github.com/rl404/mal-db/internal/loader/api"
+	"github.com/rl404/mal-db/internal/loader"
 	"github.com/rl404/mal-db/internal/logger"
 )
 
@@ -13,11 +12,11 @@ import (
 type Cacher struct {
 	log    logger.Logger
 	cacher cacher.Cacher
-	api    api.API
+	api    loader.API
 }
 
 // New to create new cacher.
-func New(l logger.Logger, a api.API, c cacher.Cacher) api.API {
+func New(l logger.Logger, a loader.API, c cacher.Cacher) *Cacher {
 	return &Cacher{
 		log:    l,
 		cacher: newCacherLog(c, l),
@@ -28,14 +27,14 @@ func New(l logger.Logger, a api.API, c cacher.Cacher) api.API {
 // Simple cacher wrapper with log to prevent writing
 // repetitive log code.
 type cacherLog struct {
-	cacher service.Cacher
-	logger service.Logger
+	cacher cacher.Cacher
+	logger logger.Logger
 }
 
 // Testable time since func.
 var timeSince = time.Since
 
-func newCacherLog(c service.Cacher, l service.Logger) service.Cacher {
+func newCacherLog(c cacher.Cacher, l logger.Logger) cacher.Cacher {
 	return &cacherLog{
 		cacher: c,
 		logger: l,

@@ -5,15 +5,15 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/rl404/mal-db/internal/constant"
-	"github.com/rl404/mal-db/internal/loader/api"
+	"github.com/rl404/mal-db/internal/loader"
 	"github.com/rl404/mal-db/internal/pkg/utils"
 )
 
 type genre struct {
-	api api.API
+	api loader.API
 }
 
-func registerGenre(r chi.Router, api api.API) {
+func registerGenre(r chi.Router, api loader.API) {
 	g := genre{api: api}
 	r.Get("/genres/anime", g.getAnimeGenres)
 	r.Get("/genres/manga", g.getMangaGenres)

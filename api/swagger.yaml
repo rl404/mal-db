@@ -450,9 +450,17 @@ definitions:
   model.VoiceActor:
     properties:
       anime:
-        $ref: '#/definitions/model.Role'
-      character:
-        $ref: '#/definitions/model.Role'
+        items:
+          $ref: '#/definitions/model.Role'
+        type: array
+      id:
+        type: integer
+      image:
+        type: string
+      name:
+        type: string
+      role:
+        type: string
     type: object
   model.YearSummary:
     properties:
@@ -852,6 +860,36 @@ paths:
       summary: Get manga genre list
       tags:
       - genre
+  /image/anime/{id}:
+    get:
+      parameters:
+      - description: Anime ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - image/png
+      responses:
+        "200": {}
+      summary: Get anime card image.
+      tags:
+      - image
+  /image/manga/{id}:
+    get:
+      parameters:
+      - description: Manga ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - image/png
+      responses:
+        "200": {}
+      summary: Get manga card image.
+      tags:
+      - image
   /magazines:
     get:
       consumes:

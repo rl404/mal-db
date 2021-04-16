@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/rl404/mal-db/internal/constant"
-	"github.com/rl404/mal-db/internal/loader/api"
 	"github.com/rl404/mal-db/internal/logger"
 	"github.com/rl404/mal-db/internal/model/raw"
 	"github.com/rl404/mal-db/internal/pubsub"
@@ -21,7 +20,7 @@ type Database struct {
 }
 
 // New to create new database methods.
-func New(l logger.Logger, db *gorm.DB, ps pubsub.PubSub, ageLimit time.Duration) api.API {
+func New(l logger.Logger, db *gorm.DB, ps pubsub.PubSub, ageLimit time.Duration) *Database {
 	return &Database{
 		log:      l,
 		db:       db,

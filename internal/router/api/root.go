@@ -2,16 +2,16 @@ package api
 
 import (
 	"github.com/go-chi/chi"
-	"github.com/rl404/mal-db/internal/loader/api"
+	"github.com/rl404/mal-db/internal/loader"
 )
 
 // API is api router.
 type API struct {
-	api api.API
+	api loader.API
 }
 
 // New to create new api router.
-func New(api api.API) *API {
+func New(api loader.API) *API {
 	return &API{
 		api: api,
 	}

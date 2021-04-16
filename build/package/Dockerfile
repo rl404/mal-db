@@ -9,4 +9,6 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -mod ve
 # New stage from scratch
 FROM alpine:3.13
 RUN apk add --no-cache ca-certificates
-COPY --from=go_builder /go/src/github.com/rl404/mal-db/cmd/mal/mal mal
+COPY --from=go_builder /go/src/github.com/rl404/mal-db/cmd/mal/mal /cmd/mal/mal
+COPY --from=go_builder /go/src/github.com/rl404/mal-db/fonts/Roboto-Bold.ttf /fonts/Roboto-Bold.ttf
+WORKDIR /cmd/mal

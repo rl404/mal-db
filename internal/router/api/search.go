@@ -7,16 +7,16 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/rl404/mal-db/internal/constant"
-	"github.com/rl404/mal-db/internal/loader/api"
+	"github.com/rl404/mal-db/internal/loader"
 	"github.com/rl404/mal-db/internal/model"
 	"github.com/rl404/mal-db/internal/pkg/utils"
 )
 
 type search struct {
-	api api.API
+	api loader.API
 }
 
-func registerSearch(r chi.Router, api api.API) {
+func registerSearch(r chi.Router, api loader.API) {
 	s := search{api: api}
 	r.Get("/search", s.searchQuick)
 	r.Get("/search/anime", s.searchAnime)

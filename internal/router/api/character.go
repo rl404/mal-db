@@ -6,15 +6,15 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/rl404/mal-db/internal/constant"
-	"github.com/rl404/mal-db/internal/loader/api"
+	"github.com/rl404/mal-db/internal/loader"
 	"github.com/rl404/mal-db/internal/pkg/utils"
 )
 
 type character struct {
-	api api.API
+	api loader.API
 }
 
-func registerCharacter(r chi.Router, api api.API) {
+func registerCharacter(r chi.Router, api loader.API) {
 	c := character{api: api}
 	r.Get("/character/{id}", c.getCharacter)
 	r.Get("/character/{id}/anime", c.getCharacterAnime)

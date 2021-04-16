@@ -29,6 +29,10 @@ const (
 	KeyYearSummary      = "mal:2:year-summary"
 	KeyStatsHistory     = "mal:2:stats-history"
 	KeyScoreComparison  = "mal:2:score-compare"
+	KeyAnimeImage       = "mal:2:image:anime"
+	KeyMangaImage       = "mal:2:image:manga"
+	KeyCharacterImage   = "mal:2:image:character"
+	KeyPeopleImage      = "mal:2:image:people"
 )
 
 // GetKey to generate cache key.

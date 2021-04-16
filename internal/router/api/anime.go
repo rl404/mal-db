@@ -6,15 +6,15 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/rl404/mal-db/internal/constant"
-	"github.com/rl404/mal-db/internal/loader/api"
+	"github.com/rl404/mal-db/internal/loader"
 	"github.com/rl404/mal-db/internal/pkg/utils"
 )
 
 type anime struct {
-	api api.API
+	api loader.API
 }
 
-func registerAnime(r chi.Router, api api.API) {
+func registerAnime(r chi.Router, api loader.API) {
 	a := anime{api: api}
 	r.Get("/anime/{id}", a.getAnime)
 	r.Get("/anime/{id}/characters", a.getAnimeCharacter)

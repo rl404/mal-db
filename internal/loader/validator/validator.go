@@ -1,14 +1,16 @@
 package validator
 
-import "github.com/rl404/mal-db/internal/loader/api"
+import (
+	"github.com/rl404/mal-db/internal/loader"
+)
 
 // Validator implements API interface.
 type Validator struct {
-	api api.API
+	api loader.API
 }
 
 // New to create new validator.
-func New(api api.API) api.API {
+func New(api loader.API) *Validator {
 	return &Validator{
 		api: api,
 	}

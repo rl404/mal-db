@@ -627,6 +627,52 @@ var doc = `{
                 }
             }
         },
+        "/image/anime/{id}": {
+            "get": {
+                "produces": [
+                    "image/png"
+                ],
+                "tags": [
+                    "image"
+                ],
+                "summary": "Get anime card image.",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Anime ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {}
+                }
+            }
+        },
+        "/image/manga/{id}": {
+            "get": {
+                "produces": [
+                    "image/png"
+                ],
+                "tags": [
+                    "image"
+                ],
+                "summary": "Get manga card image.",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Manga ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {}
+                }
+            }
+        },
         "/magazines": {
             "get": {
                 "consumes": [
@@ -2465,10 +2511,22 @@ var doc = `{
             "type": "object",
             "properties": {
                 "anime": {
-                    "$ref": "#/definitions/model.Role"
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Role"
+                    }
                 },
-                "character": {
-                    "$ref": "#/definitions/model.Role"
+                "id": {
+                    "type": "integer"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
                 }
             }
         },

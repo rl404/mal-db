@@ -10,11 +10,16 @@ import (
 	"github.com/rl404/mal-db/internal/cacher"
 	"github.com/rl404/mal-db/internal/config"
 	"github.com/rl404/mal-db/internal/database"
+	imgGenerator "github.com/rl404/mal-db/internal/image"
 	"github.com/rl404/mal-db/internal/loader"
+	loaderCacher "github.com/rl404/mal-db/internal/loader/cacher"
+	loaderDB "github.com/rl404/mal-db/internal/loader/database"
+	loaderValidator "github.com/rl404/mal-db/internal/loader/validator"
 	"github.com/rl404/mal-db/internal/pkg/http"
 	"github.com/rl404/mal-db/internal/pkg/middleware"
 	"github.com/rl404/mal-db/internal/pubsub"
 	"github.com/rl404/mal-db/internal/router/api"
+	"github.com/rl404/mal-db/internal/router/image"
 	"github.com/rl404/mal-db/internal/router/ping"
 	"github.com/rl404/mal-db/internal/router/swagger"
 	"github.com/rl404/mal-plugin/log/elasticsearch"
@@ -80,8 +85,18 @@ func server() {
 	}()
 
 	// Init loader.
-	service := loader.New(l, db, c, ps, time.Duration(cfg.Worker.AgeLimit)*time.Second)
+	var loader loader.API
+	loader = loaderDB.New(l, db, ps, time.Duration(cfg.Worker.AgeLimit)*time.Second)
+	loader = loaderCacher.New(l, loader, c)
+	loader = loaderValidator.New(loader)
 	l.Info("loader initialized")
+
+	// Init image generator.
+	imageGenerator, err := imgGenerator.New(loader)
+	if err != nil {
+		l.Fatal(err.Error())
+	}
+	l.Info("image generator initialized")
 
 	// Init web server.
 	server := http.New(http.Config{
@@ -116,8 +131,12 @@ func server() {
 	l.Info("swagger routes initialized")
 
 	// Register api routes.
-	api.New(service).Register(r)
+	api.New(loader).Register(r)
 	l.Info("api routes initialized")
+
+	// Register image routes.
+	image.New(imageGenerator).Register(r)
+	l.Info("image routes initialized")
 
 	// Run web server.
 	serverChan := server.Run()

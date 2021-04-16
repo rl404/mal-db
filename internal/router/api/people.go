@@ -5,15 +5,15 @@ import (
 	"strconv"
 
 	"github.com/go-chi/chi"
-	"github.com/rl404/mal-db/internal/loader/api"
+	"github.com/rl404/mal-db/internal/loader"
 	"github.com/rl404/mal-db/internal/pkg/utils"
 )
 
 type people struct {
-	api api.API
+	api loader.API
 }
 
-func registerPeople(r chi.Router, api api.API) {
+func registerPeople(r chi.Router, api loader.API) {
 	p := people{api: api}
 	r.Get("/people/{id}", p.getPeople)
 	r.Get("/people/{id}/va", p.getPeopleVA)

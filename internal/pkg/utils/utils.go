@@ -156,3 +156,33 @@ func UniqueInt(list []int) (unique []int) {
 	}
 	return unique
 }
+
+// Thousands to format int to thousands string format.
+func Thousands(num int) string {
+	str := strconv.Itoa(num)
+	lStr := len(str)
+	digits := lStr
+	if num < 0 {
+		digits--
+	}
+	commas := (digits+2)/3 - 1
+	lBuf := lStr + commas
+	var sbuf [32]byte // pre allocate buffer at stack rather than make([]byte,n)
+	buf := sbuf[0:lBuf]
+	// copy str from the end
+	for si, bi, c3 := lStr-1, lBuf-1, 0; ; {
+		buf[bi] = str[si]
+		if si == 0 {
+			return string(buf)
+		}
+		si--
+		bi--
+		// insert comma every 3 chars
+		c3++
+		if c3 == 3 && (si > 0 || num > 0) {
+			buf[bi] = ','
+			bi--
+			c3 = 0
+		}
+	}
+}
