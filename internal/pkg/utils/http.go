@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"image"
-	"image/png"
+	"image/jpeg"
 	"net/http"
 	"strconv"
 	"strings"
@@ -57,21 +57,21 @@ func GetQuery(r *http.Request, key string, defaultValue ...string) string {
 	return ""
 }
 
-// ResponseWithPNG to write response with PNG format.
-func ResponseWithPNG(w http.ResponseWriter, image image.Image, code int, err error) {
+// ResponseWithJPEG to write response with JPEG format.
+func ResponseWithJPEG(w http.ResponseWriter, image image.Image, code int, err error) {
 	if err != nil {
 		ResponseWithJSON(w, code, nil, err)
 		return
 	}
 
 	buffer := new(bytes.Buffer)
-	if err := png.Encode(buffer, image); err != nil {
+	if err := jpeg.Encode(buffer, image, nil); err != nil {
 		ResponseWithJSON(w, http.StatusInternalServerError, nil, err)
 		return
 	}
 
 	// Set response header.
-	w.Header().Set("Content-Type", "image/png")
+	w.Header().Set("Content-Type", "image/jpeg")
 	w.Header().Set("Content-Length", strconv.Itoa(len(buffer.Bytes())))
 	w.WriteHeader(code)
 

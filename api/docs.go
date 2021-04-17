@@ -630,7 +630,7 @@ var doc = `{
         "/image/anime/{id}": {
             "get": {
                 "produces": [
-                    "image/png"
+                    "image/jpeg"
                 ],
                 "tags": [
                     "image"
@@ -653,7 +653,7 @@ var doc = `{
         "/image/manga/{id}": {
             "get": {
                 "produces": [
-                    "image/png"
+                    "image/jpeg"
                 ],
                 "tags": [
                     "image"

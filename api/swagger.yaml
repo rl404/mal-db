@@ -869,7 +869,7 @@ paths:
         required: true
         type: integer
       produces:
-      - image/png
+      - image/jpeg
       responses:
         "200": {}
       summary: Get anime card image.
@@ -884,7 +884,7 @@ paths:
         required: true
         type: integer
       produces:
-      - image/png
+      - image/jpeg
       responses:
         "200": {}
       summary: Get manga card image.

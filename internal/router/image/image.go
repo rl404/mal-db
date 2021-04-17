@@ -29,24 +29,24 @@ func (i *Image) Register(r chi.Router) {
 
 // @summary Get anime card image.
 // @tags image
-// @produce png
+// @produce jpeg
 // @param id path integer true "Anime ID"
 // @success 200
 // @router /image/anime/{id} [get]
 func (i *Image) getAnime(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
 	img, code, err := i.imager.GetAnimeCard(id)
-	utils.ResponseWithPNG(w, img, code, err)
+	utils.ResponseWithJPEG(w, img, code, err)
 }
 
 // @summary Get manga card image.
 // @tags image
-// @produce png
+// @produce jpeg
 // @param id path integer true "Manga ID"
 // @success 200
 // @router /image/manga/{id} [get]
 func (i *Image) getManga(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
 	img, code, err := i.imager.GetMangaCard(id)
-	utils.ResponseWithPNG(w, img, code, err)
+	utils.ResponseWithJPEG(w, img, code, err)
 }

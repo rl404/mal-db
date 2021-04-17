@@ -617,7 +617,7 @@
         "/image/anime/{id}": {
             "get": {
                 "produces": [
-                    "image/png"
+                    "image/jpeg"
                 ],
                 "tags": [
                     "image"
@@ -640,7 +640,7 @@
         "/image/manga/{id}": {
             "get": {
                 "produces": [
-                    "image/png"
+                    "image/jpeg"
                 ],
                 "tags": [
                     "image"
