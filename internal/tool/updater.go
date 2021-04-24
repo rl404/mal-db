@@ -35,7 +35,7 @@ func NewUpdater(l logger.Logger, s *saver.API, db *gorm.DB, ps pubsub.PubSub) *U
 // Run to run updater tools.
 func (m *Updater) Run() error {
 	now := time.Now()
-	today := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())
+	lastWeek := now.AddDate(0, 0, -7)
 	currentMonth := time.Date(now.Year(), now.Month(), 1, 0, 0, 0, 0, now.Location())
 
 	season, seasonStart, seasonEnd := utils.GetCurrentSeason(), 0, 0
@@ -50,9 +50,9 @@ func (m *Updater) Run() error {
 		seasonStart, seasonEnd = 10, 13
 	}
 
-	// Daily airing or current season anime update.
+	// Weekly airing or current season anime update.
 	var tmp raw.Anime
-	if !errors.Is(m.db.Select("id").Where("(((premiered = '' and start_year = ? and start_month >= ? and start_month < ?) or (premiered != '' and split_part(premiered, ' ', 1) = ? and split_part(premiered, ' ', 2) = ?)) or anime_status_id = ?) and (updated_at < ? or updated_at is null)", now.Year(), seasonStart, seasonEnd, season, strconv.Itoa(now.Year()), 1, today).First(&tmp).Error, gorm.ErrRecordNotFound) {
+	if !errors.Is(m.db.Select("id").Where("(((premiered = '' and start_year = ? and start_month >= ? and start_month < ?) or (premiered != '' and split_part(premiered, ' ', 1) = ? and split_part(premiered, ' ', 2) = ?)) or anime_status_id = ?) and (updated_at < ? or updated_at is null)", now.Year(), seasonStart, seasonEnd, season, strconv.Itoa(now.Year()), 1, lastWeek).First(&tmp).Error, gorm.ErrRecordNotFound) {
 		return m.saver.Parse(constant.AnimeType, tmp.ID)
 	}
 
