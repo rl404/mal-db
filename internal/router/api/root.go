@@ -1,6 +1,8 @@
 package api
 
 import (
+	"net/http"
+
 	"github.com/go-chi/chi"
 	"github.com/rl404/mal-db/internal/loader"
 )
@@ -18,13 +20,16 @@ func New(api loader.API) *API {
 }
 
 // Register to register all api router endpoints.
-func (a *API) Register(r chi.Router) {
-	registerAnime(r, a.api)
-	registerManga(r, a.api)
-	registerCharacter(r, a.api)
-	registerPeople(r, a.api)
-	registerProducerMagazine(r, a.api)
-	registerGenre(r, a.api)
-	registerSearch(r, a.api)
-	registerCommon(r, a.api)
+func (a *API) Register(r chi.Router, mw func(http.Handler) http.Handler) {
+	r2 := chi.NewRouter()
+	r2.Use(mw)
+	registerAnime(r2, a.api)
+	registerManga(r2, a.api)
+	registerCharacter(r2, a.api)
+	registerPeople(r2, a.api)
+	registerProducerMagazine(r2, a.api)
+	registerGenre(r2, a.api)
+	registerSearch(r2, a.api)
+	registerCommon(r2, a.api)
+	r.Mount("/", r2)
 }
