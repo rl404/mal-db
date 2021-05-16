@@ -84,6 +84,16 @@ func server() {
 		}
 	}()
 
+	// Init elasticsearch.
+	var es middleware.ILogger
+	if cfg.ES.Address != "" {
+		es, err = elasticsearch.New(strings.Split(cfg.ES.Address, ","), cfg.ES.User, cfg.ES.Password)
+		if err != nil {
+			l.Fatal(err.Error())
+		}
+		l.Info("elasticsearch initialized")
+	}
+
 	// Init loader.
 	var loader loader.API
 	loader = loaderDB.New(l, db, ps, time.Duration(cfg.Worker.AgeLimit)*time.Second)
@@ -110,15 +120,7 @@ func server() {
 	// Init web router middleware.
 	r.Use(cors.AllowAll().Handler)
 	r.Use(middleware.RealIP)
-	if cfg.ES.Address != "" {
-		// Init elasticsearch.
-		es, err := elasticsearch.New(strings.Split(cfg.ES.Address, ","), cfg.ES.User, cfg.ES.Password)
-		if err != nil {
-			l.Fatal(err.Error())
-		}
-		r.Use(middleware.Logger(l, es))
-		l.Info("elasticsearch initialized")
-	}
+
 	r.Use(middleware.Recoverer)
 	l.Info("middleware initialized")
 
@@ -131,11 +133,11 @@ func server() {
 	l.Info("swagger routes initialized")
 
 	// Register api routes.
-	api.New(loader).Register(r)
+	api.New(loader).Register(r, middleware.Logger(l, es))
 	l.Info("api routes initialized")
 
 	// Register image routes.
-	image.New(imageGenerator).Register(r)
+	image.New(imageGenerator).Register(r, middleware.Logger(l, es))
 	l.Info("image routes initialized")
 
 	// Run web server.

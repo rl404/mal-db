@@ -19,6 +19,11 @@ type ILogger interface {
 func Logger(l service.Logger, mwl ILogger) func(http.Handler) http.Handler {
 	return func(h http.Handler) http.Handler {
 		fn := func(w http.ResponseWriter, r *http.Request) {
+			if mwl == nil {
+				h.ServeHTTP(w, r)
+				return
+			}
+
 			t := time.Now()
 			ww := middleware.NewWrapResponseWriter(w, r.ProtoMajor)
 

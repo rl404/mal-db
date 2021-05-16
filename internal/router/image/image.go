@@ -22,9 +22,12 @@ func New(img image.API) *Image {
 }
 
 // Register to register all iamge api route endpoints.
-func (i *Image) Register(r chi.Router) {
-	r.Get("/image/anime/{id}", i.getAnime)
-	r.Get("/image/manga/{id}", i.getManga)
+func (i *Image) Register(r chi.Router, mw func(http.Handler) http.Handler) {
+	r2 := chi.NewRouter()
+	r2.Use(mw)
+	r2.Get("/anime/{id}", i.getAnime)
+	r2.Get("/manga/{id}", i.getManga)
+	r.Mount("/image", r2)
 }
 
 // @summary Get anime card image.

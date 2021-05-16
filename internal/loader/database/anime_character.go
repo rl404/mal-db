@@ -35,7 +35,7 @@ func (d *Database) GetAnimeCharacter(id int, page int, limit int) ([]model.Anime
 		Joins(fmt.Sprintf("left join %s as c on c.id = ac.character_id", raw.Character{}.TableName())).
 		Where("ac.anime_id = ?", id).
 		Order("ac.role asc, c.name asc").
-		Group("c.id, ac.role").
+		Group("c.id, c.name, ac.role").
 		Limit(limit).
 		Offset(limit * (page - 1))
 
