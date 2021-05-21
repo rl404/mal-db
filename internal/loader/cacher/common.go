@@ -73,7 +73,7 @@ func (c *Cacher) Enqueue(t string, id int) (int, error) {
 }
 
 // GetStatsHistory to get entry stats history.
-func (c *Cacher) GetStatsHistory(t string, id int) (data []model.StatsHistory, code int, err error) {
+func (c *Cacher) GetStatsHistory(t string, id int, page int, limit int) (data []model.StatsHistory, code int, err error) {
 	// Get from cache.
 	key := constant.GetKey(constant.KeyStatsHistory, t, id)
 	if c.cacher.Get(key, &data) == nil {
@@ -81,7 +81,7 @@ func (c *Cacher) GetStatsHistory(t string, id int) (data []model.StatsHistory, c
 	}
 
 	// Query db.
-	data, code, err = c.api.GetStatsHistory(t, id)
+	data, code, err = c.api.GetStatsHistory(t, id, page, limit)
 	if err != nil {
 		return nil, code, err
 	}

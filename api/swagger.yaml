@@ -871,7 +871,8 @@ paths:
       produces:
       - image/jpeg
       responses:
-        "200": {}
+        "200":
+          description: ""
       summary: Get anime card image.
       tags:
       - image
@@ -886,7 +887,8 @@ paths:
       produces:
       - image/jpeg
       responses:
-        "200": {}
+        "200":
+          description: ""
       summary: Get manga card image.
       tags:
       - image
@@ -1239,7 +1241,9 @@ paths:
         in: query
         name: rating
         type: integer
-      - description: Anime source (1=original, 2=manga, 3=4-koma, 4=web manga, 5=digital manga, 6=novel, 7=light novel, 8=visual novel, 9=game, 10=card game, 11=book, 12=picture book, 13=radio, 14=music)
+      - description: Anime source (1=original, 2=manga, 3=4-koma, 4=web manga, 5=digital
+          manga, 6=novel, 7=light novel, 8=visual novel, 9=game, 10=card game, 11=book,
+          12=picture book, 13=radio, 14=music)
         enum:
         - 1
         - 2
@@ -1409,7 +1413,8 @@ paths:
         in: query
         name: score
         type: integer
-      - description: Manga type (1=manga, 2=light novel, 3=one-shot, 4=doujinshi, 5=manhwa, 6=manhua, 7=oel, 8=novel)
+      - description: Manga type (1=manga, 2=light novel, 3=one-shot, 4=doujinshi,
+          5=manhwa, 6=manhua, 7=oel, 8=novel)
         enum:
         - 0
         - 1
@@ -1423,7 +1428,8 @@ paths:
         in: query
         name: type
         type: integer
-      - description: Manga publishing status (1=publishing, 2=finished, 3=upcoming, 4=hiatus, 5=discontinued)
+      - description: Manga publishing status (1=publishing, 2=finished, 3=upcoming,
+          4=hiatus, 5=discontinued)
         enum:
         - 0
         - 1
@@ -1562,6 +1568,14 @@ paths:
         in: path
         name: id
         required: true
+        type: integer
+      - description: Page
+        in: query
+        name: page
+        type: integer
+      - description: Limit
+        in: query
+        name: limit
         type: integer
       produces:
       - application/json

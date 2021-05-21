@@ -74,12 +74,16 @@ func (c *common) enqueue(w http.ResponseWriter, r *http.Request) {
 // @produce json
 // @param type path string true "Entry type" enums(anime,manga,character,people)
 // @param id path integer true "Entry ID"
+// @param page query integer false "Page"
+// @param limit query integer false "Limit"
 // @success 200 {object} utils.Response{data=[]model.StatsHistory}
 // @router /stats/history/{type}/{id} [get]
 func (c *common) getStatsHistory(w http.ResponseWriter, r *http.Request) {
 	t := chi.URLParam(r, "type")
 	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
-	data, code, err := c.api.GetStatsHistory(t, id)
+	page, _ := strconv.Atoi(utils.GetQuery(r, "page", "1"))
+	limit, _ := strconv.Atoi(utils.GetQuery(r, "limit", "6"))
+	data, code, err := c.api.GetStatsHistory(t, id, page, limit)
 	utils.ResponseWithJSON(w, code, data, err, nil)
 }
 

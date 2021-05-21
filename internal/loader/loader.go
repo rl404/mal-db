@@ -26,6 +26,6 @@ type API interface {
 	GetEntryCount() (*model.Total, map[string]interface{}, int, error)
 	GetYearSummary() ([]model.YearSummary, map[string]interface{}, int, error)
 	Enqueue(_type string, id int) (int, error)
-	GetStatsHistory(_type string, id int) ([]model.StatsHistory, int, error)
+	GetStatsHistory(_type string, id int, page int, limit int) ([]model.StatsHistory, int, error)
 	CompareScore(query model.CompareQuery) ([]model.ScoreComparison, map[string]interface{}, int, error)
 }

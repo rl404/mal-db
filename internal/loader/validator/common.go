@@ -42,14 +42,32 @@ func (v *Validator) Enqueue(t string, id int) (int, error) {
 }
 
 // GetStatsHistory to get entry stats history.
-func (v *Validator) GetStatsHistory(t string, id int) ([]model.StatsHistory, int, error) {
+func (v *Validator) GetStatsHistory(t string, id int, page int, limit int) ([]model.StatsHistory, int, error) {
 	if !utils.InArrayStr(constant.MainTypes, t) {
 		return nil, http.StatusBadRequest, errors.ErrInvalidType
 	}
 	if id <= 0 {
 		return nil, http.StatusBadRequest, errors.ErrInvalidID
 	}
-	return v.api.GetStatsHistory(t, id)
+
+	// Get data.
+	data, code, err := v.api.GetStatsHistory(t, id, page, limit)
+	if err != nil {
+		return nil, code, err
+	}
+
+	// Handle pagination.
+	start, current := limit*(page-1), len(data)-(page-1)*limit
+	if current <= 0 {
+		data = []model.StatsHistory{}
+	} else {
+		if current < limit {
+			limit = current
+		}
+		data = data[start : start+limit]
+	}
+
+	return data, http.StatusOK, nil
 }
 
 // CompareScore to get entry score comparison.

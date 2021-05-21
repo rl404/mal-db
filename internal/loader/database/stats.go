@@ -59,7 +59,7 @@ func (d *Database) GetStats(t string, id int) (*model.Stats, map[string]interfac
 }
 
 // GetStatsHistory to get entry stats history.
-func (d *Database) GetStatsHistory(t string, id int) ([]model.StatsHistory, int, error) {
+func (d *Database) GetStatsHistory(t string, id int, _ int, _ int) ([]model.StatsHistory, int, error) {
 	// Is empty.
 	if d.isEntryEmpty(t, id) {
 		return nil, http.StatusNotFound, _errors.ErrInvalidID
@@ -70,7 +70,7 @@ func (d *Database) GetStatsHistory(t string, id int) ([]model.StatsHistory, int,
 		Select("date_part('year', created_at) as year, date_part('month', created_at) as month, round(avg(score),2) as score, floor(avg(voter)) as voter, floor(avg(rank)) as rank, floor(avg(popularity)) as popularity, floor(avg(member)) as member, floor(avg(favorite)) as favorite").
 		Where("type = ? and media_id = ?", t, id).
 		Group("date_part('year', created_at), date_part('month', created_at)").
-		Order("date_part('year', created_at), date_part('month', created_at)").
+		Order("date_part('year', created_at) desc, date_part('month', created_at) desc").
 		Find(&history).
 		Error
 	if err != nil {
