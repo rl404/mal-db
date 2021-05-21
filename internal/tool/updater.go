@@ -51,35 +51,24 @@ func (m *Updater) Run() error {
 	}
 
 	// Weekly airing or current season anime update.
-	var tmp raw.Anime
-	if !errors.Is(m.db.Select("id").Where("(((premiered = '' and start_year = ? and start_month >= ? and start_month < ?) or (premiered != '' and split_part(premiered, ' ', 1) = ? and split_part(premiered, ' ', 2) = ?)) or anime_status_id = ?) and (updated_at < ? or updated_at is null)", now.Year(), seasonStart, seasonEnd, season, strconv.Itoa(now.Year()), 1, lastWeek).First(&tmp).Error, gorm.ErrRecordNotFound) {
-		return m.saver.Parse(constant.AnimeType, tmp.ID)
+	var anime raw.Anime
+	if !errors.Is(m.db.Select("id").Where("(((premiered = '' and start_year = ? and start_month >= ? and start_month < ?) or (premiered != '' and split_part(premiered, ' ', 1) = ? and split_part(premiered, ' ', 2) = ?)) or anime_status_id = ?) and (updated_at < ? or updated_at is null)", now.Year(), seasonStart, seasonEnd, season, strconv.Itoa(now.Year()), 1, lastWeek).First(&anime).Error, gorm.ErrRecordNotFound) {
+		return m.saver.Parse(constant.AnimeType, anime.ID)
 	}
 
 	// Monthly data update.
-	for _, t := range constant.MainTypes {
-		switch t {
-		case constant.AnimeType:
-			var tmp raw.Anime
-			if !errors.Is(m.db.Select("id").Where("updated_at < ? or updated_at is null", currentMonth).First(&tmp).Error, gorm.ErrRecordNotFound) {
-				return m.saver.Parse(t, tmp.ID)
-			}
-		case constant.MangaType:
-			var tmp raw.Manga
-			if !errors.Is(m.db.Select("id").Where("updated_at < ? or updated_at is null", currentMonth).First(&tmp).Error, gorm.ErrRecordNotFound) {
-				return m.saver.Parse(t, tmp.ID)
-			}
-		case constant.CharacterType:
-			var tmp raw.Character
-			if !errors.Is(m.db.Select("id").Where("updated_at < ? or updated_at is null", currentMonth).First(&tmp).Error, gorm.ErrRecordNotFound) {
-				return m.saver.Parse(t, tmp.ID)
-			}
-		case constant.PeopleType:
-			var tmp raw.People
-			if !errors.Is(m.db.Select("id").Where("updated_at < ? or updated_at is null", currentMonth).First(&tmp).Error, gorm.ErrRecordNotFound) {
-				return m.saver.Parse(t, tmp.ID)
-			}
-		}
+	if !errors.Is(m.db.Select("id").Where("updated_at < ? or updated_at is null", currentMonth).First(&anime).Error, gorm.ErrRecordNotFound) {
+		return m.saver.Parse(constant.AnimeType, anime.ID)
+	}
+
+	var manga raw.Manga
+	if !errors.Is(m.db.Select("id").Where("updated_at < ? or updated_at is null", currentMonth).First(&manga).Error, gorm.ErrRecordNotFound) {
+		return m.saver.Parse(constant.MangaType, manga.ID)
+	}
+
+	var people raw.People
+	if !errors.Is(m.db.Select("id").Where("updated_at < ? or updated_at is null", currentMonth).First(&people).Error, gorm.ErrRecordNotFound) {
+		return m.saver.Parse(constant.PeopleType, people.ID)
 	}
 
 	// Fill missing data.
@@ -102,6 +91,12 @@ func (m *Updater) Run() error {
 				return m.saver.Parse(t, id)
 			}
 		}
+	}
+
+	// Update character (low priority).
+	var char raw.Character
+	if !errors.Is(m.db.Select("id").Where("updated_at < ? or updated_at is null", currentMonth).First(&char).Error, gorm.ErrRecordNotFound) {
+		return m.saver.Parse(constant.CharacterType, char.ID)
 	}
 
 	return nil
