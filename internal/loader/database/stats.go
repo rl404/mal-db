@@ -99,7 +99,7 @@ func (d *Database) CompareScore(query model.CompareQuery) ([]model.ScoreComparis
 		Joins(fmt.Sprintf("left join %s as a on a.id = mr.related_id and mr.related_type = ?", raw.Anime{}.TableName()), constant.AnimeType).
 		Joins(fmt.Sprintf("left join %s as m2 on m2.id = mr.related_id and mr.related_type = ?", raw.Manga{}.TableName()), constant.MangaType).
 		Where("lower(m.title) like ? and mr.media_type = ? and (m.manga_type_id = ? or m.manga_type_id = ?) and (mr.related_type_id = ? or mr.related_type_id = ?)", "%"+query.Title+"%", constant.MangaType, 2, 8, 11, 4).
-		Group("m.id").
+		Group("m.id, m.score, m.title").
 		Order(query.Order + ", m.title").
 		Limit(query.Limit).
 		Offset(query.Limit * (query.Page - 1))

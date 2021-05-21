@@ -25,7 +25,8 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "1",
+									"type": "string"
 								}
 							]
 						}
@@ -60,7 +61,8 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "1",
+									"type": "string"
 								}
 							]
 						}
@@ -95,7 +97,8 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "1",
+									"type": "string"
 								}
 							]
 						}
@@ -120,7 +123,8 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "1",
+									"type": "string"
 								}
 							]
 						}
@@ -149,7 +153,8 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "11"
+									"value": "11",
+									"type": "string"
 								}
 							]
 						}
@@ -184,7 +189,8 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "11"
+									"value": "11",
+									"type": "string"
 								}
 							]
 						}
@@ -209,7 +215,8 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "11"
+									"value": "11",
+									"type": "string"
 								}
 							]
 						}
@@ -258,7 +265,8 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "3"
+									"value": "3",
+									"type": "string"
 								}
 							]
 						}
@@ -293,7 +301,8 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "17"
+									"value": "17",
+									"type": "string"
 								}
 							]
 						}
@@ -328,7 +337,8 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "17"
+									"value": "17",
+									"type": "string"
 								}
 							]
 						}
@@ -363,7 +373,8 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "1",
+									"type": "string"
 								}
 							]
 						}
@@ -392,7 +403,8 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "28"
+									"value": "28",
+									"type": "string"
 								}
 							]
 						}
@@ -427,7 +439,8 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "28"
+									"value": "28",
+									"type": "string"
 								}
 							]
 						}
@@ -462,7 +475,8 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "28"
+									"value": "28",
+									"type": "string"
 								}
 							]
 						}
@@ -497,7 +511,8 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "2009"
+									"value": "2009",
+									"type": "string"
 								}
 							]
 						}
@@ -982,7 +997,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{mal-db-url}}/stats/history/:type/:id",
+							"raw": "{{mal-db-url}}/stats/history/:type/:id?page=1&limit=6",
 							"host": [
 								"{{mal-db-url}}"
 							],
@@ -991,6 +1006,16 @@
 								"history",
 								":type",
 								":id"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "6"
+								}
 							],
 							"variable": [
 								{
