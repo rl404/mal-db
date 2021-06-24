@@ -214,7 +214,7 @@ func (d *detail) setRelated() {
 			relatedLink, _ := data.Attr("href")
 			splitLink := strings.Split(relatedLink, "/")
 
-			if utils.StrToNum(splitLink[2]) == 0 {
+			if data.Text() == "" || utils.StrToNum(splitLink[2]) == 0 {
 				return true
 			}
 
