@@ -146,7 +146,7 @@ github.com/rl404/mal-plugin/pubsub/redis
 # github.com/rs/cors v1.8.0
 ## explicit
 github.com/rs/cors
-# github.com/spf13/cobra v1.2.0
+# github.com/spf13/cobra v1.2.1
 ## explicit
 github.com/spf13/cobra
 # github.com/spf13/pflag v1.0.5
