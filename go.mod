@@ -17,7 +17,7 @@ require (
 	github.com/rl404/go-malscraper v1.2.13
 	github.com/rl404/mal-plugin v0.3.12
 	github.com/rs/cors v1.8.0
-	github.com/spf13/cobra v1.2.0
+	github.com/spf13/cobra v1.2.1
 	github.com/swaggo/http-swagger v1.0.0
 	github.com/swaggo/swag v1.7.0
 	github.com/tidwall/gjson v1.8.1
