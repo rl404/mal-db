@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	_ "github.com/rl404/mal-db/api"
 	"github.com/spf13/cobra"
 )
@@ -15,6 +17,8 @@ import (
 // @BasePath /
 // @schemes http https
 func main() {
+	defer os.Exit(0)
+
 	cmd := cobra.Command{
 		Use:   "mal",
 		Short: "MAL DB API",
