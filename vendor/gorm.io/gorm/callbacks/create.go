@@ -37,7 +37,6 @@ func Create(config *Config) func(db *gorm.DB) {
 
 	return func(db *gorm.DB) {
 		if db.Error != nil {
-			// maybe record logger TODO
 			return
 		}
 
@@ -64,11 +63,9 @@ func Create(config *Config) func(db *gorm.DB) {
 			}
 
 			db.RowsAffected, _ = result.RowsAffected()
-			if !(db.RowsAffected > 0) {
-				return
-			}
 
-			if db.Statement.Schema != nil && db.Statement.Schema.PrioritizedPrimaryField != nil && db.Statement.Schema.PrioritizedPrimaryField.HasDefaultValue {
+			if db.RowsAffected != 0 && db.Statement.Schema != nil &&
+				db.Statement.Schema.PrioritizedPrimaryField != nil && db.Statement.Schema.PrioritizedPrimaryField.HasDefaultValue {
 				if insertID, err := result.LastInsertId(); err == nil && insertID > 0 {
 					switch db.Statement.ReflectValue.Kind() {
 					case reflect.Slice, reflect.Array:
@@ -107,7 +104,6 @@ func Create(config *Config) func(db *gorm.DB) {
 					db.AddError(err)
 				}
 			}
-
 		}
 	}
 }
@@ -243,9 +239,12 @@ func ConvertToCreateValues(stmt *gorm.Statement) (values clause.Values) {
 	default:
 		var (
 			selectColumns, restricted = stmt.SelectAndOmitColumns(true, false)
+			_, updateTrackTime        = stmt.Get("gorm:update_track_time")
 			curTime                   = stmt.DB.NowFunc()
 			isZero                    bool
 		)
+		stmt.Settings.Delete("gorm:update_track_time")
+
 		values = clause.Values{Columns: make([]clause.Column, 0, len(stmt.Schema.DBNames))}
 
 		for _, db := range stmt.Schema.DBNames {
@@ -284,11 +283,9 @@ func ConvertToCreateValues(stmt *gorm.Statement) (values clause.Values) {
 							field.Set(rv, curTime)
 							values.Values[i][idx], _ = field.ValueOf(rv)
 						}
-					} else if field.AutoUpdateTime > 0 {
-						if _, ok := stmt.DB.InstanceGet("gorm:update_track_time"); ok {
-							field.Set(rv, curTime)
-							values.Values[i][idx], _ = field.ValueOf(rv)
-						}
+					} else if field.AutoUpdateTime > 0 && updateTrackTime {
+						field.Set(rv, curTime)
+						values.Values[i][idx], _ = field.ValueOf(rv)
 					}
 				}
 
@@ -326,11 +323,9 @@ func ConvertToCreateValues(stmt *gorm.Statement) (values clause.Values) {
 						field.Set(stmt.ReflectValue, curTime)
 						values.Values[0][idx], _ = field.ValueOf(stmt.ReflectValue)
 					}
-				} else if field.AutoUpdateTime > 0 {
-					if _, ok := stmt.DB.InstanceGet("gorm:update_track_time"); ok {
-						field.Set(stmt.ReflectValue, curTime)
-						values.Values[0][idx], _ = field.ValueOf(stmt.ReflectValue)
-					}
+				} else if field.AutoUpdateTime > 0 && updateTrackTime {
+					field.Set(stmt.ReflectValue, curTime)
+					values.Values[0][idx], _ = field.ValueOf(stmt.ReflectValue)
 				}
 			}
 
@@ -349,12 +344,16 @@ func ConvertToCreateValues(stmt *gorm.Statement) (values clause.Values) {
 
 	if c, ok := stmt.Clauses["ON CONFLICT"]; ok {
 		if onConflict, _ := c.Expression.(clause.OnConflict); onConflict.UpdateAll {
-			if stmt.Schema != nil && len(values.Columns) > 1 {
+			if stmt.Schema != nil && len(values.Columns) >= 1 {
+				selectColumns, restricted := stmt.SelectAndOmitColumns(true, true)
+
 				columns := make([]string, 0, len(values.Columns)-1)
 				for _, column := range values.Columns {
 					if field := stmt.Schema.LookUpField(column.Name); field != nil {
-						if !field.PrimaryKey && (!field.HasDefaultValue || field.DefaultValueInterface != nil) && field.AutoCreateTime == 0 {
-							columns = append(columns, column.Name)
+						if v, ok := selectColumns[field.DBName]; (ok && v) || (!ok && !restricted) {
+							if !field.PrimaryKey && (!field.HasDefaultValue || field.DefaultValueInterface != nil) && field.AutoCreateTime == 0 {
+								columns = append(columns, column.Name)
+							}
 						}
 					}
 				}
