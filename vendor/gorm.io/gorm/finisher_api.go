@@ -79,7 +79,7 @@ func (db *DB) Save(value interface{}) (tx *DB) {
 		if _, ok := tx.Statement.Clauses["ON CONFLICT"]; !ok {
 			tx = tx.Clauses(clause.OnConflict{UpdateAll: true})
 		}
-		tx = tx.callbacks.Create().Execute(tx.InstanceSet("gorm:update_track_time", true))
+		tx = tx.callbacks.Create().Execute(tx.Set("gorm:update_track_time", true))
 	case reflect.Struct:
 		if err := tx.Statement.Parse(value); err == nil && tx.Statement.Schema != nil {
 			for _, pf := range tx.Statement.Schema.PrimaryFields {
@@ -376,7 +376,7 @@ func (db *DB) Count(count *int64) (tx *DB) {
 
 	if selectClause, ok := db.Statement.Clauses["SELECT"]; ok {
 		defer func() {
-			db.Statement.Clauses["SELECT"] = selectClause
+			tx.Statement.Clauses["SELECT"] = selectClause
 		}()
 	} else {
 		defer delete(tx.Statement.Clauses, "SELECT")
@@ -410,9 +410,9 @@ func (db *DB) Count(count *int64) (tx *DB) {
 
 	if orderByClause, ok := db.Statement.Clauses["ORDER BY"]; ok {
 		if _, ok := db.Statement.Clauses["GROUP BY"]; !ok {
-			delete(db.Statement.Clauses, "ORDER BY")
+			delete(tx.Statement.Clauses, "ORDER BY")
 			defer func() {
-				db.Statement.Clauses["ORDER BY"] = orderByClause
+				tx.Statement.Clauses["ORDER BY"] = orderByClause
 			}()
 		}
 	}
@@ -426,7 +426,7 @@ func (db *DB) Count(count *int64) (tx *DB) {
 }
 
 func (db *DB) Row() *sql.Row {
-	tx := db.getInstance().InstanceSet("rows", false)
+	tx := db.getInstance().Set("rows", false)
 	tx = tx.callbacks.Row().Execute(tx)
 	row, ok := tx.Statement.Dest.(*sql.Row)
 	if !ok && tx.DryRun {
@@ -436,7 +436,7 @@ func (db *DB) Row() *sql.Row {
 }
 
 func (db *DB) Rows() (*sql.Rows, error) {
-	tx := db.getInstance().InstanceSet("rows", true)
+	tx := db.getInstance().Set("rows", true)
 	tx = tx.callbacks.Row().Execute(tx)
 	rows, ok := tx.Statement.Dest.(*sql.Rows)
 	if !ok && tx.DryRun && tx.Error == nil {
@@ -474,7 +474,7 @@ func (db *DB) Scan(dest interface{}) (tx *DB) {
 
 // Pluck used to query single column from a model as a map
 //     var ages []int64
-//     db.Find(&users).Pluck("age", &ages)
+//     db.Model(&users).Pluck("age", &ages)
 func (db *DB) Pluck(column string, dest interface{}) (tx *DB) {
 	tx = db.getInstance()
 	if tx.Statement.Model != nil {
