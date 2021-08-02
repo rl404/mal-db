@@ -14,7 +14,7 @@ require (
 	github.com/joho/godotenv v1.3.0
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/mailru/easyjson v0.7.7 // indirect
-	github.com/rl404/go-malscraper v1.2.14
+	github.com/rl404/go-malscraper v1.2.15
 	github.com/rl404/mal-plugin v0.3.13
 	github.com/rs/cors v1.8.0
 	github.com/spf13/cobra v1.2.1
@@ -23,7 +23,6 @@ require (
 	github.com/tidwall/gjson v1.8.1
 	golang.org/x/crypto v0.0.0-20210415154028-4f45737414dc // indirect
 	golang.org/x/image v0.0.0-20210220032944-ac19c3e999fb
-	golang.org/x/net v0.0.0-20210614182718-04defd469f4e // indirect
 	gorm.io/driver/postgres v1.1.0
 	gorm.io/gorm v1.21.12
 )
