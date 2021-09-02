@@ -19,7 +19,7 @@ require (
 	github.com/spf13/cobra v1.2.1
 	github.com/swaggo/http-swagger v1.1.1
 	github.com/swaggo/swag v1.7.1
-	github.com/tidwall/gjson v1.8.1
+	github.com/tidwall/gjson v1.9.0
 	golang.org/x/crypto v0.0.0-20210415154028-4f45737414dc // indirect
 	golang.org/x/image v0.0.0-20210220032944-ac19c3e999fb
 	gorm.io/driver/postgres v1.1.0
