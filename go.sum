@@ -564,8 +564,8 @@ github.com/swaggo/http-swagger v1.1.1/go.mod h1:cKIcshBU9yEAnfWv6ZzVKSsEf8h5ozxB
 github.com/swaggo/swag v1.7.0/go.mod h1:BdPIL73gvS9NBsdi7M1JOxLvlbfvNRaBP8m6WT6Aajo=
 github.com/swaggo/swag v1.7.1 h1:gY9ZakXlNWg/i/v5bQBic7VMZ4teq4m89lpiao74p/s=
 github.com/swaggo/swag v1.7.1/go.mod h1:gAiHxNTb9cIpNmA/VEGUP+CyZMCP/EW7mdtc8Bny+p8=
-github.com/tidwall/gjson v1.8.1 h1:8j5EE9Hrh3l9Od1OIEDAb7IpezNA20UdRngNAj5N0WU=
-github.com/tidwall/gjson v1.8.1/go.mod h1:5/xDoumyyDNerp2U36lyolv46b3uF/9Bu6OfyQ9GImk=
+github.com/tidwall/gjson v1.9.0 h1:+Od7AE26jAaMgVC31cQV/Ope5iKXulNMflrlB7k+F9E=
+github.com/tidwall/gjson v1.9.0/go.mod h1:5/xDoumyyDNerp2U36lyolv46b3uF/9Bu6OfyQ9GImk=
 github.com/tidwall/match v1.0.3 h1:FQUVvBImDutD8wJLN6c5eMzWtjgONK9MwIBCOrUJKeE=
 github.com/tidwall/match v1.0.3/go.mod h1:eRSPERbgtNPcGhD8UCthc6PmLEQXEWd3PRB5JTxsfmM=
 github.com/tidwall/pretty v1.1.0 h1:K3hMW5epkdAVwibsQEfR/7Zj0Qgt4DxtNumTq/VloO8=
