@@ -23,30 +23,27 @@ func (p *parser) GetCharacters(a *goquery.Selection) []model.PeopleCharacter {
 
 func (c *character) setDetail() {
 	actors := []model.PeopleCharacter{}
-	area := c.area.Find("#content table tr td").Next()
-	area = area.Find(".normal_header").First().Next()
-	if goquery.NodeName(area) == "table" {
-		area.Find("tr").Each(func(i int, va *goquery.Selection) {
-			animeImageArea := va.Find("td:nth-of-type(1)")
-			animeArea := va.Find("td:nth-of-type(2)")
-			charImageArea := va.Find("td:nth-of-type(4)")
-			charArea := va.Find("td:nth-of-type(3)")
-			actors = append(actors, model.PeopleCharacter{
-				Anime: model.Role{
-					ID:    c.getID(animeArea),
-					Name:  c.getTitle(animeArea),
-					Image: c.getImage(animeImageArea),
-					Role:  c.getRole(charArea),
-				},
-				Character: model.Role{
-					ID:    c.getID(charArea),
-					Name:  c.getTitle(charArea),
-					Role:  c.getRole(charArea),
-					Image: c.getImage(charImageArea),
-				},
-			})
+	area := c.area.Find(".js-table-people-anime").First()
+	area.Find("tr").Each(func(i int, va *goquery.Selection) {
+		animeImageArea := va.Find("td:nth-of-type(1)")
+		animeArea := va.Find("td:nth-of-type(2)")
+		charImageArea := va.Find("td:nth-of-type(4)")
+		charArea := va.Find("td:nth-of-type(3)")
+		actors = append(actors, model.PeopleCharacter{
+			Anime: model.Role{
+				ID:    c.getID(animeArea),
+				Name:  c.getTitle(animeArea),
+				Image: c.getImage(animeImageArea),
+				Role:  c.getRole(charArea),
+			},
+			Character: model.Role{
+				ID:    c.getID(charArea),
+				Name:  c.getTitle(charArea),
+				Role:  c.getRole(charArea),
+				Image: c.getImage(charImageArea),
+			},
 		})
-	}
+	})
 	c.data = actors
 }
 
@@ -65,5 +62,5 @@ func (c *character) getTitle(animeArea *goquery.Selection) string {
 }
 
 func (c *character) getRole(animeArea *goquery.Selection) string {
-	return strings.TrimSpace(animeArea.Find("div").Text())
+	return strings.TrimSpace(animeArea.Find(".spaceit_pad").First().Next().Text())
 }
