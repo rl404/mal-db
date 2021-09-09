@@ -1,6 +1,8 @@
 package anime
 
 import (
+	"strings"
+
 	"github.com/PuerkitoBio/goquery"
 	"github.com/rl404/go-malscraper/model"
 	"github.com/rl404/go-malscraper/pkg/utils"
@@ -21,20 +23,17 @@ func (p *parser) GetCharacters(a *goquery.Selection) []model.CharacterItem {
 
 func (c *character) setDetail() {
 	data := []model.CharacterItem{}
-	c.area.Find("article").Remove()
-	charArea := c.area.Find("h2").First().Parent().Next()
-	for goquery.NodeName(charArea) == "table" {
-		charNameArea := charArea.Find("td:nth-of-type(2)")
-		vaArea := charArea.Find("td:nth-of-type(3)")
+	c.area.Find(".js-anime-character-table").Each(func(i int, area *goquery.Selection) {
+		charNameArea := area.Find("td:nth-of-type(2)")
+		vaArea := area.Find("td:nth-of-type(3)")
 		data = append(data, model.CharacterItem{
 			ID:          c.getID(charNameArea),
-			Image:       c.getImage(charArea),
+			Image:       c.getImage(area),
 			Name:        c.getName(charNameArea),
 			Role:        c.getRole(charNameArea),
 			VoiceActors: c.getVa(vaArea),
 		})
-		charArea = charArea.Next()
-	}
+	})
 	c.data = data
 }
 
@@ -53,7 +52,7 @@ func (c *character) getName(charNameArea *goquery.Selection) string {
 }
 
 func (c *character) getRole(charNameArea *goquery.Selection) string {
-	return charNameArea.Find("small").First().Text()
+	return strings.TrimSpace(charNameArea.Find(".spaceit_pad").First().Next().Text())
 }
 
 func (c *character) getVa(vaArea *goquery.Selection) []model.Role {
