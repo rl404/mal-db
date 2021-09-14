@@ -9,7 +9,6 @@ require (
 	github.com/go-chi/chi v4.1.2+incompatible
 	github.com/go-openapi/swag v0.19.15 // indirect
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
-	github.com/jackc/pgproto3/v2 v2.0.7 // indirect
 	github.com/joho/godotenv v1.3.0
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/mailru/easyjson v0.7.7 // indirect
@@ -20,8 +19,7 @@ require (
 	github.com/swaggo/http-swagger v1.1.1
 	github.com/swaggo/swag v1.7.1
 	github.com/tidwall/gjson v1.9.0
-	golang.org/x/crypto v0.0.0-20210415154028-4f45737414dc // indirect
 	golang.org/x/image v0.0.0-20210220032944-ac19c3e999fb
-	gorm.io/driver/postgres v1.1.0
+	gorm.io/driver/postgres v1.1.1
 	gorm.io/gorm v1.21.15
 )

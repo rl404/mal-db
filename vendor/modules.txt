@@ -66,7 +66,7 @@ github.com/grokify/html-strip-tags-go
 github.com/inconshreveable/mousetrap
 # github.com/jackc/chunkreader/v2 v2.0.1
 github.com/jackc/chunkreader/v2
-# github.com/jackc/pgconn v1.8.1
+# github.com/jackc/pgconn v1.10.0
 github.com/jackc/pgconn
 github.com/jackc/pgconn/internal/ctxwatch
 github.com/jackc/pgconn/stmtcache
@@ -74,14 +74,13 @@ github.com/jackc/pgconn/stmtcache
 github.com/jackc/pgio
 # github.com/jackc/pgpassfile v1.0.0
 github.com/jackc/pgpassfile
-# github.com/jackc/pgproto3/v2 v2.0.7
-## explicit
+# github.com/jackc/pgproto3/v2 v2.1.1
 github.com/jackc/pgproto3/v2
 # github.com/jackc/pgservicefile v0.0.0-20200714003250-2b9c44734f2b
 github.com/jackc/pgservicefile
-# github.com/jackc/pgtype v1.7.0
+# github.com/jackc/pgtype v1.8.1
 github.com/jackc/pgtype
-# github.com/jackc/pgx/v4 v4.11.0
+# github.com/jackc/pgx/v4 v4.13.0
 github.com/jackc/pgx/v4
 github.com/jackc/pgx/v4/internal/sanitize
 github.com/jackc/pgx/v4/stdlib
@@ -167,8 +166,7 @@ github.com/tidwall/gjson
 github.com/tidwall/match
 # github.com/tidwall/pretty v1.1.0
 github.com/tidwall/pretty
-# golang.org/x/crypto v0.0.0-20210415154028-4f45737414dc
-## explicit
+# golang.org/x/crypto v0.0.0-20210817164053-32db794688a5
 golang.org/x/crypto/pbkdf2
 # golang.org/x/image v0.0.0-20210220032944-ac19c3e999fb
 ## explicit
@@ -187,9 +185,9 @@ golang.org/x/net/html/atom
 golang.org/x/net/idna
 golang.org/x/net/webdav
 golang.org/x/net/webdav/internal/xml
-# golang.org/x/sys v0.0.0-20210510120138-977fb7262007
+# golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1
 golang.org/x/sys/execabs
-# golang.org/x/text v0.3.6
+# golang.org/x/text v0.3.7
 golang.org/x/text/cases
 golang.org/x/text/internal
 golang.org/x/text/internal/language
@@ -210,7 +208,7 @@ golang.org/x/tools/go/internal/cgo
 golang.org/x/tools/go/loader
 # gopkg.in/yaml.v2 v2.4.0
 gopkg.in/yaml.v2
-# gorm.io/driver/postgres v1.1.0
+# gorm.io/driver/postgres v1.1.1
 ## explicit
 gorm.io/driver/postgres
 # gorm.io/gorm v1.21.15
