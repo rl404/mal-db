@@ -24,7 +24,8 @@ func (p *parser) GetGenres(a *goquery.Selection) []model.ItemCount {
 
 func (g *genres) setDetail() {
 	genres := []model.ItemCount{}
-	g.area.Find(".genre-list a").Each(func(i int, area *goquery.Selection) {
+	g.area.Find(".genre-list").Each(func(i int, area *goquery.Selection) {
+		area = area.Find("a")
 		genres = append(genres, model.ItemCount{
 			ID:    g.getID(area),
 			Name:  g.getName(area),
