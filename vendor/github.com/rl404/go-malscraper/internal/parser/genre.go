@@ -19,7 +19,7 @@ func (p *Parser) GetGenres(t string) ([]model.ItemCount, int, error) {
 // GetAnimeWithGenre to get anime list with specific genre.
 func (p *Parser) GetAnimeWithGenre(id int, page int) ([]model.AnimeItem, int, error) {
 	q := map[string]interface{}{"page": page}
-	doc, code, err := p.getDoc(utils.BuildURLWithQuery(q, malURL, "anime", "genre", id, "a"), "#contentWrapper")
+	doc, code, err := p.getDoc(utils.BuildURLWithQuery(q, malURL, "anime", "genre", id, "a"), "#content")
 	if err != nil {
 		return nil, code, err
 	}
@@ -29,7 +29,7 @@ func (p *Parser) GetAnimeWithGenre(id int, page int) ([]model.AnimeItem, int, er
 // GetMangaWithGenre to get manga list with specific genre.
 func (p *Parser) GetMangaWithGenre(id int, page int) ([]model.MangaItem, int, error) {
 	q := map[string]interface{}{"page": page}
-	doc, code, err := p.getDoc(utils.BuildURLWithQuery(q, malURL, "manga", "genre", id, "a"), "#contentWrapper")
+	doc, code, err := p.getDoc(utils.BuildURLWithQuery(q, malURL, "manga", "genre", id, "a"), "#content")
 	if err != nil {
 		return nil, code, err
 	}

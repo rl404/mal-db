@@ -78,7 +78,7 @@ func (p *producer) getGenres(eachArea *goquery.Selection) []model.Item {
 }
 
 func (p *producer) getSynopsis(eachArea *goquery.Selection) string {
-	synopsis := strings.TrimSpace(eachArea.Find("div[class=\"synopsis js-synopsis\"]").Text())
+	synopsis := strings.TrimSpace(eachArea.Find("div[class=\"synopsis js-synopsis\"]").Find(".preline").Text())
 	if regexp.MustCompile(`No synopsis`).FindString(synopsis) != "" {
 		return ""
 	}
@@ -115,8 +115,18 @@ func (p *producer) getProgress(area *goquery.Selection) int {
 }
 
 func (p *producer) getLicensors(eachArea *goquery.Selection) []string {
-	licensor, _ := eachArea.Find("div[class=\"synopsis js-synopsis\"] .licensors").Attr("data-licensors")
-	return utils.ArrayFilter(strings.Split(licensor, ","))
+	licensors := []string{}
+	area := eachArea.Find("div[class=\"synopsis js-synopsis\"]")
+	area.Find("p").EachWithBreak(func(i int, a *goquery.Selection) bool {
+		if a.Find("span").Text() == "Licensor:" {
+			a.Find("a").Each(func(i int, s *goquery.Selection) {
+				licensors = append(licensors, s.Text())
+			})
+			return false
+		}
+		return true
+	})
+	return licensors
 }
 
 func (p *producer) getType(area *goquery.Selection) string {
