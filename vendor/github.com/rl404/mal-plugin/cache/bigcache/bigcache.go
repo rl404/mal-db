@@ -6,6 +6,7 @@ package bigcache
 
 import (
 	"encoding/json"
+	"errors"
 	"time"
 
 	"github.com/allegro/bigcache"
@@ -61,7 +62,11 @@ func (c *Client) Set(key string, data interface{}) error {
 
 // Delete to delete data from cache.
 func (c *Client) Delete(key string) error {
-	return c.bc.Delete(key)
+	err :=  c.bc.Delete(key)
+	if errors.Is(err, bigcache.ErrEntryNotFound) {
+		return nil
+	}
+	return err
 }
 
 // Close to close cache connection.
