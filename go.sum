@@ -373,8 +373,9 @@ github.com/posener/complete v1.1.1/go.mod h1:em0nMJCgc9GFtwrmVmEMR/ZL6WyhyjMBndr
 github.com/prometheus/client_model v0.0.0-20190812154241-14fe0d1b01d4/go.mod h1:xMI15A0UPsDsEKsMN9yxemIoYk6Tm2C1GtYGdfGttqA=
 github.com/rl404/go-malscraper v1.2.18 h1:w4xD/DvsVjfJX7QNAtT2qIlPjGsaD6Xq6S2FJRsSZm8=
 github.com/rl404/go-malscraper v1.2.18/go.mod h1:GtAI0DmFelMImVzNBy4c2e6JAdZ+Q36xaL1uOtsDH50=
-github.com/rl404/mal-plugin v0.3.17 h1:rTlkgsJHHwV4641U0kKx6Zom77SnhglryzAvypPzTaI=
 github.com/rl404/mal-plugin v0.3.17/go.mod h1:RxPHaORCruOBBOs1i3mDEsYAu1L+GscQbZSi3euseOk=
+github.com/rl404/mal-plugin v0.3.18 h1:MAL0Cstynz71jYtB4+RCwdWRlUt8LcEe3rC4IZ/M1Nc=
+github.com/rl404/mal-plugin v0.3.18/go.mod h1:RxPHaORCruOBBOs1i3mDEsYAu1L+GscQbZSi3euseOk=
 github.com/rogpeppe/fastuuid v1.2.0/go.mod h1:jVj6XXZzXRy/MSR5jhDC/2q6DgLz+nrA6LYCDYWNEvQ=
 github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=
 github.com/rs/cors v1.8.0 h1:P2KMzcFwrPoSjkF1WLRPsp3UMLyql8L4v9hQpVeK5so=
