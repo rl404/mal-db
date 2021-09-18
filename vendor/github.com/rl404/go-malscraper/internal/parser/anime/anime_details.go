@@ -151,8 +151,8 @@ func (d *detail) setOtherInfo() {
 					d.data.Licensors = d.getItemInfo(area, infoType, value)
 				case "studios":
 					d.data.Studios = d.getItemInfo(area, infoType, value)
-				case "genres":
-					d.data.Genres = d.getItemInfo(area, infoType, value)
+				case "genres", "explicit genre", "themes", "demographic":
+					d.data.Genres = append(d.data.Genres, d.getItemInfo(area, infoType, value)...)
 				}
 
 				area = area.Next()

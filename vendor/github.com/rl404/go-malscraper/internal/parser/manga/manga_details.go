@@ -132,8 +132,8 @@ func (d *detail) setOtherInfo() {
 					d.data.Serializations = d.getItemInfo(area, infoType, value)
 				case "authors":
 					d.data.Authors = d.getItemInfo(area, infoType, value)
-				case "genres":
-					d.data.Genres = d.getItemInfo(area, infoType, value)
+				case "genres", "explicit genre", "themes", "demographic":
+					d.data.Genres = append(d.data.Genres, d.getItemInfo(area, infoType, value)...)
 				}
 
 				area = area.Next()
@@ -186,7 +186,7 @@ func (d *detail) getItemInfo(infoArea *goquery.Selection, infoType string, value
 
 		itemList = append(itemList, model.Item{
 			ID:   infoID,
-			Name: name.Text(),
+			Name: strings.TrimSpace(name.Text()),
 		})
 	})
 

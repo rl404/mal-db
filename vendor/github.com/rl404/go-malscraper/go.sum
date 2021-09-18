@@ -52,8 +52,8 @@ github.com/onsi/gomega v1.10.1/go.mod h1:iN09h71vgCQne3DLsj+A5owkum+a2tYe+TOCB1y
 github.com/onsi/gomega v1.15.0/go.mod h1:cIuvLEne0aoVhAgh/O6ac0Op8WWw9H6eYCriF+tEHG0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
-github.com/rl404/mal-plugin v0.3.17 h1:rTlkgsJHHwV4641U0kKx6Zom77SnhglryzAvypPzTaI=
-github.com/rl404/mal-plugin v0.3.17/go.mod h1:RxPHaORCruOBBOs1i3mDEsYAu1L+GscQbZSi3euseOk=
+github.com/rl404/mal-plugin v0.3.18 h1:MAL0Cstynz71jYtB4+RCwdWRlUt8LcEe3rC4IZ/M1Nc=
+github.com/rl404/mal-plugin v0.3.18/go.mod h1:RxPHaORCruOBBOs1i3mDEsYAu1L+GscQbZSi3euseOk=
 github.com/streadway/amqp v1.0.0/go.mod h1:AZpEONHx3DKn8O/DFsRAY58/XVQiIPMTMB1SddzLXVw=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.3.0 h1:NGXK3lHquSN08v5vWalVI/L8XU9hdzE/G6xsrze47As=
