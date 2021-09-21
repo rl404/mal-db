@@ -9,7 +9,7 @@ import (
 
 // GetGenres to get anime/manga genre list.
 func (p *Parser) GetGenres(t string) ([]model.ItemCount, int, error) {
-	doc, code, err := p.getDoc(utils.BuildURL(malURL, t+".php"), ".anime-manga-search .genre-link")
+	doc, code, err := p.getDoc(utils.BuildURL(malURL, t+".php"), ".anime-manga-search")
 	if err != nil {
 		return nil, code, err
 	}
